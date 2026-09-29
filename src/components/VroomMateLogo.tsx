@@ -14,13 +14,11 @@ interface VroomMateLogoProps {
 const STORAGE_KEY = 'vroommate_custom_logo';
 const EVENT_NAME = 'vroommate_logo_updated';
 
-// List of file paths to check for an uploaded image in /public
+// List of file paths to check for the official brand logo in /public
 const DEFAULT_CANDIDATE_PATHS = [
-  '/logo.png',
-  '/vroommate-logo.png',
-  '/logo.jpg',
-  '/logo.jpeg',
-  '/logo.webp',
+  '/vroommate-logo.svg',
+  '/vroommate-logo-horizontal.svg',
+  '/logo.svg',
 ];
 
 export const VroomMateLogo: React.FC<VroomMateLogoProps> = ({
@@ -149,12 +147,12 @@ export const VroomMateLogo: React.FC<VroomMateLogoProps> = ({
   };
 
   // Exact Brand Palette
-  const neon = '#22f054';
+  const neon = '#00FF1F';
 
-  // Cropped SVG 'V' Emblem that eliminates excess margins
+  // Vector 'V' Emblem identical to official brand logo
   const renderSvgVEmblem = (emblemClassName: string) => (
     <svg
-      viewBox="40 15 435 290"
+      viewBox="0 0 1000 560"
       className={emblemClassName}
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
@@ -162,46 +160,47 @@ export const VroomMateLogo: React.FC<VroomMateLogoProps> = ({
       aria-label={alt}
     >
       {/* Speed Lines */}
-      <path d="M 50 85 L 160 85" stroke={neon} strokeWidth="22" strokeLinecap="round" />
-      <path d="M 75 130 L 168 130" stroke={neon} strokeWidth="22" strokeLinecap="round" />
-      <path d="M 120 175 L 200 175" stroke={neon} strokeWidth="22" strokeLinecap="round" />
+      <g stroke={neon} strokeWidth="28" strokeLinecap="round">
+        <line x1="45" y1="205" x2="315" y2="205" />
+        <line x1="100" y1="280" x2="370" y2="280" />
+        <line x1="195" y1="355" x2="430" y2="355" />
+      </g>
 
-      {/* Dynamic V-Cowl & Aerodynamic Frame */}
+      {/* Main Neon Green Stylized V & Aerodynamic Cowl */}
       <path
-        d="M 120 20
-           L 212 20
-           C 218 20 224 23 228 29
-           L 294 165
-           L 365 20
-           C 370 20 440 16 480 62
-           C 522 112 510 180 465 220
-           C 445 238 402 248 368 248
-           C 338 248 328 225 345 205
-           C 364 185 402 180 428 160
-           C 452 140 448 105 428 85
-           C 408 65 370 68 350 105
-           L 264 285
-           C 256 300 242 305 232 295
-           L 212 260
-           Z"
+        d="M 190 85 L 345 85 C 355 85 365 92 372 102 L 522 360 L 685 85 C 692 85 790 78 880 120 C 960 158 985 220 990 280 C 965 315 910 325 870 300 C 845 285 855 245 875 225 C 890 210 885 190 870 178 C 840 155 780 150 730 205 L 550 485 C 538 505 515 510 495 490 L 465 445 Z"
         fill={neon}
       />
 
-      {/* Lower Swingarm / Fork Link */}
+      {/* Lower Connecting Arm / Wheel Swingarm */}
       <path
-        d="M 268 245
-           Q 308 245 328 220
-           L 362 255
-           C 332 285 288 275 258 255
-           Z"
+        d="M 580 475 C 630 475 665 440 685 390 C 700 350 720 320 760 305 C 805 288 855 310 875 350 C 895 390 885 445 850 480 C 805 525 730 525 675 495 L 615 480 Z"
         fill={neon}
       />
 
-      {/* Motorcycle Wheel */}
-      <circle cx="405" cy="180" r="62" stroke="#FFFFFF" strokeWidth="22" fill="none" />
-      <circle cx="405" cy="180" r="52" fill="#000000" />
-      <circle cx="405" cy="180" r="22" fill="#FFFFFF" />
-      <circle cx="405" cy="180" r="10" fill="#000000" />
+      {/* Wheel Outer Cutout (Black Tire) */}
+      <circle cx="795" cy="395" r="92" fill="#000000" />
+
+      {/* Outer White Crescent Accent on Tire */}
+      <path
+        d="M 865 330 C 895 365 895 425 860 465 C 825 505 770 515 725 495 C 760 510 820 500 855 455 C 885 415 880 365 855 330 Z"
+        fill="#FFFFFF"
+      />
+
+      {/* Inner Green Rim Loop */}
+      <path
+        d="M 750 340 C 785 320 830 335 845 370 C 860 405 840 445 805 455 C 768 465 730 445 720 408 C 712 375 730 350 750 340 Z"
+        fill={neon}
+      />
+
+      {/* Center Hub Black Ring */}
+      <circle cx="788" cy="395" r="50" fill="#000000" />
+
+      {/* Center Hub White Disc */}
+      <circle cx="788" cy="395" r="34" fill="#FFFFFF" />
+
+      {/* Center Axle Hole */}
+      <circle cx="788" cy="395" r="14" fill="#000000" />
     </svg>
   );
 
@@ -263,7 +262,7 @@ export const VroomMateLogo: React.FC<VroomMateLogoProps> = ({
   // Features slightly larger 'V' logo on the left, with Vroommate (and Rides under it) directly to its right,
   // completely merged with the page background.
   const content = (
-    <div className={`inline-flex items-center gap-3.5 sm:gap-4.5 md:gap-5 select-none bg-transparent ${className}`}>
+    <div className={`inline-flex items-center gap-3 sm:gap-4 select-none bg-transparent ${className}`}>
       {/* 1. 'V' Logo / Emblem on the left */}
       <div className="relative shrink-0 flex items-center justify-center">
         {activeImageUrl && !allCandidatesFailed ? (
@@ -271,27 +270,27 @@ export const VroomMateLogo: React.FC<VroomMateLogoProps> = ({
             src={activeImageUrl}
             alt={alt}
             onError={handleImageError}
-            className="h-16 sm:h-20 md:h-24 lg:h-26 w-auto max-w-[220px] sm:max-w-[280px] object-contain mix-blend-screen bg-transparent"
+            className="h-14 sm:h-16 md:h-20 w-auto max-w-[170px] sm:max-w-[210px] object-contain mix-blend-screen bg-transparent"
           />
         ) : (
           renderSvgVEmblem(
-            'w-20 h-14 sm:w-24 sm:h-18 md:w-28 md:h-22 lg:w-32 lg:h-24 drop-shadow-[0_0_20px_rgba(34,240,84,0.5)]'
+            'w-16 h-12 sm:w-20 sm:h-15 md:w-24 md:h-18 drop-shadow-[0_0_16px_rgba(34,240,84,0.45)]'
           )
         )}
       </div>
 
       {/* 2. Vroommate (with Rides under it) positioned just to the right of the 'V' logo */}
       <div className="flex flex-col justify-center">
-        <div className="font-display font-black italic tracking-tight text-3xl sm:text-4xl md:text-5xl lg:text-[50px] text-white uppercase leading-none whitespace-nowrap">
+        <div className="font-display font-black italic tracking-tight text-2xl sm:text-3xl md:text-4xl lg:text-[42px] text-white uppercase leading-none whitespace-nowrap">
           <span>VROOM</span>
           <span style={{ color: neon }}>MATE</span>
         </div>
-        <div className="flex items-center justify-center gap-2 sm:gap-2.5 mt-1.5 sm:mt-2">
-          <span className="w-6 sm:w-8 md:w-10 h-[2.5px] rounded-full" style={{ backgroundColor: neon }} />
-          <span className="text-xs sm:text-sm font-bold tracking-[0.42em] text-slate-200 uppercase pl-[0.42em] leading-none">
+        <div className="flex items-center justify-center gap-2 mt-1.5">
+          <span className="w-5 sm:w-7 h-[2px] rounded-full" style={{ backgroundColor: neon }} />
+          <span className="text-[11px] sm:text-xs font-bold tracking-[0.38em] text-slate-200 uppercase pl-[0.38em] leading-none">
             RIDES
           </span>
-          <span className="w-6 sm:w-8 md:w-10 h-[2.5px] rounded-full" style={{ backgroundColor: neon }} />
+          <span className="w-5 sm:w-7 h-[2px] rounded-full" style={{ backgroundColor: neon }} />
         </div>
       </div>
     </div>

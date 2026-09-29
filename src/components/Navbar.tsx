@@ -29,7 +29,7 @@ export const Navbar: React.FC<NavbarProps> = ({
 
   return (
     <header className="sticky top-0 z-50 w-full backdrop-blur-md border-b border-white/10 bg-black/95 transition-colors">
-      <div className="max-w-6xl mx-auto px-5 min-h-[100px] sm:min-h-[108px] md:min-h-[114px] py-3 sm:py-3.5 flex items-center justify-between gap-4">
+      <div className="max-w-6xl mx-auto px-5 min-h-[92px] sm:min-h-[98px] py-2.5 sm:py-3 flex items-center justify-between gap-4">
         {/* Zone 1: Official Logo */}
         <a
           href="#top"
@@ -39,7 +39,6 @@ export const Navbar: React.FC<NavbarProps> = ({
           <VroomMateLogo
             variant="horizontal"
             alt="Vroommate Logo"
-            allowUpload={true}
           />
         </a>
 

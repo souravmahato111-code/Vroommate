@@ -1,80 +1,76 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" width="100%" height="100%">
-  <g transform="translate(40, 30)">
-    <!-- Speed Lines on the Left -->
-    <path d="M 175 290 L 275 290" stroke="#22f054" stroke-width="22" stroke-linecap="round" />
-    <path d="M 198 335 L 285 335" stroke="#22f054" stroke-width="22" stroke-linecap="round" />
-    <path d="M 238 380 L 315 380" stroke="#22f054" stroke-width="22" stroke-linecap="round" />
-
-    <!-- Stylized Neon Green V with Aerodynamic Cowl -->
-    <path
-      d="M 235 185
-         L 322 185
-         C 328 185 334 188 338 194
-         L 402 320
-         L 468 185
-         C 472 185 530 182 568 220
-         C 610 262 602 326 564 362
-         C 542 382 505 390 472 390
-         C 445 390 435 368 450 350
-         C 468 332 500 328 522 312
-         C 545 292 540 262 522 245
-         C 505 228 472 230 452 265
-         L 374 425
-         C 366 440 352 445 342 435
-         L 322 400
-         Z"
-      fill="#22f054"
-    />
-
-    <!-- Lower Green Swingarm / Hub Support Link -->
-    <path
-      d="M 375 390
-         Q 410 390 430 365
-         L 460 395
-         C 432 425 392 418 365 398
-         Z"
-      fill="#22f054"
-    />
-
-    <!-- Motorcycle Wheel inside the right curve -->
-    <circle cx="500" cy="330" r="56" fill="none" stroke="#FFFFFF" stroke-width="18" />
-    <circle cx="500" cy="330" r="47" fill="#000000" />
-    <circle cx="500" cy="330" r="20" fill="#FFFFFF" />
-    <circle cx="500" cy="330" r="9" fill="#000000" />
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 560" width="100%" height="100%">
+  <!-- Left Speed Lines -->
+  <g stroke="#00FF1F" stroke-width="28" stroke-linecap="round">
+    <line x1="45" y1="205" x2="315" y2="205" />
+    <line x1="100" y1="280" x2="370" y2="280" />
+    <line x1="195" y1="355" x2="430" y2="355" />
   </g>
 
-  <!-- Brand Typography -->
-  <!-- VROOMMATE Wordmark -->
-  <g transform="translate(400, 520)">
-    <text
-      x="0"
-      y="0"
-      text-anchor="middle"
-      font-family="'Montserrat', 'Arial Black', 'Impact', sans-serif"
-      font-weight="900"
-      font-style="italic"
-      font-size="76"
-      letter-spacing="-1px"
-    >
-      <tspan fill="#FFFFFF">VROOM</tspan><tspan fill="#22f054">MATE</tspan>
-    </text>
-  </g>
+  <!-- Main Neon Green Stylized 'V' & Aerodynamic Cowl -->
+  <path
+    d="M 190 85
+       L 345 85
+       C 355 85 365 92 372 102
+       L 522 360
+       L 685 85
+       C 692 85 790 78 880 120
+       C 960 158 985 220 990 280
+       C 965 315 910 325 870 300
+       C 845 285 855 245 875 225
+       C 890 210 885 190 870 178
+       C 840 155 780 150 730 205
+       L 550 485
+       C 538 505 515 510 495 490
+       L 465 445
+       Z"
+    fill="#00FF1F"
+  />
 
-  <!-- — R I D E S — Subtitle -->
-  <g transform="translate(400, 560)">
-    <line x1="-165" y1="-7" x2="-115" y2="-7" stroke="#22f054" stroke-width="4.5" stroke-linecap="round" />
-    <text
-      x="0"
-      y="0"
-      text-anchor="middle"
-      font-family="'Montserrat', 'Arial', sans-serif"
-      font-weight="700"
-      font-size="24"
-      fill="#FFFFFF"
-      letter-spacing="0.45em"
-    >
-      RIDES
-    </text>
-    <line x1="115" y1="-7" x2="165" y2="-7" stroke="#22f054" stroke-width="4.5" stroke-linecap="round" />
-  </g>
+  <!-- Lower Connecting Arm / Wheel Swingarm -->
+  <path
+    d="M 580 475
+       C 630 475 665 440 685 390
+       C 700 350 720 320 760 305
+       C 805 288 855 310 875 350
+       C 895 390 885 445 850 480
+       C 805 525 730 525 675 495
+       L 615 480
+       Z"
+    fill="#00FF1F"
+  />
+
+  <!-- Wheel Outer Cutout (Black Tire) -->
+  <circle cx="795" cy="395" r="92" fill="#000000" />
+
+  <!-- Outer White Crescent Accent on Tire -->
+  <path
+    d="M 865 330
+       C 895 365 895 425 860 465
+       C 825 505 770 515 725 495
+       C 760 510 820 500 855 455
+       C 885 415 880 365 855 330
+       C 860 325 862 328 865 330
+       Z"
+    fill="#FFFFFF"
+  />
+
+  <!-- Inner Green Rim Loop -->
+  <path
+    d="M 750 340
+       C 785 320 830 335 845 370
+       C 860 405 840 445 805 455
+       C 768 465 730 445 720 408
+       C 712 375 730 350 750 340
+       Z"
+    fill="#00FF1F"
+  />
+
+  <!-- Center Hub Black Ring -->
+  <circle cx="788" cy="395" r="50" fill="#000000" />
+
+  <!-- Center Hub White Disc -->
+  <circle cx="788" cy="395" r="34" fill="#FFFFFF" />
+
+  <!-- Center Axle Hole -->
+  <circle cx="788" cy="395" r="14" fill="#000000" />
 </svg>

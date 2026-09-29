@@ -1,36 +1,33 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="100%" height="100%">
-  <rect width="500" height="500" rx="100" fill="#000000" />
-  <g transform="translate(10, 85)">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 600" width="100%" height="100%">
+  <rect width="1000" height="600" fill="#000000" rx="120" />
+  <g transform="translate(10, 20)">
     <!-- Speed Lines -->
-    <path d="M 60 70 L 175 70" stroke="#22f054" stroke-width="22" stroke-linecap="round" />
-    <path d="M 85 112 L 182 112" stroke="#22f054" stroke-width="22" stroke-linecap="round" />
-    <path d="M 132 154 L 210 154" stroke="#22f054" stroke-width="22" stroke-linecap="round" />
+    <g stroke="#00FF1F" stroke-width="32" stroke-linecap="round">
+      <line x1="60" y1="205" x2="315" y2="205" />
+      <line x1="110" y1="280" x2="370" y2="280" />
+      <line x1="205" y1="355" x2="430" y2="355" />
+    </g>
 
-    <!-- V Shape Body -->
+    <!-- Main V -->
     <path
-      d="M 125 15
-         L 218 15
-         C 224 15 230 18 234 24
-         L 302 165
-         L 380 15
-         C 384 15 450 12 490 60
-         C 532 110 520 180 475 220
-         C 455 238 410 248 375 248
-         C 345 248 335 225 352 205
-         C 370 185 410 180 435 160
-         C 460 140 455 105 435 85
-         C 415 65 375 68 355 105
-         L 268 285
-         C 260 300 245 305 235 295
-         L 215 260
-         Z"
-      fill="#22f054"
+      d="M 200 85 L 350 85 C 360 85 370 92 377 102 L 522 360 L 685 85 C 692 85 790 78 880 120 C 960 158 985 220 990 280 C 965 315 910 325 870 300 C 845 285 855 245 875 225 C 890 210 885 190 870 178 C 840 155 780 150 730 205 L 550 485 C 538 505 515 510 495 490 L 465 445 Z"
+      fill="#00FF1F"
     />
 
-    <!-- Wheel -->
-    <circle cx="410" cy="180" r="62" stroke="#FFFFFF" stroke-width="20" fill="none" />
-    <circle cx="410" cy="180" r="52" fill="#000000" />
-    <circle cx="410" cy="180" r="22" fill="#FFFFFF" />
-    <circle cx="410" cy="180" r="10" fill="#000000" />
+    <!-- Lower Swingarm -->
+    <path
+      d="M 580 475 C 630 475 665 440 685 390 C 700 350 720 320 760 305 C 805 288 855 310 875 350 C 895 390 885 445 850 480 C 805 525 730 525 675 495 L 615 480 Z"
+      fill="#00FF1F"
+    />
+
+    <!-- Wheel and Crescent -->
+    <circle cx="795" cy="395" r="92" fill="#000000" />
+    <path
+      d="M 865 330 C 895 365 895 425 860 465 C 825 505 770 515 725 495 C 760 510 820 500 855 455 C 885 415 880 365 855 330 Z"
+      fill="#FFFFFF"
+    />
+    <circle cx="788" cy="395" r="50" fill="#000000" />
+    <circle cx="788" cy="395" r="34" fill="#FFFFFF" />
+    <circle cx="788" cy="395" r="14" fill="#000000" />
   </g>
 </svg>

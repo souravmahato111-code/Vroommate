@@ -1,79 +1,70 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 540 140" width="100%" height="100%">
-  <!-- Left Side: Graphic Emblem -->
-  <g transform="translate(-10, -5) scale(0.48)">
-    <!-- Speed Lines on the Left -->
-    <path d="M 50 140 L 150 140" stroke="#22f054" stroke-width="22" stroke-linecap="round" />
-    <path d="M 73 185 L 160 185" stroke="#22f054" stroke-width="22" stroke-linecap="round" />
-    <path d="M 113 230 L 190 230" stroke="#22f054" stroke-width="22" stroke-linecap="round" />
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 280" width="100%" height="100%">
+  <!-- Left Side: Official Emblem -->
+  <g transform="translate(10, 0) scale(0.48)">
+    <!-- Speed Lines -->
+    <g stroke="#00FF1F" stroke-width="28" stroke-linecap="round">
+      <line x1="45" y1="205" x2="315" y2="205" />
+      <line x1="100" y1="280" x2="370" y2="280" />
+      <line x1="195" y1="355" x2="430" y2="355" />
+    </g>
 
-    <!-- Stylized Neon Green V with Aerodynamic Cowl -->
+    <!-- Main V -->
     <path
-      d="M 110 35
-         L 197 35
-         C 203 35 209 38 213 44
-         L 277 170
-         L 343 35
-         C 347 35 405 32 443 70
-         C 485 112 477 176 439 212
-         C 417 232 380 240 347 240
-         C 320 240 310 218 325 200
-         C 343 182 375 178 397 162
-         C 420 142 415 112 397 95
-         C 380 78 347 80 327 115
-         L 249 275
-         C 241 290 227 295 217 285
-         L 197 250
-         Z"
-      fill="#22f054"
+      d="M 190 85 L 345 85 C 355 85 365 92 372 102 L 522 360 L 685 85 C 692 85 790 78 880 120 C 960 158 985 220 990 280 C 965 315 910 325 870 300 C 845 285 855 245 875 225 C 890 210 885 190 870 178 C 840 155 780 150 730 205 L 550 485 C 538 505 515 510 495 490 L 465 445 Z"
+      fill="#00FF1F"
     />
 
-    <!-- Lower Green Swingarm / Hub Support Link -->
+    <!-- Lower Swingarm -->
     <path
-      d="M 250 240
-         Q 285 240 305 215
-         L 335 245
-         C 307 275 267 268 240 248
-         Z"
-      fill="#22f054"
+      d="M 580 475 C 630 475 665 440 685 390 C 700 350 720 320 760 305 C 805 288 855 310 875 350 C 895 390 885 445 850 480 C 805 525 730 525 675 495 L 615 480 Z"
+      fill="#00FF1F"
     />
 
-    <!-- Motorcycle Wheel inside the right curve -->
-    <circle cx="375" cy="180" r="56" fill="none" stroke="#FFFFFF" stroke-width="18" />
-    <circle cx="375" cy="180" r="47" fill="#000000" />
-    <circle cx="375" cy="180" r="20" fill="#FFFFFF" />
-    <circle cx="375" cy="180" r="9" fill="#000000" />
+    <!-- Wheel and Crescent -->
+    <circle cx="795" cy="395" r="92" fill="#000000" />
+    <path
+      d="M 865 330 C 895 365 895 425 860 465 C 825 505 770 515 725 495 C 760 510 820 500 855 455 C 885 415 880 365 855 330 Z"
+      fill="#FFFFFF"
+    />
+    <path
+      d="M 750 340 C 785 320 830 335 845 370 C 860 405 840 445 805 455 C 768 465 730 445 720 408 C 712 375 730 350 750 340 Z"
+      fill="#00FF1F"
+    />
+    <circle cx="788" cy="395" r="50" fill="#000000" />
+    <circle cx="788" cy="395" r="34" fill="#FFFFFF" />
+    <circle cx="788" cy="395" r="14" fill="#000000" />
   </g>
 
-  <!-- Right Side: Brand Typography -->
-  <g transform="translate(230, 72)">
+  <!-- Right Side: Official Brand Typography -->
+  <g transform="translate(530, 145)">
     <text
       x="0"
       y="0"
       font-family="'Montserrat', 'Arial Black', 'Impact', sans-serif"
       font-weight="900"
       font-style="italic"
-      font-size="46"
-      letter-spacing="-1px"
+      font-size="92"
+      letter-spacing="-2px"
     >
-      <tspan fill="#FFFFFF">VROOM</tspan><tspan fill="#22f054">MATE</tspan>
+      <tspan fill="#FFFFFF">VROOM</tspan><tspan fill="#00FF1F">MATE</tspan>
     </text>
     
     <!-- — R I D E S — -->
-    <g transform="translate(145, 28)">
-      <line x1="-120" y1="-5" x2="-80" y2="-5" stroke="#22f054" stroke-width="3" stroke-linecap="round" />
+    <g transform="translate(290, 55)">
+      <line x1="-220" y1="-10" x2="-140" y2="-10" stroke="#00FF1F" stroke-width="6" stroke-linecap="round" />
       <text
         x="0"
         y="0"
         text-anchor="middle"
         font-family="'Montserrat', 'Arial', sans-serif"
-        font-weight="700"
-        font-size="16"
+        font-weight="800"
+        font-size="32"
         fill="#FFFFFF"
-        letter-spacing="0.38em"
+        letter-spacing="0.45em"
       >
         RIDES
       </text>
-      <line x1="80" y1="-5" x2="120" y2="-5" stroke="#22f054" stroke-width="3" stroke-linecap="round" />
+      <line x1="140" y1="-10" x2="220" y2="-10" stroke="#00FF1F" stroke-width="6" stroke-linecap="round" />
     </g>
   </g>
 </svg>
