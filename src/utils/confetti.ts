@@ -1,56 +1,114 @@
-import confetti from 'canvas-confetti';
-
 /**
- * High-energy celebratory confetti animation for unlocking referral discounts
+ * Native, zero-dependency HTML5 Canvas confetti celebration system.
+ * Works seamlessly in all browsers and CI/CD deployment pipelines without external packages.
  */
+
+interface Particle {
+  x: number;
+  y: number;
+  w: number;
+  h: number;
+  color: string;
+  vx: number;
+  vy: number;
+  rotation: number;
+  vRot: number;
+  alpha: number;
+  decay: number;
+}
+
 export function fireCelebrationConfetti(): void {
+  if (typeof window === 'undefined' || typeof document === 'undefined') return;
+
   try {
-    const count = 180;
-    const defaults = {
-      origin: { y: 0.65 },
-      zIndex: 99999,
-    };
+    const existingCanvas = document.getElementById('vroommate-confetti-canvas') as HTMLCanvasElement | null;
+    const canvas = existingCanvas || document.createElement('canvas');
+    canvas.id = 'vroommate-confetti-canvas';
+    canvas.style.position = 'fixed';
+    canvas.style.top = '0';
+    canvas.style.left = '0';
+    canvas.style.width = '100vw';
+    canvas.style.height = '100vh';
+    canvas.style.pointerEvents = 'none';
+    canvas.style.zIndex = '99999';
 
-    const fire = (particleRatio: number, opts: confetti.Options) => {
-      confetti({
-        ...defaults,
-        ...opts,
-        particleCount: Math.floor(count * particleRatio),
+    if (!existingCanvas) {
+      document.body.appendChild(canvas);
+    }
+
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    const dpr = window.devicePixelRatio || 1;
+    const width = window.innerWidth;
+    const height = window.innerHeight;
+    canvas.width = width * dpr;
+    canvas.height = height * dpr;
+    ctx.scale(dpr, dpr);
+
+    const colors = ['#39ff88', '#00ff9d', '#ff7a1a', '#ffffff', '#ffd166', '#06d6a0'];
+    const particles: Particle[] = [];
+    const count = 160;
+
+    for (let i = 0; i < count; i++) {
+      // Launch from mid-bottom area
+      const angle = (Math.PI / 180) * (270 + (Math.random() * 90 - 45));
+      const speed = 14 + Math.random() * 22;
+      particles.push({
+        x: width * (0.4 + Math.random() * 0.2),
+        y: height * 0.65,
+        w: 6 + Math.random() * 6,
+        h: 4 + Math.random() * 8,
+        color: colors[Math.floor(Math.random() * colors.length)],
+        vx: Math.cos(angle) * speed + (Math.random() - 0.5) * 8,
+        vy: Math.sin(angle) * speed,
+        rotation: Math.random() * Math.PI * 2,
+        vRot: (Math.random() - 0.5) * 0.2,
+        alpha: 1,
+        decay: 0.008 + Math.random() * 0.012,
       });
+    }
+
+    let animationId: number;
+
+    const render = () => {
+      ctx.clearRect(0, 0, width, height);
+
+      let aliveCount = 0;
+
+      for (let i = 0; i < particles.length; i++) {
+        const p = particles[i];
+        if (p.alpha <= 0) continue;
+
+        aliveCount++;
+        p.x += p.vx;
+        p.y += p.vy;
+        p.vy += 0.45; // gravity
+        p.vx *= 0.98; // drag
+        p.rotation += p.vRot;
+        p.alpha -= p.decay;
+
+        ctx.save();
+        ctx.globalAlpha = Math.max(0, p.alpha);
+        ctx.translate(p.x, p.y);
+        ctx.rotate(p.rotation);
+        ctx.fillStyle = p.color;
+        ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
+        ctx.restore();
+      }
+
+      if (aliveCount > 0) {
+        animationId = requestAnimationFrame(render);
+      } else {
+        cancelAnimationFrame(animationId);
+        if (canvas.parentNode) {
+          canvas.parentNode.removeChild(canvas);
+        }
+      }
     };
 
-    fire(0.25, {
-      spread: 30,
-      startVelocity: 55,
-      colors: ['#39ff88', '#00FF1F', '#ff7a1a', '#FFFFFF'],
-    });
-
-    fire(0.2, {
-      spread: 60,
-      colors: ['#39ff88', '#ff7a1a', '#FFFFFF'],
-    });
-
-    fire(0.35, {
-      spread: 100,
-      decay: 0.91,
-      scalar: 0.8,
-      colors: ['#39ff88', '#00FF1F', '#ff7a1a', '#FFFFFF'],
-    });
-
-    fire(0.1, {
-      spread: 130,
-      startVelocity: 30,
-      decay: 0.92,
-      scalar: 1.2,
-      colors: ['#39ff88', '#ff7a1a'],
-    });
-
-    fire(0.1, {
-      spread: 120,
-      startVelocity: 45,
-      colors: ['#39ff88', '#00FF1F', '#FFFFFF'],
-    });
+    animationId = requestAnimationFrame(render);
   } catch (err) {
-    console.warn('Confetti trigger skipped', err);
+    console.warn('Native confetti skipped', err);
   }
 }
