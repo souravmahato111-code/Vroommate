@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 540 140" width="100%" height="100%">
+  <!-- Left Side: Graphic Emblem -->
+  <g transform="translate(-10, -5) scale(0.48)">
+    <!-- Speed Lines on the Left -->
+    <path d="M 50 140 L 150 140" stroke="#22f054" stroke-width="22" stroke-linecap="round" />
+    <path d="M 73 185 L 160 185" stroke="#22f054" stroke-width="22" stroke-linecap="round" />
+    <path d="M 113 230 L 190 230" stroke="#22f054" stroke-width="22" stroke-linecap="round" />
+
+    <!-- Stylized Neon Green V with Aerodynamic Cowl -->
+    <path
+      d="M 110 35
+         L 197 35
+         C 203 35 209 38 213 44
+         L 277 170
+         L 343 35
+         C 347 35 405 32 443 70
+         C 485 112 477 176 439 212
+         C 417 232 380 240 347 240
+         C 320 240 310 218 325 200
+         C 343 182 375 178 397 162
+         C 420 142 415 112 397 95
+         C 380 78 347 80 327 115
+         L 249 275
+         C 241 290 227 295 217 285
+         L 197 250
+         Z"
+      fill="#22f054"
+    />
+
+    <!-- Lower Green Swingarm / Hub Support Link -->
+    <path
+      d="M 250 240
+         Q 285 240 305 215
+         L 335 245
+         C 307 275 267 268 240 248
+         Z"
+      fill="#22f054"
+    />
+
+    <!-- Motorcycle Wheel inside the right curve -->
+    <circle cx="375" cy="180" r="56" fill="none" stroke="#FFFFFF" stroke-width="18" />
+    <circle cx="375" cy="180" r="47" fill="#000000" />
+    <circle cx="375" cy="180" r="20" fill="#FFFFFF" />
+    <circle cx="375" cy="180" r="9" fill="#000000" />
+  </g>
+
+  <!-- Right Side: Brand Typography -->
+  <g transform="translate(230, 72)">
+    <text
+      x="0"
+      y="0"
+      font-family="'Montserrat', 'Arial Black', 'Impact', sans-serif"
+      font-weight="900"
+      font-style="italic"
+      font-size="46"
+      letter-spacing="-1px"
+    >
+      <tspan fill="#FFFFFF">VROOM</tspan><tspan fill="#22f054">MATE</tspan>
+    </text>
+    
+    <!-- — R I D E S — -->
+    <g transform="translate(145, 28)">
+      <line x1="-120" y1="-5" x2="-80" y2="-5" stroke="#22f054" stroke-width="3" stroke-linecap="round" />
+      <text
+        x="0"
+        y="0"
+        text-anchor="middle"
+        font-family="'Montserrat', 'Arial', sans-serif"
+        font-weight="700"
+        font-size="16"
+        fill="#FFFFFF"
+        letter-spacing="0.38em"
+      >
+        RIDES
+      </text>
+      <line x1="80" y1="-5" x2="120" y2="-5" stroke="#22f054" stroke-width="3" stroke-linecap="round" />
+    </g>
+  </g>
+</svg>
