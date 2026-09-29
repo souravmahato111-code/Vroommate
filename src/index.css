@@ -1,0 +1,48 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --neon: #39ff88;
+    --orange: #ff7a1a;
+    --ink: #0d1117;
+    --card: #161c26;
+    --line: #263041;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    font-family: 'DM Sans', system-ui, -apple-system, sans-serif;
+  }
+}
+
+.font-display {
+  font-family: 'Raleway', system-ui, -apple-system, sans-serif;
+}
+
+.grid-bg {
+  background-image: 
+    linear-gradient(rgba(57, 255, 136, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(57, 255, 136, 0.04) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+.road-line {
+  background: repeating-linear-gradient(90deg, #ff7a1a 0 28px, transparent 28px 52px);
+  height: 3px;
+  animation: road 1.2s linear infinite;
+}
+
+@keyframes road {
+  to {
+    background-position: 52px 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .road-line {
+    animation: none;
+  }
+  html {
+    scroll-behavior: auto;
+  }
+}

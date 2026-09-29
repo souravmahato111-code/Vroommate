@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" width="100%" height="100%">
+  <g transform="translate(40, 30)">
+    <!-- Speed Lines on the Left -->
+    <path d="M 175 290 L 275 290" stroke="#22f054" stroke-width="22" stroke-linecap="round" />
+    <path d="M 198 335 L 285 335" stroke="#22f054" stroke-width="22" stroke-linecap="round" />
+    <path d="M 238 380 L 315 380" stroke="#22f054" stroke-width="22" stroke-linecap="round" />
+
+    <!-- Stylized Neon Green V with Aerodynamic Cowl -->
+    <path
+      d="M 235 185
+         L 322 185
+         C 328 185 334 188 338 194
+         L 402 320
+         L 468 185
+         C 472 185 530 182 568 220
+         C 610 262 602 326 564 362
+         C 542 382 505 390 472 390
+         C 445 390 435 368 450 350
+         C 468 332 500 328 522 312
+         C 545 292 540 262 522 245
+         C 505 228 472 230 452 265
+         L 374 425
+         C 366 440 352 445 342 435
+         L 322 400
+         Z"
+      fill="#22f054"
+    />
+
+    <!-- Lower Green Swingarm / Hub Support Link -->
+    <path
+      d="M 375 390
+         Q 410 390 430 365
+         L 460 395
+         C 432 425 392 418 365 398
+         Z"
+      fill="#22f054"
+    />
+
+    <!-- Motorcycle Wheel inside the right curve -->
+    <!-- Outer White Rim Ring -->
+    <circle cx="500" cy="330" r="56" fill="none" stroke="#FFFFFF" stroke-width="18" />
+    <!-- Inner Dark Core -->
+    <circle cx="500" cy="330" r="47" fill="#000000" />
+    <!-- Center White Hub -->
+    <circle cx="500" cy="330" r="20" fill="#FFFFFF" />
+    <!-- Center Black Axle Hole -->
+    <circle cx="500" cy="330" r="9" fill="#000000" />
+  </g>
+
+  <!-- Brand Typography -->
+  <!-- VROOMMATE Wordmark -->
+  <g transform="translate(400, 520)">
+    <text
+      x="0"
+      y="0"
+      text-anchor="middle"
+      font-family="'Montserrat', 'Arial Black', 'Impact', sans-serif"
+      font-weight="900"
+      font-style="italic"
+      font-size="76"
+      letter-spacing="-1px"
+    >
+      <tspan fill="#FFFFFF">VROOM</tspan><tspan fill="#22f054">MATE</tspan>
+    </text>
+  </g>
+
+  <!-- — R I D E S — Subtitle -->
+  <g transform="translate(400, 560)">
+    <!-- Left Dash -->
+    <line x1="-165" y1="-7" x2="-115" y2="-7" stroke="#22f054" stroke-width="4.5" stroke-linecap="round" />
+    <!-- Text -->
+    <text
+      x="0"
+      y="0"
+      text-anchor="middle"
+      font-family="'Montserrat', 'Arial', sans-serif"
+      font-weight="700"
+      font-size="24"
+      fill="#FFFFFF"
+      letter-spacing="0.45em"
+    >
+      RIDES
+    </text>
+    <!-- Right Dash -->
+    <line x1="115" y1="-7" x2="165" y2="-7" stroke="#22f054" stroke-width="4.5" stroke-linecap="round" />
+  </g>
+</svg>

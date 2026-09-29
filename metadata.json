@@ -1,0 +1,6 @@
+{
+  "name": "Chalo Ghume Rides — Bike & Scooty Rentals",
+  "description": "Affordable bike and scooty rentals in Chota Gamharia, Jamshedpur. Daily and hourly self-drive rentals with instant booking.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
