@@ -195,11 +195,6 @@ export const REVIEWS: Review[] = [
 
 export const FAQS: FAQ[] = [
   {
-    category: 'booking',
-    question: 'How does the VroomMate 20% Referral Program work?',
-    answer: 'It is simple! Share your unique referral invite with friends. When you send the referral message to a friend via WhatsApp, you unlock a flat 20% discount applicable only once on your next booking! You can present your verified voucher at our desk or book online with instant discount.',
-  },
-  {
     category: 'charges',
     question: 'What is the late return policy & fine?',
     answer: 'A late return fine of ₹150 applies if the vehicle is returned after the scheduled return time without prior notice or extension. If you need more time, simply inform us on WhatsApp at least 1 hour before your slot ends to extend at standard hourly rates!',

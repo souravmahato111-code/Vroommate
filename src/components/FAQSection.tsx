@@ -1,9 +1,14 @@
 import React, { useState } from 'react';
-import { ChevronDown, MessageCircle, HelpCircle, Gift, ArrowRight } from 'lucide-react';
+import { ChevronDown, MessageCircle, HelpCircle } from 'lucide-react';
 import { FAQS } from '../data/fleetData';
 import { generateDirectWhatsAppInquiry } from '../utils/whatsapp';
+import { useScrollReveal } from '../hooks/useScrollReveal';
 
 export const FAQSection: React.FC = () => {
+  const { ref, isVisible } = useScrollReveal<HTMLElement>({
+    threshold: 0.1,
+    rootMargin: '0px 0px -40px 0px',
+  });
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   const toggle = (idx: number) => {
@@ -11,7 +16,13 @@ export const FAQSection: React.FC = () => {
   };
 
   return (
-    <section id="faqs" className="py-20 bg-[#0d1117] border-b border-white/5 scroll-mt-20">
+    <section
+      ref={ref}
+      id="faqs"
+      className={`py-20 bg-[#0d1117] border-b border-white/5 scroll-mt-20 transition-all duration-700 ease-out motion-reduce:transition-none motion-reduce:opacity-100 motion-reduce:translate-y-0 ${
+        isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+      }`}
+    >
       <div className="max-w-4xl mx-auto px-5">
         <div className="text-center max-w-2xl mx-auto">
           <p className="uppercase tracking-[0.2em] font-bold text-xs md:text-sm text-[#ff7a1a]">
@@ -54,51 +65,11 @@ export const FAQSection: React.FC = () => {
                 {isOpen && (
                   <div className="px-6 pb-5 pt-1 text-slate-300 text-sm leading-relaxed border-t border-white/5 space-y-3">
                     <p>{faq.answer}</p>
-                    {idx === 0 && (
-                      <div className="pt-2">
-                        <a
-                          href="#referral"
-                          className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold bg-[#39ff88] text-[#0d1117] hover:bg-[#4dff93] transition-colors"
-                        >
-                          <Gift className="w-3.5 h-3.5" />
-                          <span>Go to Referral Program &amp; Unlock 20%</span>
-                          <ArrowRight className="w-3.5 h-3.5" />
-                        </a>
-                      </div>
-                    )}
                   </div>
                 )}
               </div>
             );
           })}
-        </div>
-
-        {/* Referral Program Banner inside FAQ */}
-        <div className="mt-8 p-5 sm:p-6 rounded-2xl bg-gradient-to-r from-[#172b1d] via-[#101923] to-[#172b1d] border border-[#39ff88]/40 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-lg shadow-[#39ff88]/5">
-          <div className="flex items-center gap-3.5 text-left">
-            <div className="w-12 h-12 rounded-2xl bg-[#39ff88]/20 text-[#39ff88] grid place-items-center shrink-0 border border-[#39ff88]/30">
-              <Gift className="w-6 h-6 text-[#39ff88]" />
-            </div>
-            <div>
-              <div className="font-bold text-white text-sm sm:text-base flex items-center gap-2">
-                <span>Want 20% OFF your next ride?</span>
-                <span className="text-[10px] font-bold text-[#39ff88] bg-[#39ff88]/15 px-2 py-0.5 rounded-full border border-[#39ff88]/30">
-                  HOT OFFER
-                </span>
-              </div>
-              <div className="text-xs text-slate-300 mt-0.5">
-                Send our referral invite to a friend on WhatsApp and unlock a 20% discount coupon (applicable once)!
-              </div>
-            </div>
-          </div>
-
-          <a
-            href="#referral"
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-bold bg-[#39ff88] text-[#0d1117] hover:bg-[#4dff93] transition-all transform hover:scale-105 whitespace-nowrap shrink-0 shadow-md shadow-[#39ff88]/20"
-          >
-            <Gift className="w-3.5 h-3.5" />
-            <span>Unlock 20% Offer Now</span>
-          </a>
         </div>
 
         {/* WhatsApp support strip */}

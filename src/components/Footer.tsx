@@ -1,5 +1,5 @@
 import React from 'react';
-import { MapPin, Clock, Phone, MessageCircle, ShieldCheck, Heart, Gift, FileSignature } from 'lucide-react';
+import { MapPin, Clock, Phone, MessageCircle, ShieldCheck, Heart, FileSignature } from 'lucide-react';
 import { BUSINESS_CONFIG } from '../data/fleetData';
 import { generateDirectWhatsAppInquiry } from '../utils/whatsapp';
 import { VroomMateLogo } from './VroomMateLogo';
@@ -39,12 +39,6 @@ export const Footer: React.FC<FooterProps> = ({ onOpenAgreement }) => {
             Quick Navigation
           </h4>
           <ul className="space-y-2 text-xs">
-            <li>
-              <a href="#referral" className="text-[#39ff88] hover:underline font-bold flex items-center gap-1.5">
-                <Gift className="w-3.5 h-3.5 shrink-0" />
-                <span>Referral Program (20% Off)</span>
-              </a>
-            </li>
             {onOpenAgreement && (
               <li>
                 <button

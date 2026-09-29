@@ -1,12 +1,18 @@
 import React from 'react';
 import { Check, ShieldAlert, Sparkles, FileText, Bike, KeyRound, FileSignature } from 'lucide-react';
 import { generateDirectWhatsAppInquiry } from '../utils/whatsapp';
+import { useScrollReveal } from '../hooks/useScrollReveal';
 
 interface HowItWorksProps {
   onOpenAgreement?: () => void;
 }
 
 export const HowItWorks: React.FC<HowItWorksProps> = ({ onOpenAgreement }) => {
+  const { ref, isVisible } = useScrollReveal<HTMLElement>({
+    threshold: 0.1,
+    rootMargin: '0px 0px -40px 0px',
+  });
+
   const steps = [
     {
       num: '01',
@@ -39,7 +45,13 @@ export const HowItWorks: React.FC<HowItWorksProps> = ({ onOpenAgreement }) => {
   ];
 
   return (
-    <section id="how-it-works" className="py-20 bg-gradient-to-b from-[#0d1117] via-[#111827] to-[#0d1117] border-b border-white/5 scroll-mt-20">
+    <section
+      ref={ref}
+      id="how-it-works"
+      className={`py-20 bg-gradient-to-b from-[#0d1117] via-[#111827] to-[#0d1117] border-b border-white/5 scroll-mt-20 transition-all duration-700 ease-out motion-reduce:transition-none motion-reduce:opacity-100 motion-reduce:translate-y-0 ${
+        isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+      }`}
+    >
       <div className="max-w-6xl mx-auto px-5">
         {/* Section Header */}
         <div className="text-center max-w-2xl mx-auto">
@@ -56,13 +68,18 @@ export const HowItWorks: React.FC<HowItWorksProps> = ({ onOpenAgreement }) => {
 
         {/* 4 Step Cards */}
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-12">
-          {steps.map((step) => {
+          {steps.map((step, idx) => {
             const Icon = step.icon;
             return (
               <div
                 key={step.num}
-                className="rounded-3xl p-6 bg-[#161c26] border border-white/10 relative overflow-hidden group hover:border-white/20 transition-all duration-300 transform hover:-translate-y-1 flex flex-col justify-between"
-                style={{ borderTop: `4px solid ${step.color}` }}
+                style={{
+                  borderTop: `4px solid ${step.color}`,
+                  transitionDelay: `${idx * 100 + 150}ms`,
+                }}
+                className={`rounded-3xl p-6 bg-[#161c26] border border-white/10 relative overflow-hidden group hover:border-white/20 transition-all duration-500 transform hover:-translate-y-1 flex flex-col justify-between motion-reduce:transition-none motion-reduce:opacity-100 motion-reduce:translate-y-0 ${
+                  isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
+                }`}
               >
                 <div>
                   <div className="flex items-center justify-between">

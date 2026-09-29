@@ -3,6 +3,7 @@ import { Vehicle, VehicleCategory } from '../types';
 import { FLEET_VEHICLES } from '../data/fleetData';
 import { formatINR, generateDirectWhatsAppInquiry } from '../utils/whatsapp';
 import { MessageCircle, Check, Info, Gauge, ArrowRight } from 'lucide-react';
+import { useScrollReveal } from '../hooks/useScrollReveal';
 
 interface FleetSectionProps {
   onSelectVehicleForBooking: (vehicle: Vehicle) => void;
@@ -13,6 +14,10 @@ export const FleetSection: React.FC<FleetSectionProps> = ({
   onSelectVehicleForBooking,
   onOpenSpecsModal,
 }) => {
+  const { ref, isVisible } = useScrollReveal<HTMLElement>({
+    threshold: 0.08,
+    rootMargin: '0px 0px -40px 0px',
+  });
   const [selectedCategory, setSelectedCategory] = useState<VehicleCategory>('all');
 
   const categories: { id: VehicleCategory; label: string }[] = [
@@ -29,7 +34,13 @@ export const FleetSection: React.FC<FleetSectionProps> = ({
   });
 
   return (
-    <section id="fleet" className="py-20 bg-[#0d1117] border-b border-white/5 scroll-mt-20">
+    <section
+      ref={ref}
+      id="fleet"
+      className={`py-20 bg-[#0d1117] border-b border-white/5 scroll-mt-20 transition-all duration-700 ease-out motion-reduce:transition-none motion-reduce:opacity-100 motion-reduce:translate-y-0 ${
+        isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+      }`}
+    >
       <div className="max-w-6xl mx-auto px-5">
         {/* Section Header */}
         <div className="text-center max-w-2xl mx-auto">

@@ -12,7 +12,6 @@ import { HowItWorks } from './components/HowItWorks';
 import { LocationSection } from './components/LocationSection';
 import { TestimonialsSection } from './components/TestimonialsSection';
 import { FAQSection } from './components/FAQSection';
-import { ReferralSection } from './components/ReferralSection';
 import { Footer } from './components/Footer';
 import { BookingModal } from './components/BookingModal';
 import { VehicleSpecsModal } from './components/VehicleSpecsModal';
@@ -136,8 +135,6 @@ export default function App() {
         <TestimonialsSection />
 
         <FAQSection />
-
-        <ReferralSection onOpenBookingModal={() => setBookingModalOpen(true)} />
       </main>
 
       {/* Footer */}

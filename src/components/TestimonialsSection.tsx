@@ -1,10 +1,21 @@
 import React from 'react';
 import { Star, CheckCircle, Quote } from 'lucide-react';
 import { REVIEWS } from '../data/fleetData';
+import { useScrollReveal } from '../hooks/useScrollReveal';
 
 export const TestimonialsSection: React.FC = () => {
+  const { ref, isVisible } = useScrollReveal<HTMLElement>({
+    threshold: 0.1,
+    rootMargin: '0px 0px -40px 0px',
+  });
+
   return (
-    <section className="py-20 bg-[#0d1117] border-b border-white/5">
+    <section
+      ref={ref}
+      className={`py-20 bg-[#0d1117] border-b border-white/5 transition-all duration-700 ease-out motion-reduce:transition-none motion-reduce:opacity-100 motion-reduce:translate-y-0 ${
+        isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+      }`}
+    >
       <div className="max-w-6xl mx-auto px-5">
         <div className="text-center max-w-2xl mx-auto">
           <p className="uppercase tracking-[0.2em] font-bold text-xs md:text-sm text-[#39ff88]">

@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Vehicle } from '../types';
 import { FLEET_VEHICLES } from '../data/fleetData';
-import { formatINR, isReferralDiscountApplicable, subscribeReferralDiscountChange } from '../utils/whatsapp';
-import { Calculator, ArrowRight, ShieldCheck, Check, Sparkles, Tag, Gift } from 'lucide-react';
+import { formatINR } from '../utils/whatsapp';
+import { Calculator, ArrowRight, ShieldCheck, Check, Sparkles, Tag } from 'lucide-react';
+import { useScrollReveal } from '../hooks/useScrollReveal';
 import {
   calculateRentalBaseFare,
   getVehicleSecurityDeposit,
@@ -22,21 +23,15 @@ interface FareCalculatorProps {
 }
 
 export const FareCalculator: React.FC<FareCalculatorProps> = ({ onProceedToBooking }) => {
+  const { ref, isVisible } = useScrollReveal<HTMLElement>({
+    threshold: 0.1,
+    rootMargin: '0px 0px -40px 0px',
+  });
   const [selectedVehicleId, setSelectedVehicleId] = useState<string>(FLEET_VEHICLES[0].id);
   const [rentalType, setRentalType] = useState<'daily' | 'hourly'>('daily');
   const [duration, setDuration] = useState<number>(1);
   const [extraHelmet, setExtraHelmet] = useState<boolean>(false);
   const [doorstepDelivery, setDoorstepDelivery] = useState<boolean>(false);
-
-  const [hasReferralDiscount, setHasReferralDiscount] = useState<boolean>(false);
-
-  useEffect(() => {
-    const updateDiscount = () => {
-      setHasReferralDiscount(isReferralDiscountApplicable());
-    };
-    updateDiscount();
-    return subscribeReferralDiscountChange(updateDiscount);
-  }, []);
 
   const selectedVehicle =
     FLEET_VEHICLES.find((v) => v.id === selectedVehicleId) || FLEET_VEHICLES[0];
@@ -50,9 +45,7 @@ export const FareCalculator: React.FC<FareCalculatorProps> = ({ onProceedToBooki
     : 0;
 
   const deliveryCost = doorstepDelivery ? 100 : 0;
-  const subtotal = baseRate + extraHelmetCost + deliveryCost;
-  const referralDiscountAmount = hasReferralDiscount ? Math.round(subtotal * 0.20) : 0;
-  const totalPayable = Math.max(0, subtotal - referralDiscountAmount);
+  const totalPayable = baseRate + extraHelmetCost + deliveryCost;
 
   const securityDeposit = getVehicleSecurityDeposit(selectedVehicle.id, rentalType, effectiveDuration);
   const weeklyDiscountSavings = getSavingsOnWeeklyPackage(selectedVehicle, rentalType, effectiveDuration);
@@ -69,7 +62,13 @@ export const FareCalculator: React.FC<FareCalculatorProps> = ({ onProceedToBooki
   };
 
   return (
-    <section id="calculator" className="py-20 bg-[#0d1117] border-b border-white/5 scroll-mt-20">
+    <section
+      ref={ref}
+      id="calculator"
+      className={`py-20 bg-[#0d1117] border-b border-white/5 scroll-mt-20 transition-all duration-700 ease-out motion-reduce:transition-none motion-reduce:opacity-100 motion-reduce:translate-y-0 ${
+        isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+      }`}
+    >
       <div className="max-w-6xl mx-auto px-5">
         <div className="text-center max-w-2xl mx-auto">
           <p className="uppercase tracking-[0.2em] font-bold text-xs md:text-sm text-[#ff7a1a]">
@@ -322,16 +321,6 @@ export const FareCalculator: React.FC<FareCalculatorProps> = ({ onProceedToBooki
                       Weekly Deal Package Applied!
                     </span>
                     <span className="font-bold">Save {formatINR(weeklyDiscountSavings)}</span>
-                  </div>
-                )}
-
-                {referralDiscountAmount > 0 && (
-                  <div className="p-2 rounded-lg bg-[#39ff88]/15 border border-[#39ff88]/30 flex items-center justify-between text-xs text-[#39ff88]">
-                    <span className="flex items-center gap-1.5 font-semibold">
-                      <Gift className="w-3.5 h-3.5" />
-                      20% Referral Reward Applied! (1-Time Use)
-                    </span>
-                    <span className="font-bold">Save {formatINR(referralDiscountAmount)}</span>
                   </div>
                 )}
 
