@@ -12,6 +12,8 @@ import { HowItWorks } from './components/HowItWorks';
 import { LocationSection } from './components/LocationSection';
 import { TestimonialsSection } from './components/TestimonialsSection';
 import { FAQSection } from './components/FAQSection';
+import { ReferralSection } from './components/ReferralSection';
+import { DiscountUnlockedCelebrationModal } from './components/DiscountUnlockedCelebrationModal';
 import { Footer } from './components/Footer';
 import { BookingModal } from './components/BookingModal';
 import { VehicleSpecsModal } from './components/VehicleSpecsModal';
@@ -36,10 +38,23 @@ export default function App() {
     extraHelmet: false,
     doorstepDelivery: false,
   });
+  const [initialReferralCode, setInitialReferralCode] = useState<string>('');
 
   const [specsModalVehicle, setSpecsModalVehicle] = useState<Vehicle | null>(null);
   const [myBookingsOpen, setMyBookingsOpen] = useState(false);
   const [savedBookings, setSavedBookings] = useState<Booking[]>([]);
+
+  // Celebration Modal State
+  const [celebrationModalOpen, setCelebrationModalOpen] = useState(false);
+  const [celebrationDetails, setCelebrationDetails] = useState({
+    title: '20% DISCOUNT UNLOCKED!',
+    subtitle: 'You have shared your referral with 3 people! Your 20% discount is now active and will automatically apply on your next booking.',
+  });
+
+  const handleOpenCelebration = (info: { title: string; subtitle: string }) => {
+    setCelebrationDetails(info);
+    setCelebrationModalOpen(true);
+  };
 
   // Rental Agreement State
   const [agreementModalOpen, setAgreementModalOpen] = useState(false);
@@ -67,6 +82,7 @@ export default function App() {
       extraHelmet: false,
       doorstepDelivery: false,
     });
+    setInitialReferralCode('');
     setBookingModalOpen(true);
   };
 
@@ -77,6 +93,7 @@ export default function App() {
     extraHelmet: boolean;
     doorstepDelivery: boolean;
     total: number;
+    referralCode?: string;
   }) => {
     setSelectedVehicleForBooking(config.vehicle);
     setCalculatorConfig({
@@ -85,6 +102,7 @@ export default function App() {
       extraHelmet: config.extraHelmet,
       doorstepDelivery: config.doorstepDelivery,
     });
+    setInitialReferralCode(config.referralCode || '');
     setBookingModalOpen(true);
   };
 
@@ -130,6 +148,15 @@ export default function App() {
 
         <HowItWorks onOpenAgreement={() => handleOpenAgreement()} />
 
+        <ReferralSection
+          onOpenBookingModal={(prefilledCode) => {
+            setSelectedVehicleForBooking(null);
+            setInitialReferralCode(prefilledCode || '');
+            setBookingModalOpen(true);
+          }}
+          onOpenCelebrationModal={handleOpenCelebration}
+        />
+
         <LocationSection />
 
         <TestimonialsSection />
@@ -152,6 +179,7 @@ export default function App() {
         initialDuration={calculatorConfig.duration}
         initialExtraHelmet={calculatorConfig.extraHelmet}
         initialDoorstep={calculatorConfig.doorstepDelivery}
+        initialReferralCode={initialReferralCode}
         onBookingCreated={() => {
           refreshBookings();
         }}
@@ -183,6 +211,18 @@ export default function App() {
         isOpen={agreementModalOpen}
         onClose={() => setAgreementModalOpen(false)}
         initialBooking={selectedBookingForAgreement}
+      />
+
+      <DiscountUnlockedCelebrationModal
+        isOpen={celebrationModalOpen}
+        onClose={() => setCelebrationModalOpen(false)}
+        title={celebrationDetails.title}
+        subtitle={celebrationDetails.subtitle}
+        onActionClick={() => {
+          setCelebrationModalOpen(false);
+          setBookingModalOpen(true);
+        }}
+        actionText="Book Ride with 20% OFF"
       />
 
       {/* Global Toast Notification System */}

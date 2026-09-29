@@ -45,6 +45,9 @@ export interface Booking {
   deliveryAddress?: string;
   baseFare: number;
   addonsCost: number;
+  referralDiscount?: number;
+  referralCode?: string;
+  referralDiscountType?: 'sender_reward' | 'receiver_code';
   totalAmount: number;
   securityDeposit: number;
   status: 'pending_whatsapp' | 'confirmed' | 'active' | 'completed' | 'cancelled';

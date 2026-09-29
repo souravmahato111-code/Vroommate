@@ -19,6 +19,14 @@ export function generateWhatsAppBookingUrl(booking: Partial<Booking>, vehicle?: 
     ? `7 Days (1 Week Package Deal 🔥)`
     : `${booking.duration || 1} Days`;
 
+  const referralLine = booking.referralDiscount && booking.referralDiscount > 0
+    ? `🎁 *20% Referral Discount:* -${formatINR(booking.referralDiscount)} (${booking.referralDiscountType === 'sender_reward' ? 'Sender Reward 20% OFF' : `Code Applied: ${booking.referralCode}`})\n`
+    : '';
+
+  const personalReferralSection = booking.referralCode
+    ? `\n🎁 *My Referral Code for Friends:* ${booking.referralCode} (Gives 20% off their first ride & 20% off my next ride)`
+    : '';
+
   const text = `*New Ride Rental Enquiry - VroomMate Rides*
 ----------------------------------------
 🏍️ *Vehicle:* ${booking.vehicleName || vehicle?.name || 'Bike / Scooty'}
@@ -34,9 +42,9 @@ export function generateWhatsAppBookingUrl(booking: Partial<Booking>, vehicle?: 
 🪪 *Valid Driving License:* ${booking.hasDrivingLicense ? 'Yes, Available' : 'Needs Verification'}
 📝 *Agreement:* Signed offline at vehicle handover
 ----------------------------------------
-💰 *Estimated Rental:* ${formatINR(booking.totalAmount || 0)}${isWeekly ? ' (Weekly Discount Applied)' : ''}
+${referralLine}💰 *Estimated Rental:* ${formatINR(booking.totalAmount || 0)}${isWeekly ? ' (Weekly Discount Applied)' : ''}
 🛡️ *Security Deposit:* ${formatINR(booking.securityDeposit || 500)} (100% refunded upon return)
-⚠️ *Late Return Policy:* ₹150 flat fine applies for unannounced delays past return time.
+⚠️ *Late Return Policy:* ₹150 flat fine applies for unannounced delays past return time.${personalReferralSection}
 ----------------------------------------
 Hi VroomMate Rides team, please confirm availability for this slot. Sending my ID proof for quick booking!`;
 

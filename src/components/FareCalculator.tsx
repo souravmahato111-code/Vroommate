@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Vehicle } from '../types';
 import { FLEET_VEHICLES } from '../data/fleetData';
 import { formatINR } from '../utils/whatsapp';
-import { Calculator, ArrowRight, ShieldCheck, Check, Sparkles, Tag } from 'lucide-react';
+import { Calculator, ArrowRight, ShieldCheck, Check, Sparkles, Tag, Gift } from 'lucide-react';
 import { useScrollReveal } from '../hooks/useScrollReveal';
 import {
   calculateRentalBaseFare,
@@ -10,6 +10,8 @@ import {
   getSavingsOnWeeklyPackage,
   calculateExtraHelmetCost,
 } from '../utils/pricing';
+import { getReferralProfile, validateReferralCodeInput } from '../utils/referral';
+import { toast } from 'sonner';
 
 interface FareCalculatorProps {
   onProceedToBooking: (config: {
@@ -19,6 +21,7 @@ interface FareCalculatorProps {
     extraHelmet: boolean;
     doorstepDelivery: boolean;
     total: number;
+    referralCode?: string;
   }) => void;
 }
 
@@ -33,6 +36,15 @@ export const FareCalculator: React.FC<FareCalculatorProps> = ({ onProceedToBooki
   const [extraHelmet, setExtraHelmet] = useState<boolean>(false);
   const [doorstepDelivery, setDoorstepDelivery] = useState<boolean>(false);
 
+  // Referral state
+  const [referralProfile, setReferralProfile] = useState(() => getReferralProfile());
+  const [referralCodeInput, setReferralCodeInput] = useState<string>('');
+  const [appliedReferralCode, setAppliedReferralCode] = useState<string | null>(null);
+
+  useEffect(() => {
+    setReferralProfile(getReferralProfile());
+  }, []);
+
   const selectedVehicle =
     FLEET_VEHICLES.find((v) => v.id === selectedVehicleId) || FLEET_VEHICLES[0];
 
@@ -40,15 +52,31 @@ export const FareCalculator: React.FC<FareCalculatorProps> = ({ onProceedToBooki
   const effectiveDuration = rentalType === 'daily' ? Math.min(7, Math.max(1, duration)) : duration;
   const baseRate = calculateRentalBaseFare(selectedVehicle, rentalType, effectiveDuration);
 
+  // Referral discount
+  const isSenderRewardActive = referralProfile.senderDiscountAvailable && !referralProfile.senderDiscountUsed;
+  const isDiscountActive = isSenderRewardActive || !!appliedReferralCode;
+  const referralDiscountAmount = isDiscountActive ? Math.round(baseRate * 0.20) : 0;
+
   const extraHelmetCost = extraHelmet
     ? calculateExtraHelmetCost(rentalType, effectiveDuration)
     : 0;
 
   const deliveryCost = doorstepDelivery ? 100 : 0;
-  const totalPayable = baseRate + extraHelmetCost + deliveryCost;
+  const totalPayable = Math.max(0, baseRate - referralDiscountAmount) + extraHelmetCost + deliveryCost;
 
   const securityDeposit = getVehicleSecurityDeposit(selectedVehicle.id, rentalType, effectiveDuration);
   const weeklyDiscountSavings = getSavingsOnWeeklyPackage(selectedVehicle, rentalType, effectiveDuration);
+
+  const handleApplyCalcReferral = () => {
+    const res = validateReferralCodeInput(referralCodeInput);
+    if (!res.valid) {
+      toast.error('Invalid Referral Code', { description: res.reason });
+      return;
+    }
+    const clean = referralCodeInput.trim().toUpperCase();
+    setAppliedReferralCode(clean);
+    toast.success('20% Referral Discount Applied in Estimate!');
+  };
 
   const handleProceed = () => {
     onProceedToBooking({
@@ -58,6 +86,7 @@ export const FareCalculator: React.FC<FareCalculatorProps> = ({ onProceedToBooki
       extraHelmet,
       doorstepDelivery,
       total: totalPayable,
+      referralCode: appliedReferralCode || undefined,
     });
   };
 
@@ -285,6 +314,62 @@ export const FareCalculator: React.FC<FareCalculatorProps> = ({ onProceedToBooki
                 </div>
                 <div className="text-xs font-bold text-[#ff7a1a]">+₹100</div>
               </label>
+
+              {/* Referral discount entry / status */}
+              <div className="pt-2">
+                {isSenderRewardActive ? (
+                  <div className="p-3 rounded-xl bg-[#39ff88]/15 border border-[#39ff88]/30 flex items-center justify-between text-xs text-[#39ff88]">
+                    <div className="flex items-center gap-2">
+                      <Gift className="w-4 h-4 shrink-0" />
+                      <span>🎉 Sender Referral Reward Active! (20% OFF)</span>
+                    </div>
+                    <span className="font-bold font-mono">-{formatINR(referralDiscountAmount)}</span>
+                  </div>
+                ) : appliedReferralCode ? (
+                  <div className="p-3 rounded-xl bg-[#39ff88]/15 border border-[#39ff88]/30 flex items-center justify-between text-xs text-[#39ff88]">
+                    <div className="flex items-center gap-2">
+                      <Gift className="w-4 h-4 shrink-0" />
+                      <span>Referral Code Active ({appliedReferralCode})</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <span className="font-bold font-mono">-{formatINR(referralDiscountAmount)}</span>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setAppliedReferralCode(null);
+                          setReferralCodeInput('');
+                        }}
+                        className="text-[11px] text-red-400 hover:underline"
+                      >
+                        Remove
+                      </button>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="space-y-1.5">
+                    <label className="text-xs text-slate-300 font-semibold flex items-center gap-1.5">
+                      <Gift className="w-3.5 h-3.5 text-[#ff7a1a]" />
+                      <span>Have a Referral Code?</span>
+                    </label>
+                    <div className="flex gap-2">
+                      <input
+                        type="text"
+                        placeholder="Enter referral code (e.g. VMR-REF-1234)"
+                        value={referralCodeInput}
+                        onChange={(e) => setReferralCodeInput(e.target.value.toUpperCase())}
+                        className="flex-1 bg-[#10141d] border border-white/10 rounded-xl px-3 py-2 text-xs text-white placeholder:text-slate-500 uppercase font-mono tracking-wider focus:outline-none focus:border-[#39ff88]"
+                      />
+                      <button
+                        type="button"
+                        onClick={handleApplyCalcReferral}
+                        className="px-3.5 py-2 rounded-xl text-xs font-bold bg-[#ff7a1a] text-black hover:bg-[#ff8f3d] transition-colors shrink-0"
+                      >
+                        Apply
+                      </button>
+                    </div>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
 
@@ -352,9 +437,35 @@ export const FareCalculator: React.FC<FareCalculatorProps> = ({ onProceedToBooki
                   <span className="text-[#39ff88] font-semibold">1 Helmet Included (FREE)</span>
                 </div>
 
+                {/* 20% Referral Discount Row */}
+                {referralDiscountAmount > 0 && (
+                  <div className="p-2.5 rounded-xl bg-[#39ff88]/15 border border-[#39ff88]/30 flex items-center justify-between text-xs text-[#39ff88]">
+                    <span className="flex items-center gap-1.5 font-bold">
+                      <Gift className="w-4 h-4 shrink-0" />
+                      <span>
+                        20% Referral Discount (
+                        {isSenderRewardActive
+                          ? 'Sender Reward'
+                          : `Code: ${appliedReferralCode}`}
+                        )
+                      </span>
+                    </span>
+                    <span className="font-bold font-mono text-sm">
+                      -{formatINR(referralDiscountAmount)}
+                    </span>
+                  </div>
+                )}
+
                 {/* Subtotal */}
                 <div className="pt-4 border-t border-white/10 flex justify-between items-baseline">
-                  <span className="font-bold text-white text-sm">Total Rental Fare</span>
+                  <div>
+                    <span className="font-bold text-white text-sm block">Total Estimated Fare</span>
+                    {referralDiscountAmount > 0 && (
+                      <span className="text-[11px] text-slate-400">
+                        Original: <span className="line-through">{formatINR(baseRate + extraHelmetCost + deliveryCost)}</span>
+                      </span>
+                    )}
+                  </div>
                   <span className="font-display font-black text-2xl text-[#ff7a1a]">
                     {formatINR(totalPayable)}
                   </span>

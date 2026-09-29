@@ -1,7 +1,27 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Booking } from '../types';
 import { formatINR, generateWhatsAppBookingUrl } from '../utils/whatsapp';
-import { X, Calendar, Clock, MessageCircle, Bike, CheckCircle2, Trash2, FileSignature } from 'lucide-react';
+import {
+  X,
+  Calendar,
+  Clock,
+  MessageCircle,
+  Bike,
+  CheckCircle2,
+  Trash2,
+  FileSignature,
+  Gift,
+  Copy,
+  Check,
+  Share2,
+} from 'lucide-react';
+import {
+  getReferralProfile,
+  recordReferralShare,
+  generateReferralShareWhatsAppUrl,
+} from '../utils/referral';
+import { fireCelebrationConfetti } from '../utils/confetti';
+import { toast } from 'sonner';
 
 interface MyBookingsDrawerProps {
   isOpen: boolean;
@@ -18,7 +38,30 @@ export const MyBookingsDrawer: React.FC<MyBookingsDrawerProps> = ({
   onClearBooking,
   onOpenAgreement,
 }) => {
+  const [copiedCode, setCopiedCode] = useState(false);
+  const [profile, setProfile] = useState(() => getReferralProfile());
+
   if (!isOpen) return null;
+
+  const handleShareReferral = (code: string) => {
+    const res = recordReferralShare();
+    const updated = getReferralProfile();
+    setProfile(updated);
+
+    if (res.justUnlocked) {
+      fireCelebrationConfetti();
+      toast.success('🎉 20% DISCOUNT UNLOCKED!', {
+        description: 'You shared to 3 people! 20% discount is now active for your next booking!',
+        duration: 7000,
+      });
+    } else if (res.newCount < 3) {
+      toast.info(`Sent to ${res.newCount}/3 friends!`, {
+        description: `Send to ${3 - res.newCount} more friend${3 - res.newCount > 1 ? 's' : ''} to unlock 20% OFF!`,
+      });
+    }
+
+    window.open(generateReferralShareWhatsAppUrl(code), '_blank');
+  };
 
   return (
     <div className="fixed inset-0 z-50 overflow-hidden bg-black/80 backdrop-blur-sm flex justify-end">
@@ -42,6 +85,90 @@ export const MyBookingsDrawer: React.FC<MyBookingsDrawerProps> = ({
 
         {/* Content */}
         <div className="flex-1 overflow-y-auto p-6 space-y-4">
+          {/* Referral Card (Visible once user has completed at least one booking) */}
+          {bookings.length > 0 && profile.myReferralCode && (
+            <div className="p-4 rounded-2xl bg-gradient-to-br from-[#111c17] to-[#161c26] border border-[#39ff88]/40 space-y-3">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <div className="w-8 h-8 rounded-xl bg-[#39ff88]/20 text-[#39ff88] grid place-items-center">
+                    <Gift className="w-4 h-4" />
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-white text-xs sm:text-sm">Refer &amp; Earn 20% OFF</h3>
+                    <p className="text-[11px] text-slate-300">Invite friends · Both get 20% discount</p>
+                  </div>
+                </div>
+                <span className="text-[10px] font-bold text-[#0d1117] bg-[#39ff88] px-2 py-0.5 rounded-full">
+                  20% OFF
+                </span>
+              </div>
+
+              <div className="flex items-center justify-between p-2.5 rounded-xl bg-[#0d1117] border border-white/10">
+                <span className="font-mono font-black text-[#39ff88] text-sm">
+                  {profile.myReferralCode}
+                </span>
+                <button
+                  type="button"
+                  onClick={() => {
+                    navigator.clipboard.writeText(profile.myReferralCode || '');
+                    setCopiedCode(true);
+                    setTimeout(() => setCopiedCode(false), 2000);
+                    toast.success('Referral code copied!');
+                  }}
+                  className="px-2.5 py-1 rounded-lg bg-white/10 text-xs text-white hover:bg-white/15 flex items-center gap-1 cursor-pointer"
+                >
+                  {copiedCode ? <Check className="w-3.5 h-3.5 text-[#39ff88]" /> : <Copy className="w-3.5 h-3.5" />}
+                  <span>{copiedCode ? 'Copied' : 'Copy'}</span>
+                </button>
+              </div>
+
+              {/* 3-people share progress */}
+              <div className="p-3 rounded-xl bg-[#0d1117] border border-white/10 space-y-2">
+                <div className="flex items-center justify-between text-xs">
+                  <span className="text-slate-300 font-medium">Send to 3 People:</span>
+                  <span className="text-[#39ff88] font-bold font-mono">
+                    {Math.min(3, profile.shareCount || 0)} / 3 Sent
+                  </span>
+                </div>
+                <div className="w-full h-2 rounded-full bg-white/10 overflow-hidden">
+                  <div
+                    className="h-full bg-gradient-to-r from-[#39ff88] to-[#ff7a1a] rounded-full transition-all duration-300 shadow-[0_0_8px_#39ff88]"
+                    style={{ width: `${Math.min(100, ((profile.shareCount || 0) / 3) * 100)}%` }}
+                  />
+                </div>
+              </div>
+
+              {profile.senderDiscountAvailable && !profile.senderDiscountUsed ? (
+                <p className="text-[11px] text-[#39ff88] font-medium flex items-center gap-1.5">
+                  <Check className="w-3.5 h-3.5 stroke-[3]" />
+                  <span>20% reward unlocked! It will automatically apply on your next booking.</span>
+                </p>
+              ) : profile.senderDiscountUsed ? (
+                <p className="text-[11px] text-slate-400">
+                  You have already used your 20% referral reward. Thanks for sharing!
+                </p>
+              ) : (
+                <p className="text-[11px] text-slate-400">
+                  Send to 3 friends on WhatsApp to unlock 20% OFF your next ride!
+                </p>
+              )}
+
+              {!profile.senderDiscountUsed && (
+                <button
+                  type="button"
+                  onClick={() => handleShareReferral(profile.myReferralCode!)}
+                  className="w-full py-2.5 px-3 rounded-xl font-bold text-xs bg-gradient-to-r from-[#25D366] to-[#1ebe57] text-[#0d1117] hover:brightness-110 transition-all flex items-center justify-center gap-1.5 cursor-pointer shadow-md"
+                >
+                  <Share2 className="w-3.5 h-3.5 stroke-[2.5]" />
+                  <span>
+                    {(profile.shareCount || 0) >= 3
+                      ? 'Share Referral Again on WhatsApp'
+                      : `Share on WhatsApp (${Math.min(3, profile.shareCount || 0)}/3 Sent)`}
+                  </span>
+                </button>
+              )}
+            </div>
+          )}
           {bookings.length === 0 ? (
             <div className="text-center py-16">
               <div className="w-16 h-16 rounded-2xl bg-white/5 grid place-items-center text-slate-500 mx-auto mb-3">

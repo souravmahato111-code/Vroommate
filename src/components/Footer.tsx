@@ -1,16 +1,124 @@
-import React from 'react';
-import { MapPin, Clock, Phone, MessageCircle, ShieldCheck, Heart, FileSignature } from 'lucide-react';
+import React, { useState } from 'react';
+import { MapPin, Clock, Phone, MessageCircle, ShieldCheck, Heart, FileSignature, Gift, Copy, Check } from 'lucide-react';
 import { BUSINESS_CONFIG } from '../data/fleetData';
 import { generateDirectWhatsAppInquiry } from '../utils/whatsapp';
 import { VroomMateLogo } from './VroomMateLogo';
+import { toast } from 'sonner';
 
 interface FooterProps {
   onOpenAgreement?: () => void;
 }
 
 export const Footer: React.FC<FooterProps> = ({ onOpenAgreement }) => {
+  const [copied, setCopied] = useState(false);
+
+  const referralShareText = `Hey! Need a self-drive bike or scooty in Chota Gamharia? Check out VroomMate Rides (Opp. Bharat Petroleum). Book via WhatsApp: https://wa.me/${BUSINESS_CONFIG.whatsappNumber}?text=${encodeURIComponent('Hi! My friend referred me to VroomMate Rides for a ride reservation.')}`;
+
+  const handleCopyReferral = () => {
+    navigator.clipboard.writeText(referralShareText);
+    setCopied(true);
+    toast.success('Referral message copied to clipboard!');
+    setTimeout(() => setCopied(false), 2500);
+  };
+
   return (
     <footer id="contact" className="border-t border-white/10 bg-black text-slate-300">
+      {/* Refer a Friend Reward Program Section */}
+      <div className="border-b border-white/10 bg-gradient-to-r from-[#111722] via-[#16202e] to-[#111722] py-12">
+        <div className="max-w-6xl mx-auto px-5">
+          <div className="relative rounded-3xl p-6 sm:p-8 md:p-10 bg-[#0d1117]/85 border border-[#39ff88]/30 overflow-hidden shadow-2xl">
+            {/* Ambient Background Glows */}
+            <div className="absolute -top-24 -right-24 w-72 h-72 bg-[#39ff88]/10 rounded-full blur-3xl pointer-events-none" />
+            <div className="absolute -bottom-24 -left-24 w-72 h-72 bg-[#ff7a1a]/10 rounded-full blur-3xl pointer-events-none" />
+
+            <div className="relative z-10 grid lg:grid-cols-12 gap-8 items-center">
+              {/* Left Column: Reward Program Details */}
+              <div className="lg:col-span-7 space-y-4">
+                <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-bold bg-[#39ff88]/15 text-[#39ff88] border border-[#39ff88]/30">
+                  <Gift className="w-3.5 h-3.5" />
+                  <span>Rider Rewards Program</span>
+                </div>
+
+                <h3 className="font-display font-extrabold text-2xl sm:text-3xl text-white tracking-tight">
+                  Refer a Friend &amp; <span className="text-[#39ff88]">Earn Ride Rewards!</span>
+                </h3>
+
+                <p className="text-slate-300 text-xs sm:text-sm leading-relaxed max-w-xl">
+                  Introduce your friends, classmates (NIT Jamshedpur, Arka Jain), or colleagues in Chota Gamharia &amp; Jamshedpur to VroomMate Rides.
+                  When they take their first self-drive ride, both of you unlock exclusive rental perks!
+                </p>
+
+                {/* 3-Step Program Outline */}
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2">
+                  <div className="bg-[#161c26] rounded-2xl p-3.5 border border-white/5 flex flex-col justify-between">
+                    <div className="w-7 h-7 rounded-lg bg-[#39ff88]/15 text-[#39ff88] flex items-center justify-center font-bold text-xs mb-2">
+                      01
+                    </div>
+                    <div className="font-bold text-white text-xs">Share with Friends</div>
+                    <div className="text-[11px] text-slate-400 mt-0.5">Send your referral message on WhatsApp or social media.</div>
+                  </div>
+
+                  <div className="bg-[#161c26] rounded-2xl p-3.5 border border-white/5 flex flex-col justify-between">
+                    <div className="w-7 h-7 rounded-lg bg-[#ff7a1a]/15 text-[#ff7a1a] flex items-center justify-center font-bold text-xs mb-2">
+                      02
+                    </div>
+                    <div className="font-bold text-white text-xs">Friend Books a Ride</div>
+                    <div className="text-[11px] text-slate-400 mt-0.5">They mention your name &amp; phone number during booking.</div>
+                  </div>
+
+                  <div className="bg-[#161c26] rounded-2xl p-3.5 border border-white/5 flex flex-col justify-between">
+                    <div className="w-7 h-7 rounded-lg bg-[#39ff88]/15 text-[#39ff88] flex items-center justify-center font-bold text-xs mb-2">
+                      03
+                    </div>
+                    <div className="font-bold text-white text-xs">Both Get Perks</div>
+                    <div className="text-[11px] text-slate-400 mt-0.5">You earn ₹100 credit on your next ride; they get a free 2nd helmet!</div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Right Column: Instant Share Card */}
+              <div className="lg:col-span-5 bg-[#161c26] border border-white/10 rounded-2xl p-5 sm:p-6 flex flex-col justify-between gap-4">
+                <div>
+                  <div className="flex items-center justify-between text-xs mb-2.5">
+                    <span className="font-bold uppercase tracking-wider text-slate-300">Quick Referral Message</span>
+                    <span className="text-[#39ff88] font-bold text-[11px]">Instant WhatsApp Invite</span>
+                  </div>
+
+                  <div className="bg-[#0d1117] p-3.5 rounded-xl border border-white/5 text-xs text-slate-300 leading-relaxed select-all font-mono">
+                    "Hey! Rent self-drive bikes &amp; scooties in Chota Gamharia with VroomMate Rides (Opp. Bharat Petroleum). Mention my name for bonus perks! WhatsApp: {BUSINESS_CONFIG.displayPhone}"
+                  </div>
+                </div>
+
+                <div className="flex flex-col sm:flex-row gap-2.5">
+                  <a
+                    href={`https://wa.me/?text=${encodeURIComponent(referralShareText)}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex-1 py-3 px-4 rounded-xl font-bold text-xs sm:text-sm bg-[#39ff88] text-[#0d1117] hover:bg-[#4dff93] transition-colors flex items-center justify-center gap-2 cursor-pointer shadow-lg shadow-[#39ff88]/20"
+                  >
+                    <MessageCircle className="w-4 h-4 fill-current" />
+                    <span>Share on WhatsApp</span>
+                  </a>
+
+                  <button
+                    type="button"
+                    onClick={handleCopyReferral}
+                    className="py-3 px-4 rounded-xl font-bold text-xs bg-white/10 hover:bg-white/15 text-white transition-colors flex items-center justify-center gap-2 cursor-pointer"
+                  >
+                    {copied ? <Check className="w-4 h-4 text-[#39ff88]" /> : <Copy className="w-4 h-4 text-slate-300" />}
+                    <span>{copied ? 'Copied!' : 'Copy Message'}</span>
+                  </button>
+                </div>
+
+                <p className="text-[11px] text-slate-400">
+                  * Reward credits are linked to your phone number and automatically redeemed upon vehicle pickup at our Chota Gamharia hub.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div className="max-w-6xl mx-auto px-5 py-16 grid md:grid-cols-12 gap-10 items-start">
         {/* Brand Info */}
         <div className="md:col-span-5 space-y-4">

@@ -23,13 +23,14 @@ export const Navbar: React.FC<NavbarProps> = ({
     { label: 'Fleet', href: '#fleet' },
     { label: 'Fare Calculator', href: '#calculator' },
     { label: 'How It Works', href: '#how-it-works' },
+    { label: 'Refer & Earn', href: '#referral' },
     { label: 'Hub Location', href: '#location' },
     { label: 'FAQs', href: '#faqs' },
   ];
 
   return (
     <header className="sticky top-0 z-50 w-full backdrop-blur-md border-b border-white/10 bg-black/95 transition-colors">
-      <div className="max-w-6xl mx-auto px-5 min-h-[92px] sm:min-h-[98px] py-2.5 sm:py-3 flex items-center justify-between gap-4">
+      <div className="max-w-6xl mx-auto px-5 min-h-[76px] sm:min-h-[82px] py-2 sm:py-2.5 flex items-center justify-between gap-4">
         {/* Zone 1: Official Logo */}
         <a
           href="#top"

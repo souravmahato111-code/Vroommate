@@ -18,6 +18,10 @@ import {
   AlertCircle,
   Sparkles,
   Tag,
+  Gift,
+  Copy,
+  Share2,
+  Info,
 } from 'lucide-react';
 import {
   calculateRentalBaseFare,
@@ -25,6 +29,14 @@ import {
   getSavingsOnWeeklyPackage,
   calculateExtraHelmetCost,
 } from '../utils/pricing';
+import {
+  getReferralProfile,
+  validateReferralCodeInput,
+  recordReferralShare,
+  generateReferralShareWhatsAppUrl,
+  handleBookingConfirmationReferral,
+} from '../utils/referral';
+import { fireCelebrationConfetti } from '../utils/confetti';
 
 interface BookingModalProps {
   isOpen: boolean;
@@ -34,6 +46,7 @@ interface BookingModalProps {
   initialDuration?: number;
   initialExtraHelmet?: boolean;
   initialDoorstep?: boolean;
+  initialReferralCode?: string;
   onBookingCreated: () => void;
   onOpenAgreement?: (booking?: Booking | null) => void;
 }
@@ -46,6 +59,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
   initialDuration = 1,
   initialExtraHelmet = false,
   initialDoorstep = false,
+  initialReferralCode = '',
   onBookingCreated,
   onOpenAgreement,
 }) => {
@@ -66,7 +80,15 @@ export const BookingModal: React.FC<BookingModalProps> = ({
   const [deliveryAddress, setDeliveryAddress] = useState<string>('');
   const [confirmedBooking, setConfirmedBooking] = useState<Booking | null>(null);
 
-  // Set default today's date formatted
+  // Referral discount state
+  const [referralProfile, setReferralProfile] = useState(() => getReferralProfile());
+  const [referralCodeInput, setReferralCodeInput] = useState<string>(initialReferralCode);
+  const [appliedReferralCode, setAppliedReferralCode] = useState<string | null>(null);
+  const [referralError, setReferralError] = useState<string | null>(null);
+  const [copiedCode, setCopiedCode] = useState<boolean>(false);
+  const [hasSharedInCurrentView, setHasSharedInCurrentView] = useState<boolean>(false);
+
+  // Set default today's date formatted & re-sync profile
   useEffect(() => {
     const today = new Date();
     const yyyy = today.getFullYear();
@@ -74,6 +96,22 @@ export const BookingModal: React.FC<BookingModalProps> = ({
     const dd = String(today.getDate()).padStart(2, '0');
     setPickupDate(`${yyyy}-${mm}-${dd}`);
   }, []);
+
+  useEffect(() => {
+    if (isOpen) {
+      const prof = getReferralProfile();
+      setReferralProfile(prof);
+      setReferralError(null);
+      setHasSharedInCurrentView(false);
+
+      if (initialReferralCode && !prof.senderDiscountAvailable && !prof.receiverDiscountUsed && !prof.senderDiscountUsed) {
+        const check = validateReferralCodeInput(initialReferralCode);
+        if (check.valid) {
+          setAppliedReferralCode(initialReferralCode.trim().toUpperCase());
+        }
+      }
+    }
+  }, [isOpen, initialReferralCode]);
 
   // Update if initialVehicle changes
   useEffect(() => {
@@ -98,15 +136,76 @@ export const BookingModal: React.FC<BookingModalProps> = ({
   const effectiveDuration = rentalType === 'daily' ? Math.min(7, Math.max(1, duration)) : duration;
   const baseFare = calculateRentalBaseFare(currentVehicle, rentalType, effectiveDuration);
 
+  // Referral discount calculation: 20% off base rental
+  const isSenderDiscountActive = referralProfile.senderDiscountAvailable && !referralProfile.senderDiscountUsed;
+  const isOfferAlreadyUsed = referralProfile.receiverDiscountUsed || referralProfile.senderDiscountUsed;
+
+  let referralDiscount = 0;
+  let referralDiscountType: 'sender_reward' | 'receiver_code' | undefined = undefined;
+
+  if (isSenderDiscountActive) {
+    referralDiscount = Math.round(baseFare * 0.20);
+    referralDiscountType = 'sender_reward';
+  } else if (appliedReferralCode) {
+    referralDiscount = Math.round(baseFare * 0.20);
+    referralDiscountType = 'receiver_code';
+  }
+
   const helmetCost = extraHelmet
     ? calculateExtraHelmetCost(rentalType, effectiveDuration)
     : 0;
 
   const deliveryCost = deliveryType === 'doorstep' ? 100 : 0;
-  const totalAmount = baseFare + helmetCost + deliveryCost;
+  const totalAmount = Math.max(0, baseFare - referralDiscount) + helmetCost + deliveryCost;
 
   const securityDeposit = getVehicleSecurityDeposit(currentVehicle.id, rentalType, effectiveDuration);
   const weeklySavings = getSavingsOnWeeklyPackage(currentVehicle, rentalType, effectiveDuration);
+
+  const handleApplyReferralCode = () => {
+    setReferralError(null);
+    const result = validateReferralCodeInput(referralCodeInput);
+    if (!result.valid) {
+      setReferralError(result.reason || 'Invalid referral code');
+      toast.error('Invalid Referral Code', { description: result.reason });
+      return;
+    }
+    const clean = referralCodeInput.trim().toUpperCase();
+    setAppliedReferralCode(clean);
+    fireCelebrationConfetti();
+    toast.success('🎉 20% Referral Discount Applied!', {
+      description: `Referral code ${clean} applied! You saved ${formatINR(Math.round(baseFare * 0.20))} on your ride.`,
+      duration: 5000,
+    });
+  };
+
+  const handleRemoveReferralCode = () => {
+    setAppliedReferralCode(null);
+    setReferralCodeInput('');
+    setReferralError(null);
+    toast.info('Referral discount removed');
+  };
+
+  const handleShareReferralWhatsApp = (code: string) => {
+    const res = recordReferralShare();
+    setHasSharedInCurrentView(true);
+    const updatedProf = getReferralProfile();
+    setReferralProfile(updatedProf);
+
+    if (res.justUnlocked) {
+      fireCelebrationConfetti();
+      toast.success('🎉 20% DISCOUNT UNLOCKED!', {
+        description: 'You sent to 3 people! Your 20% discount is now active and will automatically apply on your next booking!',
+        duration: 7000,
+      });
+    } else if (res.newCount < 3) {
+      toast.info(`Sent to ${res.newCount}/3 friends!`, {
+        description: `Send to ${3 - res.newCount} more friend${3 - res.newCount > 1 ? 's' : ''} on WhatsApp to unlock 20% OFF your next ride!`,
+      });
+    }
+
+    const shareUrl = generateReferralShareWhatsAppUrl(code);
+    window.open(shareUrl, '_blank');
+  };
 
   // Calculate return date/time display
   const calculateReturn = () => {
@@ -131,6 +230,14 @@ export const BookingModal: React.FC<BookingModalProps> = ({
     }
 
     const bookingId = `VMR-${Math.floor(10000 + Math.random() * 90000)}`;
+
+    // Generate user's referral code after first booking and mark discounts
+    const refResult = handleBookingConfirmationReferral(
+      bookingId,
+      appliedReferralCode || undefined,
+      isSenderDiscountActive
+    );
+
     const newBooking: Booking = {
       id: bookingId,
       vehicleId: currentVehicle.id,
@@ -149,6 +256,9 @@ export const BookingModal: React.FC<BookingModalProps> = ({
       deliveryAddress: deliveryType === 'doorstep' ? deliveryAddress.trim() : undefined,
       baseFare,
       addonsCost: helmetCost + deliveryCost,
+      referralDiscount: referralDiscount > 0 ? referralDiscount : undefined,
+      referralCode: refResult.generatedCode,
+      referralDiscountType,
       totalAmount,
       securityDeposit,
       status: 'pending_whatsapp',
@@ -158,8 +268,9 @@ export const BookingModal: React.FC<BookingModalProps> = ({
     saveBooking(newBooking);
     onBookingCreated();
     setConfirmedBooking(newBooking);
+    setReferralProfile(getReferralProfile());
 
-    // Toast notification requested by user
+    // Toast notification
     toast.success('Booking Request Sent', {
       description: `Your ride reservation for ${currentVehicle.name} (${bookingId}) has been created successfully.`,
       duration: 5000,
@@ -252,6 +363,21 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                     {confirmedBooking.rentalType === 'daily' ? 'Days' : 'Hours'}
                   </span>
                 </div>
+                {confirmedBooking.referralDiscount && confirmedBooking.referralDiscount > 0 && (
+                  <div className="flex justify-between text-[#39ff88] font-bold py-1 border-y border-white/5">
+                    <span className="flex items-center gap-1.5">
+                      <Gift className="w-3.5 h-3.5" />
+                      <span>
+                        20% Referral Discount (
+                        {confirmedBooking.referralDiscountType === 'sender_reward'
+                          ? 'Sender Reward'
+                          : `Code: ${confirmedBooking.referralCode}`}
+                        )
+                      </span>
+                    </span>
+                    <span className="font-mono">-{formatINR(confirmedBooking.referralDiscount)}</span>
+                  </div>
+                )}
                 <div className="flex justify-between">
                   <span className="text-slate-400">Estimated Total</span>
                   <span className="font-display font-black text-sm text-[#ff7a1a]">
@@ -269,6 +395,132 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                   <span className="text-[#ff7a1a] font-medium">₹150 flat fine for unnotified late returns</span>
                 </div>
               </div>
+
+              {/* Referral Invite & Reward Card */}
+              {confirmedBooking.referralCode && (
+                <div className="p-4 sm:p-5 rounded-2xl bg-gradient-to-br from-[#111c17] to-[#161c26] border-2 border-[#39ff88]/50 shadow-[0_0_30px_-10px_rgba(57,255,136,0.3)] space-y-3">
+                  <div className="flex items-start justify-between gap-2">
+                    <div className="flex items-center gap-2.5">
+                      <div className="w-9 h-9 rounded-xl bg-[#39ff88]/20 text-[#39ff88] grid place-items-center shrink-0">
+                        <Gift className="w-5 h-5" />
+                      </div>
+                      <div>
+                        <h4 className="font-display font-extrabold text-white text-sm sm:text-base">
+                          Refer Friends &amp; Get 20% OFF Next Ride!
+                        </h4>
+                        <p className="text-[11px] text-slate-300">
+                          Share your code: Your friend gets 20% OFF their 1st ride, and you unlock 20% OFF your next ride!
+                        </p>
+                      </div>
+                    </div>
+                    <span className="text-[10px] font-bold text-[#0d1117] bg-[#39ff88] px-2 py-0.5 rounded-full shrink-0">
+                      20% OFF
+                    </span>
+                  </div>
+
+                  {/* Personal Code Display with Copy */}
+                  <div className="flex items-center justify-between p-3 rounded-xl bg-[#0d1117] border border-white/10">
+                    <div>
+                      <span className="text-slate-400 text-[11px] block">Your Personal Referral Code</span>
+                      <span className="text-base sm:text-lg font-black font-mono text-[#39ff88] tracking-wider">
+                        {confirmedBooking.referralCode}
+                      </span>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        navigator.clipboard.writeText(confirmedBooking.referralCode || '');
+                        setCopiedCode(true);
+                        setTimeout(() => setCopiedCode(false), 2500);
+                        toast.success('Referral code copied to clipboard!');
+                      }}
+                      className="px-3 py-2 rounded-xl bg-white/10 hover:bg-white/15 text-slate-200 text-xs font-semibold flex items-center gap-1.5 transition-colors cursor-pointer"
+                    >
+                      {copiedCode ? <Check className="w-4 h-4 text-[#39ff88]" /> : <Copy className="w-4 h-4" />}
+                      <span>{copiedCode ? 'Copied' : 'Copy Code'}</span>
+                    </button>
+                  </div>
+
+                  {/* 3-Person Progress Tracker */}
+                  <div className="p-3.5 rounded-xl bg-[#0d1117] border border-white/10 space-y-2.5">
+                    <div className="flex items-center justify-between text-xs">
+                      <span className="text-slate-300 font-medium">Send to 3 People to Unlock:</span>
+                      <span className="text-[#39ff88] font-bold font-mono">
+                        {Math.min(3, referralProfile.shareCount || 0)} / 3 Sent
+                      </span>
+                    </div>
+
+                    {/* Progress Bar */}
+                    <div className="w-full h-2 rounded-full bg-white/10 overflow-hidden">
+                      <div
+                        className="h-full bg-gradient-to-r from-[#39ff88] to-[#ff7a1a] rounded-full transition-all duration-500 shadow-[0_0_8px_#39ff88]"
+                        style={{ width: `${Math.min(100, ((referralProfile.shareCount || 0) / 3) * 100)}%` }}
+                      />
+                    </div>
+
+                    <div className="grid grid-cols-3 gap-1.5 text-center text-[10px]">
+                      <span className={`py-1 rounded-lg border ${
+                        (referralProfile.shareCount || 0) >= 1
+                          ? 'bg-[#39ff88]/15 border-[#39ff88]/40 text-[#39ff88] font-bold'
+                          : 'bg-white/5 border-white/5 text-slate-400'
+                      }`}>
+                        Friend 1 {(referralProfile.shareCount || 0) >= 1 ? '✓' : ''}
+                      </span>
+                      <span className={`py-1 rounded-lg border ${
+                        (referralProfile.shareCount || 0) >= 2
+                          ? 'bg-[#39ff88]/15 border-[#39ff88]/40 text-[#39ff88] font-bold'
+                          : 'bg-white/5 border-white/5 text-slate-400'
+                      }`}>
+                        Friend 2 {(referralProfile.shareCount || 0) >= 2 ? '✓' : ''}
+                      </span>
+                      <span className={`py-1 rounded-lg border ${
+                        (referralProfile.shareCount || 0) >= 3
+                          ? 'bg-[#39ff88]/15 border-[#39ff88]/40 text-[#39ff88] font-bold'
+                          : 'bg-white/5 border-white/5 text-slate-400'
+                      }`}>
+                        Friend 3 {(referralProfile.shareCount || 0) >= 3 ? '✓' : ''}
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Unlock status info */}
+                  {referralProfile.senderDiscountAvailable ? (
+                    <div className="p-3 rounded-xl bg-[#39ff88]/15 border border-[#39ff88]/40 text-xs text-[#39ff88] flex items-center justify-between gap-2">
+                      <div className="flex items-center gap-2">
+                        <Check className="w-4 h-4 shrink-0 stroke-[3]" />
+                        <span className="font-semibold">
+                          Goal reached! 20% discount unlocked for your next booking.
+                        </span>
+                      </div>
+                      <button
+                        type="button"
+                        onClick={fireCelebrationConfetti}
+                        className="px-2 py-0.5 rounded bg-[#39ff88] text-[#0d1117] font-bold text-[10px] shrink-0"
+                      >
+                        🎉 Confetti
+                      </button>
+                    </div>
+                  ) : (
+                    <p className="text-[11px] text-slate-400">
+                      💡 <strong>Rule:</strong> Send your code to 3 friends on WhatsApp. The first friend to book gets 20% OFF, and your 20% discount unlocks immediately!
+                    </p>
+                  )}
+
+                  {/* Share Action Button */}
+                  <button
+                    type="button"
+                    onClick={() => handleShareReferralWhatsApp(confirmedBooking.referralCode!)}
+                    className="w-full py-3.5 px-4 rounded-xl font-bold text-xs sm:text-sm bg-gradient-to-r from-[#25D366] to-[#1ebe57] text-[#0d1117] hover:brightness-110 active:scale-[0.98] transition-all flex items-center justify-center gap-2 shadow-lg shadow-[#25D366]/20 cursor-pointer"
+                  >
+                    <Share2 className="w-4 h-4 stroke-[2.5]" />
+                    <span>
+                      {(referralProfile.shareCount || 0) >= 3
+                        ? 'Share Referral Again on WhatsApp'
+                        : `Share on WhatsApp (${Math.min(3, referralProfile.shareCount || 0)}/3 Sent)`}
+                    </span>
+                  </button>
+                </div>
+              )}
             </div>
 
             {/* Pinned Bottom Actions */}
@@ -585,6 +837,98 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                   </span>
                 </label>
               </div>
+
+              {/* Referral Discount Section */}
+              <div className="pt-2 border-t border-white/10 space-y-2">
+                {isSenderDiscountActive ? (
+                  <div className="p-3.5 rounded-xl bg-[#39ff88]/15 border border-[#39ff88]/40 flex items-center justify-between gap-3 text-xs text-white">
+                    <div className="flex items-center gap-2.5">
+                      <Gift className="w-5 h-5 text-[#39ff88] shrink-0" />
+                      <div>
+                        <span className="font-bold text-[#39ff88] block text-xs sm:text-sm">
+                          🎉 20% Sender Referral Reward Applied!
+                        </span>
+                        <span className="text-slate-300 text-[11px] block mt-0.5">
+                          Unlocked by sharing your referral code with a friend! You save {formatINR(referralDiscount)}.
+                        </span>
+                      </div>
+                    </div>
+                    <span className="font-bold font-mono text-[#39ff88] text-sm shrink-0">
+                      -{formatINR(referralDiscount)}
+                    </span>
+                  </div>
+                ) : appliedReferralCode ? (
+                  <div className="p-3.5 rounded-xl bg-[#39ff88]/15 border border-[#39ff88]/40 flex items-center justify-between gap-3 text-xs text-white">
+                    <div className="flex items-center gap-2.5">
+                      <Gift className="w-5 h-5 text-[#39ff88] shrink-0" />
+                      <div>
+                        <span className="font-bold text-[#39ff88] block text-xs sm:text-sm">
+                          20% Referral Code Applied ({appliedReferralCode})
+                        </span>
+                        <span className="text-slate-300 text-[11px] block mt-0.5">
+                          First booking discount active. You saved {formatINR(referralDiscount)}!
+                        </span>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-2.5 shrink-0">
+                      <span className="font-bold font-mono text-[#39ff88] text-sm">
+                        -{formatINR(referralDiscount)}
+                      </span>
+                      <button
+                        type="button"
+                        onClick={handleRemoveReferralCode}
+                        className="text-[11px] text-red-400 hover:text-red-300 font-semibold underline cursor-pointer"
+                      >
+                        Remove
+                      </button>
+                    </div>
+                  </div>
+                ) : isOfferAlreadyUsed ? (
+                  <div className="p-3 rounded-xl bg-[#10141d] border border-white/5 text-[11px] text-slate-400 flex items-center gap-2">
+                    <Info className="w-3.5 h-3.5 text-slate-500 shrink-0" />
+                    <span>You have claimed your one-time 20% referral offer. Standard rates apply.</span>
+                  </div>
+                ) : (
+                  <div className="p-3.5 rounded-xl bg-[#10141d] border border-white/10 space-y-2">
+                    <div className="flex items-center justify-between">
+                      <label className="text-xs font-bold text-slate-300 flex items-center gap-1.5">
+                        <Gift className="w-3.5 h-3.5 text-[#ff7a1a]" />
+                        <span>Have a Referral Code?</span>
+                      </label>
+                      <span className="text-[10px] text-[#39ff88] font-semibold bg-[#39ff88]/10 px-2 py-0.5 rounded-full border border-[#39ff88]/20">
+                        20% Off 1st Ride
+                      </span>
+                    </div>
+
+                    <div className="flex gap-2">
+                      <input
+                        type="text"
+                        placeholder="Enter friend's code (e.g. VMR-REF-1234)"
+                        value={referralCodeInput}
+                        onChange={(e) => {
+                          setReferralCodeInput(e.target.value.toUpperCase());
+                          if (referralError) setReferralError(null);
+                        }}
+                        className="flex-1 bg-[#161c26] border border-white/15 rounded-xl px-3 py-2 text-xs sm:text-sm text-white placeholder:text-slate-500 uppercase font-mono tracking-wider focus:outline-none focus:border-[#39ff88] transition-colors"
+                      />
+                      <button
+                        type="button"
+                        onClick={handleApplyReferralCode}
+                        className="px-4 py-2 rounded-xl text-xs font-bold bg-[#ff7a1a] text-[#0d1117] hover:bg-[#ff8f3d] transition-colors shrink-0 cursor-pointer active:scale-95"
+                      >
+                        Apply Code
+                      </button>
+                    </div>
+
+                    {referralError && (
+                      <p className="text-[11px] text-red-400 flex items-center gap-1 mt-1 font-medium">
+                        <AlertCircle className="w-3 h-3 shrink-0" />
+                        <span>{referralError}</span>
+                      </p>
+                    )}
+                  </div>
+                )}
+              </div>
             </div>
 
             {/* Sticky Bottom Action Bar (Always Visible on Mobile & Desktop) */}
@@ -592,16 +936,25 @@ export const BookingModal: React.FC<BookingModalProps> = ({
               <div className="flex items-center justify-between sm:flex-col sm:items-start">
                 <div className="flex items-center gap-2 flex-wrap">
                   <span className="text-xs text-slate-400 font-medium">Total Rental</span>
-                  {weeklySavings > 0 && (
+                  {referralDiscount > 0 ? (
+                    <span className="text-[10px] font-bold text-[#39ff88] bg-[#39ff88]/15 px-2 py-0.5 rounded-full border border-[#39ff88]/30">
+                      Saved {formatINR(referralDiscount)} (20% OFF)!
+                    </span>
+                  ) : weeklySavings > 0 ? (
                     <span className="text-[10px] font-bold text-[#39ff88] bg-[#39ff88]/15 px-2 py-0.5 rounded-full border border-[#39ff88]/30">
                       Saved {formatINR(weeklySavings)}!
                     </span>
-                  )}
+                  ) : null}
                 </div>
                 <div className="flex items-baseline gap-2 mt-0.5">
                   <div className="font-display font-black text-2xl sm:text-3xl text-[#ff7a1a] leading-none">
                     {formatINR(totalAmount)}
                   </div>
+                  {referralDiscount > 0 && (
+                    <span className="text-xs text-slate-500 line-through">
+                      {formatINR(baseFare + helmetCost + deliveryCost)}
+                    </span>
+                  )}
                   <div className="text-[11px] text-slate-400 hidden xs:inline-block">
                     + <span className="text-[#39ff88] font-bold">{formatINR(securityDeposit)}</span> deposit (refundable)
                   </div>
