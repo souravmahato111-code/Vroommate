@@ -72,9 +72,9 @@ export function getVehicleDepositBreakdown(vehicleId: string): {
 
 /**
  * Calculates rental base fare with special 7-day weekly package prices:
- * - Yamaha FZ: ₹3,500 for 7 days (saves ₹2,100)
- * - Scooty: ₹2,200 for 7 days (saves ₹1,300)
- * - Centuro: ₹2,000 for 7 days (saves ₹1,150)
+ * - Yamaha FZ: ₹4,200 for 7 days (saves ₹1,400)
+ * - Scooty: ₹2,600 for 7 days (saves ₹900)
+ * - Centuro: ₹2,300 for 7 days (saves ₹850)
  */
 export function calculateRentalBaseFare(
   vehicle: Vehicle,

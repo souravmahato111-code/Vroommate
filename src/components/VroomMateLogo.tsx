@@ -248,21 +248,13 @@ export const VroomMateLogo: React.FC<VroomMateLogoProps> = ({
             <span>VROOM</span>
             <span style={{ color: neon }}>MATE</span>
           </div>
-
-          <div className="mt-2 flex items-center justify-center gap-2.5">
-            <span className="w-7 h-[2px] rounded-full" style={{ backgroundColor: neon }} />
-            <span className="text-[11px] font-bold tracking-[0.4em] text-white uppercase pl-[0.4em]">
-              RIDES
-            </span>
-            <span className="w-7 h-[2px] rounded-full" style={{ backgroundColor: neon }} />
-          </div>
         </div>
       </div>
     );
   }
 
   // Default 'horizontal' lockup for Navbar and Header:
-  // Features slightly larger 'V' logo on the left, with Vroommate (and Rides under it) directly to its right,
+  // Features slightly larger 'V' logo on the left, with Vroommate directly to its right,
   // completely merged with the page background.
   const content = (
     <div className={`inline-flex items-center gap-1.5 sm:gap-2 select-none bg-transparent ${className}`}>
@@ -282,18 +274,11 @@ export const VroomMateLogo: React.FC<VroomMateLogoProps> = ({
         )}
       </div>
 
-      {/* 2. Vroommate (with Rides under it) positioned just to the right of the 'V' logo, shifted slightly to the left - slightly increased */}
+      {/* 2. Vroommate positioned just to the right of the 'V' logo, shifted slightly to the left */}
       <div className="flex flex-col justify-center -ml-1 sm:-ml-1.5">
-        <div className="font-display font-black italic tracking-tight text-[22px] sm:text-[28px] md:text-[34px] lg:text-[38px] text-white uppercase leading-none whitespace-nowrap">
+        <div className="font-display font-black italic tracking-tight text-[26px] sm:text-[32px] md:text-[38px] lg:text-[42px] text-white uppercase leading-none whitespace-nowrap">
           <span>VROOM</span>
           <span style={{ color: neon }}>MATE</span>
-        </div>
-        <div className="flex items-center justify-center gap-1.5 mt-1 sm:mt-1.5">
-          <span className="w-4.5 sm:w-6 h-[2px] rounded-full" style={{ backgroundColor: neon }} />
-          <span className="text-[10.5px] sm:text-xs font-bold tracking-[0.36em] text-slate-200 uppercase pl-[0.36em] leading-none">
-            RIDES
-          </span>
-          <span className="w-4.5 sm:w-6 h-[2px] rounded-full" style={{ backgroundColor: neon }} />
         </div>
       </div>
     </div>

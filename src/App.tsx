@@ -12,7 +12,6 @@ import { HowItWorks } from './components/HowItWorks';
 import { LocationSection } from './components/LocationSection';
 import { TestimonialsSection } from './components/TestimonialsSection';
 import { FAQSection } from './components/FAQSection';
-import { ReferralSection } from './components/ReferralSection';
 import { DiscountUnlockedCelebrationModal } from './components/DiscountUnlockedCelebrationModal';
 import { Footer } from './components/Footer';
 import { BookingModal } from './components/BookingModal';
@@ -147,15 +146,6 @@ export default function App() {
         <FareCalculator onProceedToBooking={handleCalculatorProceed} />
 
         <HowItWorks onOpenAgreement={() => handleOpenAgreement()} />
-
-        <ReferralSection
-          onOpenBookingModal={(prefilledCode) => {
-            setSelectedVehicleForBooking(null);
-            setInitialReferralCode(prefilledCode || '');
-            setBookingModalOpen(true);
-          }}
-          onOpenCelebrationModal={handleOpenCelebration}
-        />
 
         <LocationSection />
 

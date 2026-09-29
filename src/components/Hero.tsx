@@ -16,13 +16,13 @@ export const Hero: React.FC<HeroProps> = ({ onExploreFleet, onOpenBookingModal }
         <div className="md:col-span-7 flex flex-col items-start">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-white/15 bg-white/5 backdrop-blur-sm text-xs md:text-sm text-slate-200">
             <span className="w-2 h-2 rounded-full bg-[#39ff88] animate-pulse"></span>
-            <span className="font-medium">Chota Gamharia Hub Open Today · 8:00 AM – 8:00 PM</span>
+            <span className="font-medium">Chota Gamharia Hub Open · 8:00 AM – 8:00 PM</span>
           </div>
 
           <h1 className="font-display font-black text-3xl sm:text-4xl lg:text-5xl text-white mt-6 leading-[1.12] tracking-tight">
-            Rent Your Ride, <br className="hidden sm:inline" />
+            Your Mate for <br className="hidden sm:inline" />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-slate-100 to-[#39ff88]">
-              Skip the Traffic!
+              Every Ride!
             </span>
           </h1>
 
@@ -111,7 +111,7 @@ export const Hero: React.FC<HeroProps> = ({ onExploreFleet, onOpenBookingModal }
                 </div>
                 <div>
                   <div className="text-[11px] sm:text-xs font-bold text-white leading-tight flex items-center gap-1">
-                    <span>VroomMate Rides Hub</span>
+                    <span>Vroommate Hub</span>
                   </div>
                   <div className="text-[9.5px] sm:text-[10.5px] text-slate-400 flex items-center gap-1 leading-tight mt-0.5">
                     <span>Opp. Bharat Petroleum</span>

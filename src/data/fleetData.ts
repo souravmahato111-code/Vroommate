@@ -1,8 +1,8 @@
 import { Vehicle, Review, FAQ } from '../types';
 
 export const BUSINESS_CONFIG = {
-  name: 'VroomMate Rides',
-  tagline: 'Rent Your Ride, Skip the Traffic!',
+  name: 'Vroommate Rides',
+  tagline: 'Your Mate for Every Ride!',
   phone: '+919162188145',
   displayPhone: '+91 91621 88145',
   whatsappNumber: '919162188145',
@@ -31,7 +31,7 @@ export const FLEET_VEHICLES: Vehicle[] = [
     category: 'scooty',
     pricePerDay: 500,
     pricePerHour: 35,
-    pricePerWeek: 2200,
+    pricePerWeek: 2600,
     securityDeposit: 1000,
     image: '/vehicles/activa.jpg',
     tag: 'Best for City Commute',
@@ -62,7 +62,7 @@ export const FLEET_VEHICLES: Vehicle[] = [
     category: 'sport',
     pricePerDay: 800,
     pricePerHour: 55,
-    pricePerWeek: 3500,
+    pricePerWeek: 4200,
     securityDeposit: 1000,
     image: '/vehicles/yamaha_fz.jpg',
     tag: 'Popular Choice',
@@ -93,7 +93,7 @@ export const FLEET_VEHICLES: Vehicle[] = [
     category: 'commuter',
     pricePerDay: 450,
     pricePerHour: 33,
-    pricePerWeek: 2000,
+    pricePerWeek: 2300,
     securityDeposit: 1000,
     image: '/vehicles/centuro.jpg',
     tag: 'Best Mileage',
@@ -212,12 +212,12 @@ export const FAQS: FAQ[] = [
   {
     category: 'charges',
     question: 'Is there a security deposit?',
-    answer: 'Yes. A small security deposit (₹500 for hourly, or ₹1,000 for day/week on Scooty & Centuro) is charged once per booking (never per day). It is 100% refunded immediately via UPI or cash upon vehicle return.',
+    answer: 'Yes. A refundable security deposit ranging from ₹500 to ₹1,500 is charged once per booking.',
   },
   {
     category: 'booking',
     question: 'Do you offer special rates for weekly rentals (7 days)?',
-    answer: 'Yes! Rentals can be booked for up to a maximum of 7 days with massive weekly package savings: Yamaha FZ is just ₹3,500/week (saves ₹2,100), Scooty is just ₹2,200/week (saves ₹1,300), and Mahindra Centuro is just ₹2,000/week (saves ₹1,150)!',
+    answer: 'Yes! Rentals can be booked for up to a maximum of 7 days with massive weekly package savings: Yamaha FZ is just ₹4,200/week (saves ₹1,400), Scooty is just ₹2,600/week (saves ₹900), and Mahindra Centuro is just ₹2,300/week (saves ₹850)!',
   },
   {
     category: 'safety',
