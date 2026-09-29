@@ -266,34 +266,34 @@ export const VroomMateLogo: React.FC<VroomMateLogoProps> = ({
   // completely merged with the page background.
   const content = (
     <div className={`inline-flex items-center gap-1.5 sm:gap-2 select-none bg-transparent ${className}`}>
-      {/* 1. 'V' Logo / Emblem on the left - slightly reduced */}
+      {/* 1. 'V' Logo / Emblem on the left - slightly increased */}
       <div className="relative shrink-0 flex items-center justify-center">
         {activeImageUrl && !allCandidatesFailed ? (
           <img
             src={activeImageUrl}
             alt={alt}
             onError={handleImageError}
-            className="h-11 sm:h-13 md:h-16 w-auto max-w-[140px] sm:max-w-[170px] object-contain mix-blend-screen bg-transparent"
+            className="h-[48px] sm:h-[58px] md:h-[68px] w-auto max-w-[155px] sm:max-w-[190px] object-contain mix-blend-screen bg-transparent"
           />
         ) : (
           renderSvgVEmblem(
-            'w-13 h-10 sm:w-16 sm:h-12 md:w-20 md:h-15 drop-shadow-[0_0_14px_rgba(34,240,84,0.4)]'
+            'w-15 h-11 sm:w-18 sm:h-13.5 md:w-22 md:h-16.5 drop-shadow-[0_0_15px_rgba(34,240,84,0.42)]'
           )
         )}
       </div>
 
-      {/* 2. Vroommate (with Rides under it) positioned just to the right of the 'V' logo, shifted slightly to the left - slightly reduced */}
+      {/* 2. Vroommate (with Rides under it) positioned just to the right of the 'V' logo, shifted slightly to the left - slightly increased */}
       <div className="flex flex-col justify-center -ml-1 sm:-ml-1.5">
-        <div className="font-display font-black italic tracking-tight text-xl sm:text-2xl md:text-3xl lg:text-[34px] text-white uppercase leading-none whitespace-nowrap">
+        <div className="font-display font-black italic tracking-tight text-[22px] sm:text-[28px] md:text-[34px] lg:text-[38px] text-white uppercase leading-none whitespace-nowrap">
           <span>VROOM</span>
           <span style={{ color: neon }}>MATE</span>
         </div>
-        <div className="flex items-center justify-center gap-1.5 mt-1">
-          <span className="w-4 sm:w-5 h-[2px] rounded-full" style={{ backgroundColor: neon }} />
-          <span className="text-[10px] sm:text-[11px] font-bold tracking-[0.35em] text-slate-200 uppercase pl-[0.35em] leading-none">
+        <div className="flex items-center justify-center gap-1.5 mt-1 sm:mt-1.5">
+          <span className="w-4.5 sm:w-6 h-[2px] rounded-full" style={{ backgroundColor: neon }} />
+          <span className="text-[10.5px] sm:text-xs font-bold tracking-[0.36em] text-slate-200 uppercase pl-[0.36em] leading-none">
             RIDES
           </span>
-          <span className="w-4 sm:w-5 h-[2px] rounded-full" style={{ backgroundColor: neon }} />
+          <span className="w-4.5 sm:w-6 h-[2px] rounded-full" style={{ backgroundColor: neon }} />
         </div>
       </div>
     </div>
