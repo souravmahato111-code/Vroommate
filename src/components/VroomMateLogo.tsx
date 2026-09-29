@@ -16,6 +16,9 @@ const EVENT_NAME = 'vroommate_logo_updated';
 
 // List of file paths to check for the official brand logo in /public
 const DEFAULT_CANDIDATE_PATHS = [
+  '/vroommate-logo-horizontal.png',
+  '/vroommate-logo.png',
+  '/logo.png',
   '/vroommate-logo.svg',
   '/vroommate-logo-horizontal.svg',
   '/logo.svg',
