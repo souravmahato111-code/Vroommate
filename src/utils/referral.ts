@@ -112,38 +112,26 @@ export function getReferralProfile(): UserReferralProfile {
       }
     }
 
-    // Load verified friends
-    let rawFriends: VerifiedFriendShare[] = Array.isArray(data.verifiedFriends)
+    // Load verified friends strictly ensuring distinct people (unique 10-digit phones)
+    const rawFriends: VerifiedFriendShare[] = Array.isArray(data.verifiedFriends)
       ? data.verifiedFriends
       : [];
 
-    // Strictly deduplicate verified friends by phone number to ensure DIFFERENT people only
-    const uniqueFriends: VerifiedFriendShare[] = [];
     const seenPhones = new Set<string>();
-    for (const vf of rawFriends) {
-      const clean = (vf.phone || '').replace(/[^0-9]/g, '').slice(-10);
+    const verifiedFriends: VerifiedFriendShare[] = [];
+    for (const f of rawFriends) {
+      const clean = f.phone ? f.phone.replace(/[^0-9]/g, '').slice(-10) : '';
       if (clean && clean.length === 10 && !seenPhones.has(clean)) {
         seenPhones.add(clean);
-        uniqueFriends.push({
-          name: vf.name || `Friend ${uniqueFriends.length + 1}`,
-          phone: clean,
-          verifiedAt: vf.verifiedAt || new Date().toISOString(),
-        });
-      }
-    }
-    let verifiedFriends = uniqueFriends;
-
-    // Fallback migration: only if truly empty
-    if (verifiedFriends.length === 0 && typeof data.shareCount === 'number' && data.shareCount > 0) {
-      for (let i = 1; i <= Math.min(3, data.shareCount); i++) {
         verifiedFriends.push({
-          name: `Friend ${i}`,
-          phone: `987654321${i}`,
-          verifiedAt: data.referralSharedAt || new Date().toISOString(),
+          name: f.name || `Friend ${verifiedFriends.length + 1}`,
+          phone: clean,
+          verifiedAt: f.verifiedAt || new Date().toISOString(),
         });
       }
     }
 
+    // Share count is strictly the number of unique, distinct people verified!
     const shareCount = Math.min(3, verifiedFriends.length);
     const senderUsed = !!data.senderDiscountUsed;
     const receiverUsed = !!data.receiverDiscountUsed;
@@ -152,7 +140,7 @@ export function getReferralProfile(): UserReferralProfile {
     const isFriendCodeRedeemed = myCode ? isCodeConsumed(myCode) : false;
 
     // Sender discount is available ONLY if:
-    // 1. Shared with at least 3 strictly different, verified people
+    // 1. Shared with at least 3 distinct verified people
     // 2. Sender hasn't used their sender discount yet
     const senderAvailable = shareCount >= 3 && !senderUsed;
 
@@ -386,7 +374,7 @@ export function verifyAndRecordFriendShare(friend: {
   if (userPhone && userPhone === cleanPhone) {
     return {
       success: false,
-      reason: 'Cannot confirm share: You cannot share with your own mobile number. Please share with three friends.',
+      reason: 'You cannot use your own phone number. Please invite a friend.',
       newCount: profile.verifiedFriends.length,
       justUnlocked: false,
       isUnlocked: profile.senderDiscountAvailable,
@@ -395,48 +383,16 @@ export function verifyAndRecordFriendShare(friend: {
     };
   }
 
-  // Check if this mobile number was already shared
-  const alreadyInvitedPhone = profile.verifiedFriends.some((f) => f.phone === cleanPhone);
-  if (alreadyInvitedPhone) {
+  // Prevent duplicate invites to same person: Must be 3 DIFFERENT people!
+  const alreadyInvited = profile.verifiedFriends.some((f) => f.phone === cleanPhone);
+  if (alreadyInvited) {
     return {
       success: false,
-      reason: `Cannot confirm share: You have already shared with this friend (+91 ${cleanPhone})! Each share must be with a different friend to confirm.`,
+      reason:
+        'You have already shared with this person! The referral must be shared with 3 DIFFERENT people to confirm. Sharing to the same person multiple times will not be confirmed.',
       newCount: profile.verifiedFriends.length,
       justUnlocked: false,
       isUnlocked: profile.senderDiscountAvailable,
-      code,
-      verifiedFriends: profile.verifiedFriends,
-    };
-  }
-
-  // Check if same friend name was already used (if explicit name provided)
-  const trimmedName = friend.name.trim();
-  const isGeneric = /^friend\s*\d*$/i.test(trimmedName);
-  if (!isGeneric && trimmedName.length >= 2) {
-    const alreadyInvitedName = profile.verifiedFriends.some(
-      (f) => f.name.toLowerCase().trim() === trimmedName.toLowerCase()
-    );
-    if (alreadyInvitedName) {
-      return {
-        success: false,
-        reason: `Cannot confirm share: You have already shared with "${trimmedName}". Please share with a different friend to confirm.`,
-        newCount: profile.verifiedFriends.length,
-        justUnlocked: false,
-        isUnlocked: profile.senderDiscountAvailable,
-        code,
-        verifiedFriends: profile.verifiedFriends,
-      };
-    }
-  }
-
-  // Already reached 3 distinct people
-  if (profile.verifiedFriends.length >= 3) {
-    return {
-      success: true,
-      reason: 'Referral code already confirmed with 3 different people! 20% discount is unlocked.',
-      newCount: 3,
-      justUnlocked: false,
-      isUnlocked: true,
       code,
       verifiedFriends: profile.verifiedFriends,
     };
@@ -447,7 +403,7 @@ export function verifyAndRecordFriendShare(friend: {
     return {
       success: false,
       reason:
-        'Cannot confirm share: Verification incomplete. You returned too quickly without sending the message in WhatsApp chat. Please ensure the message is sent to confirm share.',
+        'Verification incomplete: You returned too quickly without sending the message in WhatsApp chat. Please ensure the message is sent to verify.',
       newCount: profile.verifiedFriends.length,
       justUnlocked: false,
       isUnlocked: profile.senderDiscountAvailable,
@@ -456,7 +412,7 @@ export function verifyAndRecordFriendShare(friend: {
     };
   }
 
-  const friendName = trimmedName || `Different Person ${profile.verifiedFriends.length + 1}`;
+  const friendName = friend.name.trim() || `Friend ${profile.verifiedFriends.length + 1}`;
   const newVerified = [
     ...profile.verifiedFriends,
     {
@@ -472,7 +428,6 @@ export function verifyAndRecordFriendShare(friend: {
   profile.referralSharedAt = new Date().toISOString();
 
   let justUnlocked = false;
-  // Confirm share only when shared with 3 different people successfully!
   if (profile.shareCount >= 3 && !profile.senderDiscountUsed) {
     if (!profile.senderDiscountAvailable) {
       justUnlocked = true;

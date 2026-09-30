@@ -219,7 +219,7 @@ export const VroomMateLogo: React.FC<VroomMateLogoProps> = ({
             className="w-full h-full object-contain mix-blend-screen bg-transparent"
           />
         ) : (
-          renderSvgVEmblem('w-full h-full object-contain drop-shadow-[0_0_10px_rgba(34,240,84,0.35)]')
+          renderSvgVEmblem('w-full h-full object-contain drop-shadow-[0_0_10px_rgba(0,255,31,0.35)]')
         )}
       </div>
     );
@@ -235,10 +235,10 @@ export const VroomMateLogo: React.FC<VroomMateLogoProps> = ({
               src={activeImageUrl}
               alt={alt}
               onError={handleImageError}
-              className="h-20 w-auto object-contain mix-blend-screen bg-transparent drop-shadow-[0_0_16px_rgba(34,240,84,0.35)]"
+              className="h-20 w-auto object-contain mix-blend-screen bg-transparent drop-shadow-[0_0_16px_rgba(0,255,31,0.35)]"
             />
           ) : (
-            renderSvgVEmblem('w-full h-auto drop-shadow-[0_0_16px_rgba(34,240,84,0.35)]')
+            renderSvgVEmblem('w-full h-auto drop-shadow-[0_0_16px_rgba(0,255,31,0.35)]')
           )}
         </div>
 
@@ -269,7 +269,7 @@ export const VroomMateLogo: React.FC<VroomMateLogoProps> = ({
           />
         ) : (
           renderSvgVEmblem(
-            'w-15 h-11 sm:w-18 sm:h-13.5 md:w-22 md:h-16.5 drop-shadow-[0_0_15px_rgba(34,240,84,0.42)]'
+            'w-15 h-11 sm:w-18 sm:h-13.5 md:w-22 md:h-16.5 drop-shadow-[0_0_15px_rgba(0,255,31,0.42)]'
           )
         )}
       </div>
@@ -318,7 +318,7 @@ export const VroomMateLogo: React.FC<VroomMateLogoProps> = ({
             e.preventDefault();
             fileInputRef.current?.click();
           }}
-          className="p-1 rounded-full bg-black border border-[#39ff88] text-[#39ff88] hover:bg-[#39ff88] hover:text-black shadow-lg transition-colors"
+          className="p-1 rounded-full bg-black border border-[#00FF1F] text-[#00FF1F] hover:bg-[#00FF1F] hover:text-black shadow-lg transition-colors"
           title="Upload / Change Logo Image (PNG, JPG, SVG)"
           aria-label="Upload custom logo"
         >

@@ -192,26 +192,6 @@ export const REVIEWS: Review[] = [
     comment: 'The Centuro gives crazy good mileage. Traveled all over Gamharia, Kandra, and Sini for site visits on just ₹200 petrol. Super economical rental!',
     verified: true,
   },
-  {
-    id: 'rev-5',
-    author: 'Vikramaditya Roy',
-    role: 'Tata Steel Professional',
-    rating: 5,
-    date: '1 month ago',
-    vehicle: 'Yamaha FZ (Sporty)',
-    comment: 'Needed a reliable sporty bike for weekend errands and a highway ride to Ranchi. Booking was effortless on WhatsApp, and the security deposit was refunded on the spot.',
-    verified: true,
-  },
-  {
-    id: 'rev-6',
-    author: 'Anjali Sharma',
-    role: 'Arka Jain University Student',
-    rating: 5,
-    date: '1 month ago',
-    vehicle: 'Automatic Scooty (Activa)',
-    comment: 'Best rental service near Gamharia station! Clean helmets, smooth scooter, and very polite support. The referral discount gave me 20% off on my booking!',
-    verified: true,
-  },
 ];
 
 export const FAQS: FAQ[] = [

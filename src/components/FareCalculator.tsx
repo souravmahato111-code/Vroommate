@@ -134,7 +134,7 @@ export const FareCalculator: React.FC<FareCalculatorProps> = ({ onProceedToBooki
                       onClick={() => setSelectedVehicleId(v.id)}
                       className={`p-3 rounded-2xl text-left transition-all border ${
                         selectedVehicleId === v.id
-                          ? 'border-[#2ea043] bg-[#2ea043]/10 text-white shadow-sm'
+                          ? 'border-[#00FF1F] bg-[#00FF1F]/10 text-white shadow-sm'
                           : 'border-white/5 bg-[#10141d] text-slate-300 hover:border-white/20'
                       }`}
                     >
@@ -169,7 +169,7 @@ export const FareCalculator: React.FC<FareCalculatorProps> = ({ onProceedToBooki
                   }}
                   className={`py-3 px-4 rounded-xl text-xs md:text-sm font-bold flex items-center justify-center gap-2 border transition-all ${
                     rentalType === 'daily'
-                      ? 'bg-[#2ea043] text-[#0d1117] border-[#2ea043]'
+                      ? 'bg-[#00FF1F] text-[#0d1117] border-[#00FF1F]'
                       : 'bg-[#10141d] text-slate-300 border-white/10 hover:text-white'
                   }`}
                 >
@@ -183,7 +183,7 @@ export const FareCalculator: React.FC<FareCalculatorProps> = ({ onProceedToBooki
                   }}
                   className={`py-3 px-4 rounded-xl text-xs md:text-sm font-bold flex items-center justify-center gap-2 border transition-all ${
                     rentalType === 'hourly'
-                      ? 'bg-[#2ea043] text-[#0d1117] border-[#2ea043]'
+                      ? 'bg-[#00FF1F] text-[#0d1117] border-[#00FF1F]'
                       : 'bg-[#10141d] text-slate-300 border-white/10 hover:text-white'
                   }`}
                 >
@@ -212,13 +212,13 @@ export const FareCalculator: React.FC<FareCalculatorProps> = ({ onProceedToBooki
                     step="1"
                     value={duration}
                     onChange={(e) => setDuration(parseInt(e.target.value, 10))}
-                    className="w-full accent-[#2ea043] cursor-pointer"
+                    className="w-full accent-[#00FF1F] cursor-pointer"
                   />
                   <div className="flex justify-between text-[11px] text-slate-400 mt-1 font-mono">
                     <span>1 Day</span>
                     <span>3 Days</span>
                     <span>5 Days</span>
-                    <span className="text-[#2ea043] font-bold">7 Days (Max / Week Deal)</span>
+                    <span className="text-[#00FF1F] font-bold">7 Days (Max / Week Deal)</span>
                   </div>
                   {/* Quick pills */}
                   <div className="flex flex-wrap gap-2 mt-2">
@@ -247,7 +247,7 @@ export const FareCalculator: React.FC<FareCalculatorProps> = ({ onProceedToBooki
                     step="1"
                     value={duration}
                     onChange={(e) => setDuration(parseInt(e.target.value, 10))}
-                    className="w-full accent-[#2ea043] cursor-pointer"
+                    className="w-full accent-[#00FF1F] cursor-pointer"
                   />
                   <div className="flex justify-between text-[11px] text-slate-400 mt-1 font-mono">
                     <span>3 Hours (Min)</span>
@@ -287,7 +287,7 @@ export const FareCalculator: React.FC<FareCalculatorProps> = ({ onProceedToBooki
                     type="checkbox"
                     checked={extraHelmet}
                     onChange={(e) => setExtraHelmet(e.target.checked)}
-                    className="w-4 h-4 accent-[#2ea043] rounded cursor-pointer"
+                    className="w-4 h-4 accent-[#00FF1F] rounded cursor-pointer"
                   />
                   <div>
                     <div className="text-xs font-bold text-white">Extra Pillion Helmet</div>
@@ -299,7 +299,7 @@ export const FareCalculator: React.FC<FareCalculatorProps> = ({ onProceedToBooki
                     +{formatINR(calculateExtraHelmetCost(rentalType, effectiveDuration))}
                   </div>
                   {rentalType === 'daily' && effectiveDuration >= 7 && (
-                    <div className="text-[10px] text-[#2ea043] font-bold">Week Deal (₹200)</div>
+                    <div className="text-[10px] text-[#00FF1F] font-bold">Week Deal (₹200)</div>
                   )}
                 </div>
               </label>
@@ -310,7 +310,7 @@ export const FareCalculator: React.FC<FareCalculatorProps> = ({ onProceedToBooki
                     type="checkbox"
                     checked={doorstepDelivery}
                     onChange={(e) => setDoorstepDelivery(e.target.checked)}
-                    className="w-4 h-4 accent-[#2ea043] rounded cursor-pointer"
+                    className="w-4 h-4 accent-[#00FF1F] rounded cursor-pointer"
                   />
                   <div>
                     <div className="text-xs font-bold text-white">Doorstep Pickup (Inside 6km Range)</div>
@@ -323,7 +323,7 @@ export const FareCalculator: React.FC<FareCalculatorProps> = ({ onProceedToBooki
               {/* Referral discount entry / status */}
               <div className="pt-2">
                 {isSenderRewardActive ? (
-                  <div className="p-3 rounded-xl bg-[#2ea043]/15 border border-[#2ea043]/30 flex items-center justify-between text-xs text-[#2ea043]">
+                  <div className="p-3 rounded-xl bg-[#00FF1F]/15 border border-[#00FF1F]/30 flex items-center justify-between text-xs text-[#00FF1F]">
                     <div className="flex items-center gap-2">
                       <Gift className="w-4 h-4 shrink-0" />
                       <span>🎉 Your Referral Code ({referralProfile.myReferralCode}) Auto-Applied! (20% OFF)</span>
@@ -331,7 +331,7 @@ export const FareCalculator: React.FC<FareCalculatorProps> = ({ onProceedToBooki
                     <span className="font-bold font-mono">-{formatINR(referralDiscountAmount)}</span>
                   </div>
                 ) : appliedReferralCode ? (
-                  <div className="p-3 rounded-xl bg-[#2ea043]/15 border border-[#2ea043]/30 flex items-center justify-between text-xs text-[#2ea043]">
+                  <div className="p-3 rounded-xl bg-[#00FF1F]/15 border border-[#00FF1F]/30 flex items-center justify-between text-xs text-[#00FF1F]">
                     <div className="flex items-center gap-2">
                       <Gift className="w-4 h-4 shrink-0" />
                       <span>Referral Code Active ({appliedReferralCode})</span>
@@ -362,7 +362,7 @@ export const FareCalculator: React.FC<FareCalculatorProps> = ({ onProceedToBooki
                         placeholder="Enter referral code (e.g. VMR-REF-1234)"
                         value={referralCodeInput}
                         onChange={(e) => setReferralCodeInput(e.target.value.toUpperCase())}
-                        className="flex-1 bg-[#10141d] border border-white/10 rounded-xl px-3 py-2 text-xs text-white placeholder:text-slate-500 uppercase font-mono tracking-wider focus:outline-none focus:border-[#2ea043]"
+                        className="flex-1 bg-[#10141d] border border-white/10 rounded-xl px-3 py-2 text-xs text-white placeholder:text-slate-500 uppercase font-mono tracking-wider focus:outline-none focus:border-[#00FF1F]"
                       />
                       <button
                         type="button"
@@ -383,10 +383,10 @@ export const FareCalculator: React.FC<FareCalculatorProps> = ({ onProceedToBooki
             <div>
               <div className="flex items-center justify-between pb-4 border-b border-white/10">
                 <div className="flex items-center gap-2">
-                  <Calculator className="w-4 h-4 text-[#2ea043]" />
+                  <Calculator className="w-4 h-4 text-[#00FF1F]" />
                   <span className="font-display font-bold text-sm text-white">Rental Receipt</span>
                 </div>
-                <span className="text-[11px] font-mono text-[#2ea043] bg-[#2ea043]/10 px-2 py-0.5 rounded">
+                <span className="text-[11px] font-mono text-[#00FF1F] bg-[#00FF1F]/10 px-2 py-0.5 rounded">
                   ESTIMATE
                 </span>
               </div>
@@ -405,7 +405,7 @@ export const FareCalculator: React.FC<FareCalculatorProps> = ({ onProceedToBooki
                 </div>
 
                 {weeklyDiscountSavings > 0 && (
-                  <div className="p-2 rounded-lg bg-[#2ea043]/15 border border-[#2ea043]/30 flex items-center justify-between text-xs text-[#2ea043]">
+                  <div className="p-2 rounded-lg bg-[#00FF1F]/15 border border-[#00FF1F]/30 flex items-center justify-between text-xs text-[#00FF1F]">
                     <span className="flex items-center gap-1.5 font-semibold">
                       <Tag className="w-3.5 h-3.5" />
                       Weekly Deal Package Applied!
@@ -432,19 +432,19 @@ export const FareCalculator: React.FC<FareCalculatorProps> = ({ onProceedToBooki
 
                 <div className="flex justify-between text-slate-300">
                   <span>Free KM Included</span>
-                  <span className="font-mono text-[#2ea043]">
+                  <span className="font-mono text-[#00FF1F]">
                     {rentalType === 'daily' ? selectedVehicle.freeKmPerDay * effectiveDuration : '50'} KM
                   </span>
                 </div>
 
                 <div className="flex justify-between text-slate-300">
                   <span>Complimentary Sanitized Helmet</span>
-                  <span className="text-[#2ea043] font-semibold">1 Helmet Included (FREE)</span>
+                  <span className="text-[#00FF1F] font-semibold">1 Helmet Included (FREE)</span>
                 </div>
 
                 {/* 20% Referral Discount Row */}
                 {referralDiscountAmount > 0 && (
-                  <div className="p-2.5 rounded-xl bg-[#2ea043]/15 border border-[#2ea043]/30 flex items-center justify-between text-xs text-[#2ea043]">
+                  <div className="p-2.5 rounded-xl bg-[#00FF1F]/15 border border-[#00FF1F]/30 flex items-center justify-between text-xs text-[#00FF1F]">
                     <span className="flex items-center gap-1.5 font-bold">
                       <Gift className="w-4 h-4 shrink-0" />
                       <span>
@@ -477,12 +477,12 @@ export const FareCalculator: React.FC<FareCalculatorProps> = ({ onProceedToBooki
                 </div>
 
                 {/* Security Deposit Note */}
-                <div className="mt-4 p-3 rounded-xl bg-[#2ea043]/10 border border-[#2ea043]/30 flex items-center justify-between text-xs">
+                <div className="mt-4 p-3 rounded-xl bg-[#00FF1F]/10 border border-[#00FF1F]/30 flex items-center justify-between text-xs">
                   <div className="flex items-center gap-2">
-                    <ShieldCheck className="w-4 h-4 text-[#2ea043] shrink-0" />
+                    <ShieldCheck className="w-4 h-4 text-[#00FF1F] shrink-0" />
                     <div>
                       <span className="font-bold text-white">Security Deposit: </span>
-                      <span className="font-bold text-[#2ea043] font-mono">{formatINR(securityDeposit)}</span>
+                      <span className="font-bold text-[#00FF1F] font-mono">{formatINR(securityDeposit)}</span>
                       <span className="text-slate-400 text-[11px] ml-1.5">(100% refunded on return)</span>
                     </div>
                   </div>
@@ -501,7 +501,7 @@ export const FareCalculator: React.FC<FareCalculatorProps> = ({ onProceedToBooki
               <button
                 type="button"
                 onClick={handleProceed}
-                className="w-full py-3.5 px-5 rounded-xl font-bold text-sm bg-[#2ea043] text-[#0d1117] hover:bg-[#3fb950] shadow-lg shadow-[#2ea043]/20 transition-all flex items-center justify-center gap-2 transform hover:-translate-y-0.5 active:translate-y-0"
+                className="w-full py-3.5 px-5 rounded-xl font-bold text-sm bg-[#00FF1F] text-[#0d1117] hover:bg-[#26ff3f] shadow-lg shadow-[#00FF1F]/20 transition-all flex items-center justify-center gap-2 transform hover:-translate-y-0.5 active:translate-y-0"
               >
                 <span>Proceed to Book This Ride</span>
                 <ArrowRight className="w-4 h-4" />

@@ -24,7 +24,6 @@ export const Navbar: React.FC<NavbarProps> = ({
     { label: 'Fare Calculator', href: '#calculator' },
     { label: 'How It Works', href: '#how-it-works' },
     { label: 'Referral 20% OFF', href: '#referral' },
-    { label: 'Reviews', href: '#reviews' },
     { label: 'Hub Location', href: '#location' },
     { label: 'FAQs', href: '#faqs' },
   ];
@@ -50,7 +49,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             <a
               key={link.label}
               href={link.href}
-              className="text-slate-300 hover:text-white text-sm font-medium transition-colors relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-[#39ff88] hover:after:w-full after:transition-all"
+              className="text-slate-300 hover:text-white text-sm font-medium transition-colors relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-[#00FF1F] hover:after:w-full after:transition-all"
             >
               {link.label}
             </a>
@@ -65,7 +64,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             className="relative px-3.5 py-2 rounded-xl text-xs font-semibold text-slate-300 hover:text-white bg-white/5 hover:bg-white/10 border border-white/10 transition-colors flex items-center gap-2"
             title="View saved booking slips"
           >
-            <CalendarCheck className="w-4 h-4 text-[#39ff88]" />
+            <CalendarCheck className="w-4 h-4 text-[#00FF1F]" />
             <span className="hidden sm:inline">My Rides</span>
             {savedBookingsCount > 0 && (
               <span className="px-1.5 py-0.2 rounded-full text-[11px] font-bold bg-[#ff7a1a] text-white">
@@ -77,7 +76,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           <button
             type="button"
             onClick={onOpenBookingModal}
-            className="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs md:text-sm font-bold bg-[#39ff88] text-[#0d1117] hover:bg-[#4dff93] transition-all transform hover:-translate-y-0.5 whitespace-nowrap"
+            className="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs md:text-sm font-bold bg-[#00FF1F] text-[#0d1117] hover:bg-[#26ff3f] transition-all transform hover:-translate-y-0.5 whitespace-nowrap"
           >
             <span>Book a Ride</span>
           </button>
@@ -107,7 +106,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 key={link.label}
                 href={link.href}
                 onClick={() => setMobileMenuOpen(false)}
-                className="py-2 text-slate-200 hover:text-[#39ff88] font-medium text-base transition-colors"
+                className="py-2 text-slate-200 hover:text-[#00FF1F] font-medium text-base transition-colors"
               >
                 {link.label}
               </a>
@@ -130,7 +129,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               href={generateDirectWhatsAppInquiry()}
               target="_blank"
               rel="noopener noreferrer"
-              className="w-full py-3 rounded-xl font-bold bg-[#39ff88] text-[#0d1117] flex items-center justify-center gap-2 text-sm"
+              className="w-full py-3 rounded-xl font-bold bg-[#00FF1F] text-[#0d1117] flex items-center justify-center gap-2 text-sm"
             >
               <MessageCircle className="w-4 h-4 fill-current" />
               <span>Direct WhatsApp Chat</span>

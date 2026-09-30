@@ -76,19 +76,3 @@
   background-size: 200% 100%;
   animation: shimmer-move 2.5s infinite;
 }
-
-/* Touch-optimized carousel scroll utilities */
-.no-scrollbar::-webkit-scrollbar {
-  display: none;
-}
-.no-scrollbar {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-}
-
-.carousel-touch-container {
-  -webkit-overflow-scrolling: touch;
-  scroll-behavior: smooth;
-  overscroll-behavior-x: contain;
-}
-

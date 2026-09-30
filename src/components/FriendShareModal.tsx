@@ -80,32 +80,17 @@ export const FriendShareModal: React.FC<FriendShareModalProps> = ({
     const profile = getReferralProfile();
     const userPhone = getUserBookingPhone();
     if (userPhone && userPhone === clean) {
-      setErrorMsg('Cannot share with your own mobile number. You must share with 3 different people.');
+      setErrorMsg('You cannot share to your own mobile number. Please invite a friend.');
       return;
     }
 
-    // Check if user already shared with this phone number
-    const alreadySharedPhone = profile.verifiedFriends.some((f) => f.phone === clean);
-    if (alreadySharedPhone) {
+    // STRICT CHECK: Must be 3 DIFFERENT people!
+    const isDuplicate = profile.verifiedFriends.some((f) => f.phone === clean);
+    if (isDuplicate) {
       setErrorMsg(
-        `⚠️ You have already shared your referral code with this friend (+91 ${clean}). Please share with a different friend to confirm.`
+        '⚠️ You have already shared with this person! You must share with 3 DIFFERENT people. Sending to the same person multiple times will not be confirmed.'
       );
       return;
-    }
-
-    // Check if user already shared with this name
-    const trimmedName = friendName.trim();
-    const isGeneric = /^friend\s*\d*$/i.test(trimmedName);
-    if (!isGeneric && trimmedName.length >= 2) {
-      const alreadySharedName = profile.verifiedFriends.some(
-        (f) => f.name.toLowerCase().trim() === trimmedName.toLowerCase()
-      );
-      if (alreadySharedName) {
-        setErrorMsg(
-          `⚠️ You have already shared with a friend named "${trimmedName}". Please share with a different friend to confirm.`
-        );
-        return;
-      }
     }
 
     const shareUrl = generateReferralShareWhatsAppUrl(myReferralCode, clean);
@@ -127,15 +112,12 @@ export const FriendShareModal: React.FC<FriendShareModalProps> = ({
     });
 
     if (!res.success) {
-      setErrorMsg(res.reason || 'Verification failed. Please share with a different friend.');
-      toast.error('Share Not Confirmed', {
-        description: res.reason || 'Please share with a different friend.',
-      });
+      setErrorMsg(res.reason || 'Verification failed. Please ensure the message was sent.');
       return;
     }
 
     fireCelebrationConfetti();
-    toast.success(`Share confirmed with Friend ${slotNumber}! (${res.newCount}/3 shared)`);
+    toast.success(`Friend ${slotNumber} verified! (${res.newCount}/3 shared)`);
 
     onVerified(res.newCount, res.justUnlocked);
     onClose();
@@ -163,21 +145,13 @@ export const FriendShareModal: React.FC<FriendShareModalProps> = ({
               Send Invite to Friend {slotNumber} of 3
             </h3>
             <p className="text-xs text-slate-400">
-              Share with three friends on WhatsApp to unlock 20% OFF
+              Verified delivery check prevents fake clicks
             </p>
           </div>
         </div>
 
         {step === 'input' ? (
           <form onSubmit={handleOpenWhatsApp} className="mt-5 space-y-4">
-            {/* Simple Rule Callout */}
-            <div className="p-2.5 rounded-xl bg-[#ff7a1a]/15 border border-[#ff7a1a]/30 text-xs text-[#ff9c54] flex items-center gap-2">
-              <ShieldCheck className="w-4 h-4 text-[#ff7a1a] shrink-0" />
-              <span>
-                <strong>Share with 3 friends</strong> on WhatsApp. Each share must be with a different friend to confirm!
-              </span>
-            </div>
-
             <div className="space-y-3">
               <div>
                 <label className="text-xs font-semibold text-slate-300 block mb-1">
@@ -189,11 +163,8 @@ export const FriendShareModal: React.FC<FriendShareModalProps> = ({
                     type="text"
                     placeholder="e.g. Rahul, Priya"
                     value={friendName}
-                    onChange={(e) => {
-                      setFriendName(e.target.value);
-                      setErrorMsg(null);
-                    }}
-                    className="w-full bg-[#0d1117] border border-white/15 rounded-xl pl-10 pr-3.5 py-2.5 text-sm text-white placeholder:text-slate-500 focus:outline-none focus:border-[#39ff88] transition-colors"
+                    onChange={(e) => setFriendName(e.target.value)}
+                    className="w-full bg-[#0d1117] border border-white/15 rounded-xl pl-10 pr-3.5 py-2.5 text-sm text-white placeholder:text-slate-500 focus:outline-none focus:border-[#00FF1F] transition-colors"
                   />
                 </div>
               </div>
@@ -216,11 +187,11 @@ export const FriendShareModal: React.FC<FriendShareModalProps> = ({
                       setFriendPhone(e.target.value.replace(/[^0-9]/g, ''));
                       setErrorMsg(null);
                     }}
-                    className="w-full bg-[#0d1117] border border-white/15 rounded-xl pl-12 pr-3.5 py-2.5 text-sm font-mono tracking-wider text-white placeholder:text-slate-500 focus:outline-none focus:border-[#39ff88] transition-colors"
+                    className="w-full bg-[#0d1117] border border-white/15 rounded-xl pl-12 pr-3.5 py-2.5 text-sm font-mono tracking-wider text-white placeholder:text-slate-500 focus:outline-none focus:border-[#00FF1F] transition-colors"
                   />
                 </div>
-                <p className="text-[11px] text-slate-400 mt-1">
-                  Must be a different person from any previous referral share.
+                <p className="text-[11px] text-[#ff7a1a] mt-1.5 flex items-center gap-1 font-medium">
+                  <span>⚠️ Must be 3 different people. Sharing to the same person 3 times will not be confirmed.</span>
                 </p>
               </div>
             </div>
@@ -248,7 +219,7 @@ export const FriendShareModal: React.FC<FriendShareModalProps> = ({
               type="submit"
               className="w-full py-3 px-4 rounded-xl font-bold text-sm bg-gradient-to-r from-[#25D366] to-[#1ebe57] text-[#0d1117] hover:brightness-110 active:scale-[0.98] transition-all flex items-center justify-center gap-2 shadow-lg shadow-[#25D366]/20 cursor-pointer"
             >
-              <span>Open WhatsApp &amp; Send to Friend {slotNumber}</span>
+              <span>Open WhatsApp &amp; Send Invite</span>
               <ExternalLink className="w-4 h-4" />
             </button>
           </form>
@@ -262,22 +233,22 @@ export const FriendShareModal: React.FC<FriendShareModalProps> = ({
 
               <div>
                 <span className="text-xs font-bold text-white block">
-                  Sent to {friendName.trim() || `Person ${slotNumber}`} (+91 {friendPhone})
+                  Sending to {friendName.trim() || `Friend ${slotNumber}`} (+91 {friendPhone})
                 </span>
                 <p className="text-[11px] text-slate-300 mt-1 leading-relaxed">
-                  Please send the referral message in the WhatsApp chat. When done, tap <strong>Confirm Share</strong> below.
+                  Please open the WhatsApp chat and send the invite message. Once sent, tap the button below to confirm.
                 </p>
               </div>
 
               {countdown > 0 ? (
                 <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/10 text-xs text-slate-300 font-mono">
-                  <Clock className="w-3.5 h-3.5 animate-spin text-[#39ff88]" />
+                  <Clock className="w-3.5 h-3.5 animate-spin text-[#00FF1F]" />
                   <span>Checking chat delivery... ({countdown}s)</span>
                 </div>
               ) : (
-                <div className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-[#39ff88]/20 text-xs text-[#39ff88] font-bold">
+                <div className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-[#00FF1F]/20 text-xs text-[#00FF1F] font-bold">
                   <CheckCircle2 className="w-3.5 h-3.5 stroke-[2.5]" />
-                  <span>Ready to confirm share</span>
+                  <span>Ready to confirm delivery</span>
                 </div>
               )}
             </div>
@@ -298,14 +269,14 @@ export const FriendShareModal: React.FC<FriendShareModalProps> = ({
                 className={`w-full py-3 px-4 rounded-xl font-black text-sm transition-all flex items-center justify-center gap-2 ${
                   countdown > 0
                     ? 'bg-white/10 text-slate-400 cursor-not-allowed border border-white/10'
-                    : 'bg-[#39ff88] text-[#0d1117] hover:bg-[#4dff93] shadow-lg shadow-[#39ff88]/25 cursor-pointer animate-pulse'
+                    : 'bg-[#00FF1F] text-[#0d1117] hover:bg-[#26ff3f] shadow-lg shadow-[#00FF1F]/25 cursor-pointer animate-pulse'
                 }`}
               >
                 <CheckCircle2 className="w-4 h-4 stroke-[3]" />
                 <span>
                   {countdown > 0
                     ? `Sending in WhatsApp... (${countdown}s)`
-                    : `Confirm Share (Friend ${slotNumber} of 3)`}
+                    : `Yes, Message Sent into Chat — Verify (${slotNumber}/3)`}
                 </span>
               </button>
 

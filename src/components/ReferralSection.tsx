@@ -162,34 +162,34 @@ export const ReferralSection: React.FC<ReferralSectionProps> = ({
     <section
       ref={ref}
       id="referral"
-      className={`py-12 sm:py-14 bg-gradient-to-b from-[#0d1117] via-[#121922] to-[#0d1117] border-b border-white/5 scroll-mt-20 transition-all duration-700 ease-out motion-reduce:transition-none ${
+      className={`py-16 bg-gradient-to-b from-[#0d1117] via-[#121922] to-[#0d1117] border-b border-white/5 scroll-mt-20 transition-all duration-700 ease-out motion-reduce:transition-none ${
         isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
       }`}
     >
       <div className="max-w-5xl mx-auto px-4 sm:px-6">
-        {/* Compact Section Header */}
-        <div className="text-center max-w-xl mx-auto mb-6 sm:mb-8">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#39ff88]/15 border border-[#39ff88]/30 text-[#39ff88] text-xs font-bold uppercase tracking-wider mb-2">
+        {/* Section Header */}
+        <div className="text-center max-w-xl mx-auto mb-10">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#00FF1F]/15 border border-[#00FF1F]/30 text-[#00FF1F] text-xs font-bold uppercase tracking-wider mb-2.5">
             <Gift className="w-3.5 h-3.5" />
             <span>Referral Program</span>
           </div>
           <h2 className="font-display font-extrabold text-2xl sm:text-3xl text-white tracking-tight">
-            Invite 3 Friends, Get <span className="text-[#39ff88]">20% OFF</span>
+            Invite 3 Friends, Get <span className="text-[#00FF1F]">20% OFF</span>
           </h2>
-          <p className="mt-1.5 text-slate-300 text-xs sm:text-sm">
-            Share your personal referral code after your 1st booking. Share with three friends on WhatsApp to unlock 20% OFF your next ride!
+          <p className="mt-2 text-slate-300 text-xs sm:text-sm">
+            Share your personal referral code after your 1st booking. Send to 3 friends on WhatsApp to unlock 20% OFF your next ride!
           </p>
         </div>
 
         {/* 2-Card Layout */}
-        <div className="grid md:grid-cols-12 gap-5 items-stretch">
+        <div className="grid md:grid-cols-12 gap-6 items-stretch">
           {/* Card 1: Share & Track (Sender) */}
-          <div className="md:col-span-7 bg-[#161c26] border border-[#263041] rounded-3xl p-4 sm:p-5 flex flex-col justify-between shadow-xl relative overflow-hidden">
-            <div className="space-y-3.5">
+          <div className="md:col-span-7 bg-[#161c26] border border-[#263041] rounded-3xl p-5 sm:p-6 flex flex-col justify-between shadow-xl relative overflow-hidden">
+            <div className="space-y-4">
               {/* Header inside Card */}
               <div className="flex items-center justify-between">
                 <span className="text-xs font-bold text-slate-300 uppercase tracking-wider flex items-center gap-1.5">
-                  <Users className="w-4 h-4 text-[#39ff88]" />
+                  <Users className="w-4 h-4 text-[#00FF1F]" />
                   <span>Your Referral Hub</span>
                 </span>
 
@@ -198,7 +198,7 @@ export const ReferralSection: React.FC<ReferralSectionProps> = ({
                     Discount Claimed
                   </span>
                 ) : isUnlocked ? (
-                  <span className="text-[11px] font-black text-[#0d1117] bg-[#39ff88] px-2.5 py-0.5 rounded-full shadow-[0_0_12px_rgba(57,255,136,0.5)] animate-pulse">
+                  <span className="text-[11px] font-black text-[#0d1117] bg-[#00FF1F] px-2.5 py-0.5 rounded-full shadow-[0_0_12px_rgba(0,255,31,0.5)] animate-pulse">
                     20% OFF UNLOCKED
                   </span>
                 ) : (
@@ -211,99 +211,163 @@ export const ReferralSection: React.FC<ReferralSectionProps> = ({
               {/* Code Box or Locked First Booking Prompt */}
               {hasFirstBooking && profile.myReferralCode ? (
                 <div className="space-y-3">
-                  {/* Clean, Compact Code Strip */}
-                  <div className="p-3 rounded-2xl bg-[#0d1117] border border-white/10 flex items-center justify-between gap-3 shadow-inner">
-                    <div className="min-w-0">
+                  {/* Clean Code Strip */}
+                  <div className="p-3.5 rounded-2xl bg-[#0d1117] border border-white/10 flex items-center justify-between gap-3 shadow-inner">
+                    <div>
                       <span className="text-[10px] text-slate-400 uppercase tracking-wider block font-semibold">
-                        Your Referral Code
+                        Your Personal Referral Code
                       </span>
-                      <span className="font-mono text-lg sm:text-xl font-black text-[#39ff88] tracking-wider truncate block">
+                      <span className="font-mono text-xl sm:text-2xl font-black text-[#00FF1F] tracking-wider">
                         {profile.myReferralCode}
                       </span>
                     </div>
 
-                    <div className="flex items-center gap-1.5 shrink-0">
+                    <div className="flex items-center gap-1.5">
                       <button
                         type="button"
                         onClick={handleCopyCode}
-                        className="px-2.5 py-1.5 rounded-xl bg-white/10 hover:bg-white/15 text-slate-200 text-xs font-semibold flex items-center gap-1 transition-colors cursor-pointer"
+                        className="px-3 py-1.5 rounded-xl bg-white/10 hover:bg-white/15 text-slate-200 text-xs font-semibold flex items-center gap-1.5 transition-colors cursor-pointer"
                         title="Copy Code"
                       >
-                        {copiedCode ? <Check className="w-3.5 h-3.5 text-[#39ff88]" /> : <Copy className="w-3.5 h-3.5" />}
-                        <span>{copiedCode ? 'Copied' : 'Copy Code'}</span>
-                      </button>
-
-                      <button
-                        type="button"
-                        onClick={handleCopyShareMessage}
-                        className="px-2.5 py-1.5 rounded-xl bg-white/10 hover:bg-white/15 text-slate-200 text-xs font-semibold flex items-center gap-1 transition-colors cursor-pointer"
-                        title="Copy full invite message"
-                      >
-                        {copiedMessage ? <Check className="w-3.5 h-3.5 text-[#39ff88]" /> : <Copy className="w-3.5 h-3.5" />}
-                        <span className="hidden sm:inline">{copiedMessage ? 'Copied Text' : 'Copy Text'}</span>
+                        {copiedCode ? <Check className="w-3.5 h-3.5 text-[#00FF1F]" /> : <Copy className="w-3.5 h-3.5" />}
+                        <span>{copiedCode ? 'Copied' : 'Copy'}</span>
                       </button>
 
                       <button
                         type="button"
                         onClick={handleSendToMyWhatsApp}
                         className="p-1.5 sm:px-2.5 sm:py-1.5 rounded-xl bg-[#25D366]/20 hover:bg-[#25D366]/30 text-[#25D366] text-xs font-semibold flex items-center gap-1 transition-colors cursor-pointer border border-[#25D366]/40"
-                        title="Save to your own WhatsApp"
+                        title="Send code to your own WhatsApp"
                       >
                         <MessageCircle className="w-3.5 h-3.5" />
-                        <span className="hidden sm:inline">Save</span>
+                        <span className="hidden sm:inline">My WhatsApp</span>
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* ========================================================================= */}
+                  {/* FUN & ATTRACTIVE WHATSAPP MESSAGE PREVIEW BOX */}
+                  {/* ========================================================================= */}
+                  <div className="rounded-2xl border-2 border-[#25D366]/30 bg-gradient-to-br from-[#0e1e17] via-[#101b16] to-[#0c1410] p-4 shadow-lg relative overflow-hidden group">
+                    {/* Top micro header */}
+                    <div className="flex items-center justify-between pb-2.5 border-b border-white/10 text-xs">
+                      <div className="flex items-center gap-2">
+                        <div className="w-6 h-6 rounded-full bg-[#25D366] grid place-items-center text-black font-black text-[10px]">
+                          📱
+                        </div>
+                        <div>
+                          <span className="font-bold text-white text-xs block leading-tight">
+                            WhatsApp Invite Card
+                          </span>
+                          <span className="text-[10px] text-[#25D366] font-medium flex items-center gap-1">
+                            <span className="w-1.5 h-1.5 rounded-full bg-[#25D366] animate-ping" />
+                            Official Share Link Active
+                          </span>
+                        </div>
+                      </div>
+
+                      <div className="flex items-center gap-1.5">
+                        <span className="text-[10px] font-bold text-[#ff7a1a] bg-[#ff7a1a]/15 px-2 py-0.5 rounded-full border border-[#ff7a1a]/30 flex items-center gap-1">
+                          <Flame className="w-3 h-3 text-[#ff7a1a]" />
+                          <span>Hurry!</span>
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* WhatsApp Chat Bubble Mockup */}
+                    <div className="mt-3 p-3.5 rounded-2xl rounded-tl-sm bg-[#162e22] border border-[#25D366]/20 shadow-md relative text-xs text-slate-100 space-y-2">
+                      <div className="flex items-center justify-between text-[11px] text-[#00FF1F] font-bold">
+                        <span>🏍️ Vroommate Rides · Chota Gamharia</span>
+                        <span className="text-[10px] text-slate-400 font-mono">Just now</span>
+                      </div>
+
+                      <p className="leading-relaxed text-slate-200 text-xs">
+                        Hey! Rent scooties &amp; bikes in Chota Gamharia with <strong>Vroommate</strong>.
+                        Use my referral code <strong className="font-mono text-[#00FF1F] text-sm bg-black/30 px-1.5 py-0.5 rounded border border-[#00FF1F]/30">{profile.myReferralCode}</strong> to get <strong>20% FLAT DISCOUNT</strong>!
+                      </p>
+
+                      {/* Urgency Highlight banner */}
+                      <div className="p-2 rounded-xl bg-gradient-to-r from-[#ff7a1a]/20 to-[#ff3b30]/20 border border-[#ff7a1a]/40 text-[#ff9c54] text-[11px] font-bold flex items-center gap-1.5 shadow-sm">
+                        <Flame className="w-3.5 h-3.5 text-[#ff7a1a] shrink-0 animate-bounce" />
+                        <span>Hurry or someone else will claim the offer! 🔥</span>
+                      </div>
+
+                      <div className="pt-1 flex items-center justify-between text-[11px] text-slate-300">
+                        <span className="font-mono text-[#00FF1F] hover:underline flex items-center gap-1">
+                          👉 {VROOMMATE_SITE_URL}
+                          <ExternalLink className="w-3 h-3" />
+                        </span>
+                        <span className="text-[10px] text-slate-400 font-semibold">✓✓ Delivered</span>
+                      </div>
+                    </div>
+
+                    {/* Quick Copy Message button */}
+                    <div className="mt-2.5 flex justify-end">
+                      <button
+                        type="button"
+                        onClick={handleCopyShareMessage}
+                        className="text-[11px] font-semibold text-slate-300 hover:text-white flex items-center gap-1 transition-colors cursor-pointer bg-white/5 hover:bg-white/10 px-2.5 py-1 rounded-lg border border-white/10"
+                      >
+                        {copiedMessage ? <Check className="w-3 h-3 text-[#00FF1F]" /> : <Copy className="w-3 h-3" />}
+                        <span>{copiedMessage ? 'Message Copied!' : 'Copy Share Message'}</span>
                       </button>
                     </div>
                   </div>
                 </div>
               ) : (
                 /* Fun Locked State for New Users */
-                <div className="p-4 sm:p-5 rounded-2xl bg-gradient-to-b from-[#101722] to-[#0c1017] border-2 border-dashed border-white/15 text-center space-y-2.5 relative overflow-hidden">
-                  <div className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 text-[#39ff88] grid place-items-center mx-auto shadow-inner">
-                    <Lock className="w-5 h-5 stroke-[2]" />
+                <div className="p-6 rounded-2xl bg-gradient-to-b from-[#101722] to-[#0c1017] border-2 border-dashed border-white/15 text-center space-y-3.5 relative overflow-hidden">
+                  <div className="w-12 h-12 rounded-2xl bg-white/5 border border-white/10 text-[#00FF1F] grid place-items-center mx-auto shadow-inner">
+                    <Lock className="w-6 h-6 stroke-[2]" />
                   </div>
 
                   <div>
-                    <h4 className="font-display font-bold text-white text-sm">
+                    <h4 className="font-display font-bold text-white text-base">
                       Referral Code Unlocks After 1st Booking
                     </h4>
-                    <p className="text-xs text-slate-300 max-w-sm mx-auto mt-0.5 leading-relaxed">
-                      Your referral code generates automatically upon booking. Complete your first ride to start inviting friends!
+                    <p className="text-xs text-slate-300 max-w-sm mx-auto mt-1 leading-relaxed">
+                      Your unique referral code is automatically generated upon completing your first ride! Book your ride now to unlock and start inviting friends.
                     </p>
                   </div>
 
-                  <div className="pt-0.5">
+                  <div className="p-2.5 rounded-xl bg-[#ff7a1a]/10 border border-[#ff7a1a]/30 text-[11px] text-[#ff9c54] font-medium max-w-xs mx-auto flex items-center justify-center gap-1.5">
+                    <Flame className="w-3.5 h-3.5 shrink-0 text-[#ff7a1a]" />
+                    <span>Invite 3 friends to get 20% OFF your next ride!</span>
+                  </div>
+
+                  <div className="pt-1">
                     <button
                       type="button"
                       onClick={() => onOpenBookingModal()}
-                      className="px-4 py-2 rounded-xl bg-gradient-to-r from-[#39ff88] to-[#00e676] text-[#0d1117] text-xs font-black hover:brightness-110 shadow-md shadow-[#39ff88]/20 transition-all cursor-pointer inline-flex items-center gap-1.5"
+                      className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#00FF1F] to-[#00e676] text-[#0d1117] text-xs font-black hover:brightness-110 shadow-lg shadow-[#00FF1F]/20 transition-all cursor-pointer inline-flex items-center gap-1.5"
                     >
                       <span>Book Your 1st Ride to Unlock</span>
-                      <ArrowRight className="w-3 h-3" />
+                      <ArrowRight className="w-3.5 h-3.5" />
                     </button>
                   </div>
                 </div>
               )}
 
               {/* ========================================================================= */}
-              {/* COMPACT VERIFIED FRIENDS PROGRESS TRACKER (3 SLOTS) */}
+              {/* ANTI-LOOPHOLE VERIFIED FRIENDS PROGRESS TRACKER (3 DISTINCT SLOTS) */}
               {/* ========================================================================= */}
-              <div className="p-3 sm:p-3.5 rounded-2xl bg-[#0d1117] border border-white/10 space-y-2.5">
+              <div className="p-4 rounded-2xl bg-[#0d1117] border border-white/10 space-y-3">
                 <div className="flex items-center justify-between text-xs">
                   <span className="text-slate-300 font-semibold flex items-center gap-1.5">
-                    <span className="font-mono text-[#39ff88] font-bold text-sm">{clampedCount}/3</span>
-                    <span>Friends Invited</span>
+                    <span className="font-mono text-[#00FF1F] font-bold text-sm">{clampedCount}/3</span>
+                    <span>Verified Friends Invited</span>
                   </span>
                   <span className="text-[11px] text-slate-400">
                     {clampedCount >= 3 ? (
-                      <span className="text-[#39ff88] font-bold">Goal Reached! (20% OFF Unlocked)</span>
+                      <span className="text-[#00FF1F] font-bold">Goal Reached! (20% OFF Unlocked)</span>
                     ) : (
-                      <span>{remaining} more friend{remaining === 1 ? '' : 's'} needed</span>
+                      <span>{remaining} more needed to unlock</span>
                     )}
                   </span>
                 </div>
 
-                {/* 3 Interactive Friend Slots */}
-                <div className="grid grid-cols-3 gap-2">
+                {/* 3 Interactive Verified Friend Slots */}
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
                   {[1, 2, 3].map((slot) => {
                     const verifiedFriend = verifiedFriends[slot - 1];
                     const isDone = !!verifiedFriend;
@@ -317,45 +381,45 @@ export const ReferralSection: React.FC<ReferralSectionProps> = ({
                             handleOpenShareModal(slot);
                           }
                         }}
-                        className={`p-2 sm:p-2.5 rounded-xl border transition-all text-center ${
+                        className={`p-3 rounded-2xl border transition-all ${
                           isDone
-                            ? 'bg-[#39ff88]/10 border-[#39ff88]/40 text-[#39ff88]'
+                            ? 'bg-[#00FF1F]/10 border-[#00FF1F]/40 text-[#00FF1F]'
                             : isNext
                             ? 'bg-[#25D366]/15 border-[#25D366]/50 text-white cursor-pointer hover:border-[#25D366] hover:bg-[#25D366]/25 shadow-sm'
                             : 'bg-white/5 border-white/10 text-slate-400 opacity-60 cursor-not-allowed'
                         }`}
                       >
-                        <div className="flex items-center justify-between mb-1">
-                          <span className="text-[10px] font-bold uppercase tracking-wider">
+                        <div className="flex items-center justify-between mb-1.5">
+                          <span className="text-[11px] font-bold uppercase tracking-wider">
                             Friend {slot}
                           </span>
                           {isDone ? (
-                            <span className="w-4 h-4 rounded-full bg-[#39ff88] text-black font-black text-[10px] grid place-items-center">
+                            <span className="w-5 h-5 rounded-full bg-[#00FF1F] text-black font-black text-xs grid place-items-center shadow-sm">
                               ✓
                             </span>
                           ) : (
-                            <span className="w-4 h-4 rounded-full bg-white/10 text-slate-400 font-bold text-[9px] grid place-items-center">
+                            <span className="w-5 h-5 rounded-full bg-white/10 text-slate-400 font-bold text-[10px] grid place-items-center">
                               0{slot}
                             </span>
                           )}
                         </div>
 
                         {isDone ? (
-                          <div className="space-y-0.5 text-left">
-                            <span className="text-[11px] font-bold text-white block truncate">
+                          <div className="space-y-0.5">
+                            <span className="text-xs font-bold text-white block truncate">
                               {verifiedFriend.name}
                             </span>
-                            <span className="text-[9px] text-[#39ff88] font-mono block">
-                              •••• {verifiedFriend.phone.slice(-4)} ✓
+                            <span className="text-[10px] text-[#00FF1F] font-mono block">
+                              +91 •••• {verifiedFriend.phone.slice(-4)} ✓
                             </span>
                           </div>
                         ) : (
-                          <div className="space-y-0.5 text-left">
-                            <span className="text-[11px] font-bold text-slate-200 block truncate">
-                              {isNext ? 'Invite' : 'Next'}
+                          <div className="space-y-0.5">
+                            <span className="text-xs font-bold text-slate-200 block">
+                              {isNext ? 'Invite via WhatsApp' : 'Next in Line'}
                             </span>
-                            <span className="text-[9px] text-[#ff7a1a] block font-medium truncate">
-                              {slot === 3 ? '20% OFF' : 'WhatsApp'}
+                            <span className="text-[10px] text-[#ff7a1a] block font-medium">
+                              {slot === 3 ? 'Unlocks 20% OFF' : 'Send & Verify'}
                             </span>
                           </div>
                         )}
@@ -365,18 +429,18 @@ export const ReferralSection: React.FC<ReferralSectionProps> = ({
                 </div>
 
                 {/* Contextual status note */}
-                <p className="text-[11px] text-slate-400 text-center">
-                  {clampedCount === 0 && 'Share with three friends on WhatsApp to unlock 20% OFF on your next booking.'}
-                  {clampedCount === 1 && '1 friend invited! Share with 2 more friends to unlock 20% OFF.'}
-                  {clampedCount === 2 && 'Almost there! Share with 1 more friend.'}
-                  {clampedCount >= 3 && `🎉 20% discount unlocked! Your code ${profile.myReferralCode ? `(${profile.myReferralCode})` : ''} will auto-apply on your next ride.`}
+                <p className="text-[11px] text-slate-400 text-center pt-0.5">
+                  {clampedCount === 0 && 'Send to 3 different friends on WhatsApp to unlock 20% OFF. (Must be 3 different people).'}
+                  {clampedCount === 1 && '1 friend verified! Invite 2 more different friends to unlock 20% OFF.'}
+                  {clampedCount === 2 && 'Almost there! Invite just 1 more different friend.'}
+                  {clampedCount >= 3 && `🎉 20% discount unlocked with 3 different people! Your code ${profile.myReferralCode ? `(${profile.myReferralCode})` : ''} will auto-apply on your next ride.`}
                 </p>
               </div>
 
               {/* Status Notice if used or redeemed */}
               {profile.isFriendCodeRedeemed && (
-                <div className="p-2 rounded-xl bg-white/5 border border-white/10 text-[11px] text-slate-300 flex items-center gap-2">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-[#39ff88] shrink-0" />
+                <div className="p-2.5 rounded-xl bg-white/5 border border-white/10 text-[11px] text-slate-300 flex items-center gap-2">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-[#00FF1F] shrink-0" />
                   <span>A friend has claimed your referral code with 20% OFF!</span>
                 </div>
               )}
@@ -384,7 +448,7 @@ export const ReferralSection: React.FC<ReferralSectionProps> = ({
 
             {/* Primary Action Button */}
             {hasFirstBooking && profile.myReferralCode && (
-              <div className="mt-3 pt-2.5 border-t border-white/10">
+              <div className="mt-4 pt-3 border-t border-white/10">
                 {clampedCount >= 3 ? (
                   <button
                     type="button"
@@ -392,7 +456,7 @@ export const ReferralSection: React.FC<ReferralSectionProps> = ({
                       fireCelebrationConfetti();
                       onOpenBookingModal();
                     }}
-                    className="w-full py-3 px-4 rounded-xl font-black text-xs sm:text-sm bg-[#39ff88] text-[#0d1117] hover:bg-[#4dff93] active:scale-[0.98] transition-all flex items-center justify-center gap-2 shadow-md shadow-[#39ff88]/25 cursor-pointer"
+                    className="w-full py-3.5 px-4 rounded-2xl font-black text-xs sm:text-sm bg-[#00FF1F] text-[#0d1117] hover:bg-[#26ff3f] active:scale-[0.98] transition-all flex items-center justify-center gap-2 shadow-lg shadow-[#00FF1F]/30 cursor-pointer"
                   >
                     <Sparkles className="w-4 h-4 stroke-[2.5]" />
                     <span>20% OFF Unlocked! Book Ride Now (Auto-Applied)</span>
@@ -401,11 +465,11 @@ export const ReferralSection: React.FC<ReferralSectionProps> = ({
                   <button
                     type="button"
                     onClick={() => handleOpenShareModal()}
-                    className="w-full py-3 px-4 rounded-xl font-bold text-xs sm:text-sm bg-gradient-to-r from-[#25D366] to-[#1ebe57] text-[#0d1117] hover:brightness-110 active:scale-[0.98] transition-all flex items-center justify-center gap-2 shadow-md shadow-[#25D366]/20 cursor-pointer"
+                    className="w-full py-3.5 px-4 rounded-2xl font-bold text-xs sm:text-sm bg-gradient-to-r from-[#25D366] to-[#1ebe57] text-[#0d1117] hover:brightness-110 active:scale-[0.98] transition-all flex items-center justify-center gap-2 shadow-lg shadow-[#25D366]/20 cursor-pointer"
                   >
                     <Share2 className="w-4 h-4 stroke-[2.5]" />
                     <span>
-                      Invite Friend {clampedCount + 1} of 3 via WhatsApp ({clampedCount}/3 Shared)
+                      Invite Friend {clampedCount + 1} of 3 via WhatsApp ({clampedCount}/3 Verified)
                     </span>
                   </button>
                 )}
@@ -414,8 +478,8 @@ export const ReferralSection: React.FC<ReferralSectionProps> = ({
           </div>
 
           {/* Card 2: Have a Code? (Receiver) */}
-          <div className="md:col-span-5 bg-[#161c26] border border-[#263041] rounded-3xl p-4 sm:p-5 flex flex-col justify-between shadow-xl">
-            <div className="space-y-3.5">
+          <div className="md:col-span-5 bg-[#161c26] border border-[#263041] rounded-3xl p-5 sm:p-6 flex flex-col justify-between shadow-xl">
+            <div className="space-y-4">
               <div className="flex items-center gap-2">
                 <ShieldCheck className="w-4 h-4 text-[#ff7a1a]" />
                 <span className="text-xs font-bold text-slate-300 uppercase tracking-wider">
@@ -428,13 +492,13 @@ export const ReferralSection: React.FC<ReferralSectionProps> = ({
               </p>
 
               {/* Urgency Callout */}
-              <div className="p-2 rounded-xl bg-[#ff7a1a]/15 border border-[#ff7a1a]/30 text-xs text-[#ff9c54] font-medium flex items-center gap-2">
-                <Flame className="w-3.5 h-3.5 text-[#ff7a1a] shrink-0" />
+              <div className="p-2.5 rounded-xl bg-[#ff7a1a]/15 border border-[#ff7a1a]/30 text-xs text-[#ff9c54] font-medium flex items-center gap-2">
+                <Flame className="w-4 h-4 text-[#ff7a1a] shrink-0" />
                 <span>Hurry or someone else will claim the offer!</span>
               </div>
 
               {/* Redeem Form */}
-              <form onSubmit={handleVerifyCode} className="space-y-2">
+              <form onSubmit={handleVerifyCode} className="space-y-2.5">
                 <div className="flex gap-2">
                   <input
                     type="text"
@@ -444,7 +508,7 @@ export const ReferralSection: React.FC<ReferralSectionProps> = ({
                       setCodeInput(e.target.value.toUpperCase());
                       setCodeResult({ status: 'idle' });
                     }}
-                    className="flex-1 bg-[#0d1117] border border-white/15 rounded-xl px-3 py-2 text-xs text-white placeholder:text-slate-500 uppercase font-mono tracking-wider focus:outline-none focus:border-[#39ff88]"
+                    className="flex-1 bg-[#0d1117] border border-white/15 rounded-xl px-3 py-2 text-xs sm:text-sm text-white placeholder:text-slate-500 uppercase font-mono tracking-wider focus:outline-none focus:border-[#00FF1F]"
                   />
                   <button
                     type="submit"
@@ -456,7 +520,7 @@ export const ReferralSection: React.FC<ReferralSectionProps> = ({
 
                 {/* Validation Feedback */}
                 {codeResult.status === 'valid' && (
-                  <div className="p-2.5 rounded-xl bg-[#39ff88]/15 border border-[#39ff88]/40 text-xs text-[#39ff88] space-y-2">
+                  <div className="p-2.5 rounded-xl bg-[#00FF1F]/15 border border-[#00FF1F]/40 text-xs text-[#00FF1F] space-y-2">
                     <p className="font-semibold flex items-center gap-1.5">
                       <Check className="w-3.5 h-3.5 stroke-[3]" />
                       <span>{codeResult.message}</span>
@@ -464,7 +528,7 @@ export const ReferralSection: React.FC<ReferralSectionProps> = ({
                     <button
                       type="button"
                       onClick={() => onOpenBookingModal(codeInput.trim().toUpperCase())}
-                      className="w-full py-1.5 rounded-lg font-bold text-xs bg-[#39ff88] text-[#0d1117] hover:bg-[#4dff93] transition-colors flex items-center justify-center gap-1.5 cursor-pointer shadow-md"
+                      className="w-full py-1.5 rounded-lg font-bold text-xs bg-[#00FF1F] text-[#0d1117] hover:bg-[#26ff3f] transition-colors flex items-center justify-center gap-1.5 cursor-pointer shadow-md"
                     >
                       <span>Book with 20% OFF</span>
                       <ArrowRight className="w-3.5 h-3.5" />
@@ -482,18 +546,18 @@ export const ReferralSection: React.FC<ReferralSectionProps> = ({
             </div>
 
             {/* Quick Rules Checklist with Urgency */}
-            <div className="pt-3 border-t border-white/10 space-y-1.5 text-[11px] text-slate-400">
+            <div className="pt-4 border-t border-white/10 space-y-2 text-[11px] text-slate-400">
               <div className="flex items-center gap-1.5">
-                <Check className="w-3 h-3 text-[#39ff88] shrink-0" />
-                <span>Single-use code: Claim before offer expires</span>
+                <Check className="w-3 h-3 text-[#00FF1F] shrink-0" />
+                <span>Single-use code: <strong>Hurry or someone else will claim it!</strong></span>
               </div>
               <div className="flex items-center gap-1.5">
-                <Check className="w-3 h-3 text-[#39ff88] shrink-0" />
-                <span>Share with three friends on WhatsApp to unlock 20% OFF</span>
+                <Check className="w-3 h-3 text-[#00FF1F] shrink-0" />
+                <span>Sender unlocks 20% OFF after sending to 3 different people</span>
               </div>
               <div className="flex items-center gap-1.5">
-                <Check className="w-3 h-3 text-[#39ff88] shrink-0" />
-                <span>Both sender &amp; receiver get 20% discount</span>
+                <Check className="w-3 h-3 text-[#00FF1F] shrink-0" />
+                <span>Both sender & receiver get 20% discount once</span>
               </div>
             </div>
           </div>
