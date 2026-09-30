@@ -2,75 +2,133 @@ import { useRef, useState, useEffect, useCallback } from 'react';
 
 interface UseTouchCarouselOptions {
   itemCount: number;
-  autoPlay?: boolean;
-  autoPlayInterval?: number;
 }
 
-export function useTouchCarousel({
-  itemCount,
-  autoPlay = false,
-  autoPlayInterval = 5000,
-}: UseTouchCarouselOptions) {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const touchStartXRef = useRef<number | null>(null);
-  const touchStartYRef = useRef<number | null>(null);
-  const touchEndXRef = useRef<number | null>(null);
+export function useTouchCarousel({ itemCount }: UseTouchCarouselOptions) {
+  const containerRef = useRef<HTMLDivElement | null>(null);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(itemCount > 1);
+  const [isDragging, setIsDragging] = useState(false);
+  const [hasInteracted, setHasInteracted] = useState(false);
 
-  const next = useCallback(() => {
-    setCurrentIndex((prev) => (prev + 1) % itemCount);
+  const startXRef = useRef(0);
+  const scrollLeftRef = useRef(0);
+  const hasMovedRef = useRef(false);
+
+  const updateScrollState = useCallback(() => {
+    const el = containerRef.current;
+    if (!el) return;
+
+    const maxScroll = el.scrollWidth - el.clientWidth;
+    const current = el.scrollLeft;
+
+    setCanScrollLeft(current > 10);
+    setCanScrollRight(current < maxScroll - 10);
+
+    if (itemCount > 0 && el.scrollWidth > 0) {
+      const scrollRatio = current / (maxScroll || 1);
+      const index = Math.round(scrollRatio * (itemCount - 1));
+      setActiveIndex(Math.max(0, Math.min(index, itemCount - 1)));
+    }
   }, [itemCount]);
 
-  const prev = useCallback(() => {
-    setCurrentIndex((prev) => (prev - 1 + itemCount) % itemCount);
-  }, [itemCount]);
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
 
-  const goTo = useCallback(
+    updateScrollState();
+    el.addEventListener('scroll', updateScrollState, { passive: true });
+    window.addEventListener('resize', updateScrollState);
+
+    return () => {
+      el.removeEventListener('scroll', updateScrollState);
+      window.removeEventListener('resize', updateScrollState);
+    };
+  }, [updateScrollState]);
+
+  const scrollToIndex = useCallback(
     (index: number) => {
-      if (index >= 0 && index < itemCount) {
-        setCurrentIndex(index);
+      const el = containerRef.current;
+      if (!el) return;
+      setHasInteracted(true);
+
+      const items = el.querySelectorAll('[data-carousel-item]');
+      if (items[index]) {
+        (items[index] as HTMLElement).scrollIntoView({
+          behavior: 'smooth',
+          block: 'nearest',
+          inline: 'center',
+        });
+      } else {
+        const maxScroll = el.scrollWidth - el.clientWidth;
+        const target = (maxScroll / Math.max(1, itemCount - 1)) * index;
+        el.scrollTo({ left: target, behavior: 'smooth' });
       }
     },
     [itemCount]
   );
 
-  useEffect(() => {
-    if (!autoPlay || itemCount <= 1) return;
-    const timer = setInterval(next, autoPlayInterval);
-    return () => clearInterval(timer);
-  }, [autoPlay, autoPlayInterval, itemCount, next]);
+  const scrollPrev = useCallback(() => {
+    scrollToIndex(Math.max(0, activeIndex - 1));
+  }, [activeIndex, scrollToIndex]);
 
-  const onTouchStart = (e: React.TouchEvent) => {
-    touchStartXRef.current = e.targetTouches[0].clientX;
-    touchStartYRef.current = e.targetTouches[0].clientY;
+  const scrollNext = useCallback(() => {
+    scrollToIndex(Math.min(itemCount - 1, activeIndex + 1));
+  }, [activeIndex, itemCount, scrollToIndex]);
+
+  const handleMouseDown = (e: React.MouseEvent) => {
+    const el = containerRef.current;
+    if (!el) return;
+    setIsDragging(true);
+    setHasInteracted(true);
+    hasMovedRef.current = false;
+    startXRef.current = e.pageX - el.offsetLeft;
+    scrollLeftRef.current = el.scrollLeft;
   };
 
-  const onTouchMove = (e: React.TouchEvent) => {
-    touchEndXRef.current = e.targetTouches[0].clientX;
-  };
-
-  const onTouchEnd = () => {
-    if (!touchStartXRef.current || !touchEndXRef.current) return;
-    const diffX = touchStartXRef.current - touchEndXRef.current;
-    const minSwipeDistance = 50;
-
-    if (diffX > minSwipeDistance) {
-      next();
-    } else if (diffX < -minSwipeDistance) {
-      prev();
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!isDragging) return;
+    const el = containerRef.current;
+    if (!el) return;
+    e.preventDefault();
+    const x = e.pageX - el.offsetLeft;
+    const walk = (x - startXRef.current) * 1.5;
+    if (Math.abs(walk) > 5) {
+      hasMovedRef.current = true;
     }
+    el.scrollLeft = scrollLeftRef.current - walk;
+  };
 
-    touchStartXRef.current = null;
-    touchStartYRef.current = null;
-    touchEndXRef.current = null;
+  const handleMouseUp = () => {
+    setIsDragging(false);
+  };
+
+  const handleMouseLeave = () => {
+    setIsDragging(false);
+  };
+
+  const handleClickCapture = (e: React.MouseEvent) => {
+    if (hasMovedRef.current) {
+      e.stopPropagation();
+      e.preventDefault();
+    }
   };
 
   return {
-    currentIndex,
-    next,
-    prev,
-    goTo,
-    onTouchStart,
-    onTouchMove,
-    onTouchEnd,
+    containerRef,
+    activeIndex,
+    canScrollLeft,
+    canScrollRight,
+    isDragging,
+    hasInteracted,
+    scrollToIndex,
+    scrollPrev,
+    scrollNext,
+    handleMouseDown,
+    handleMouseMove,
+    handleMouseUp,
+    handleMouseLeave,
+    handleClickCapture,
   };
 }
