@@ -59,6 +59,11 @@ export const Footer: React.FC<FooterProps> = () => {
               </a>
             </li>
             <li>
+              <a href="#reviews" className="hover:text-[#39ff88] transition-colors">
+                Rider Reviews &amp; Stories
+              </a>
+            </li>
+            <li>
               <a href="#location" className="hover:text-[#39ff88] transition-colors">
                 Hub Location &amp; Map
               </a>

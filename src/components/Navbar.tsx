@@ -23,6 +23,8 @@ export const Navbar: React.FC<NavbarProps> = ({
     { label: 'Fleet', href: '#fleet' },
     { label: 'Fare Calculator', href: '#calculator' },
     { label: 'How It Works', href: '#how-it-works' },
+    { label: 'Referral 20% OFF', href: '#referral' },
+    { label: 'Reviews', href: '#reviews' },
     { label: 'Hub Location', href: '#location' },
     { label: 'FAQs', href: '#faqs' },
   ];

@@ -43,24 +43,15 @@ export const MyBookingsDrawer: React.FC<MyBookingsDrawerProps> = ({
 
   if (!isOpen) return null;
 
-  const handleShareReferral = (code: string) => {
-    const res = recordReferralShare();
-    const updated = getReferralProfile();
-    setProfile(updated);
-
-    if (res.justUnlocked) {
-      fireCelebrationConfetti();
-      toast.success('🎉 20% DISCOUNT UNLOCKED!', {
-        description: 'You shared to 3 people! 20% discount is now active for your next booking!',
-        duration: 7000,
-      });
-    } else if (res.newCount < 3) {
-      toast.info(`Sent to ${res.newCount}/3 friends!`, {
-        description: `Send to ${3 - res.newCount} more friend${3 - res.newCount > 1 ? 's' : ''} to unlock 20% OFF!`,
-      });
+  const handleShareReferral = (_code: string) => {
+    onClose();
+    const referralEl = document.getElementById('referral');
+    if (referralEl) {
+      referralEl.scrollIntoView({ behavior: 'smooth' });
     }
-
-    window.open(generateReferralShareWhatsAppUrl(code), '_blank');
+    toast.info('Referral Hub Opened', {
+      description: 'Invite 3 friends with verified WhatsApp delivery to unlock your 20% discount!',
+    });
   };
 
   return (
@@ -125,7 +116,7 @@ export const MyBookingsDrawer: React.FC<MyBookingsDrawerProps> = ({
               {/* 3-people share progress */}
               <div className="p-3 rounded-xl bg-[#0d1117] border border-white/10 space-y-2">
                 <div className="flex items-center justify-between text-xs">
-                  <span className="text-slate-300 font-medium">Send to 3 People:</span>
+                  <span className="text-slate-300 font-medium">Share with 3 Friends:</span>
                   <span className="text-[#39ff88] font-bold font-mono">
                     {Math.min(3, profile.shareCount || 0)} / 3 Sent
                   </span>
@@ -149,7 +140,7 @@ export const MyBookingsDrawer: React.FC<MyBookingsDrawerProps> = ({
                 </p>
               ) : (
                 <p className="text-[11px] text-slate-400">
-                  Send to 3 friends on WhatsApp to unlock 20% OFF your next ride!
+                  Share with 3 friends on WhatsApp to unlock 20% OFF your next ride!
                 </p>
               )}
 

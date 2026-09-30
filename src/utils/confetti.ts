@@ -46,7 +46,7 @@ export function fireCelebrationConfetti(): void {
     canvas.height = height * dpr;
     ctx.scale(dpr, dpr);
 
-    const colors = ['#39ff88', '#00ff9d', '#ff7a1a', '#ffffff', '#ffd166', '#06d6a0'];
+    const colors = ['#2ea043', '#2ea043', '#ff7a1a', '#ffffff', '#ffd166', '#2ea043'];
     const particles: Particle[] = [];
     const count = 160;
 

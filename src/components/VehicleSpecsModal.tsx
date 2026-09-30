@@ -50,8 +50,8 @@ export const VehicleSpecsModal: React.FC<VehicleSpecsModalProps> = ({
                 {vehicle.tag}
               </span>
               {(vehicle.isAvailable ?? vehicle.available ?? true) ? (
-                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-[#0d1117]/90 backdrop-blur-md text-[#22f054] border border-[#22f054]/40">
-                  <span className="h-2 w-2 rounded-full bg-[#22f054] animate-pulse"></span>
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-[#0d1117]/90 backdrop-blur-md text-[#39ff88] border border-[#39ff88]/40">
+                  <span className="h-2 w-2 rounded-full bg-[#39ff88] animate-pulse"></span>
                   <span>Available</span>
                 </span>
               ) : (

@@ -20,11 +20,15 @@ export function generateWhatsAppBookingUrl(booking: Partial<Booking>, vehicle?: 
     : `${booking.duration || 1} Days`;
 
   const referralLine = booking.referralDiscount && booking.referralDiscount > 0
-    ? `🎁 *20% Referral Discount:* -${formatINR(booking.referralDiscount)} (${booking.referralDiscountType === 'sender_reward' ? 'Sender Reward 20% OFF' : `Code Applied: ${booking.referralCode}`})\n`
+    ? `🎁 *20% Referral Discount:* -${formatINR(booking.referralDiscount)} (${
+        booking.referralDiscountType === 'sender_reward'
+          ? `Referral Code ${booking.referralCode} Auto-Applied (20% OFF Unlocked via 3 Friends)`
+          : `Receiver Referral Code: ${booking.referralCode} (20% OFF Applied)`
+      })\n`
     : '';
 
   const personalReferralSection = booking.referralCode
-    ? `\n🎁 *My Referral Code for Friends:* ${booking.referralCode} (Gives 20% off their first ride & 20% off my next ride)`
+    ? `\n🎁 *My Referral Code for Friends:* ${booking.referralCode} (Share with 3 friends to unlock 20% OFF! Link: https://bit.ly/vroommate)`
     : '';
 
   const text = `*New Ride Rental Enquiry - VroomMate Rides*

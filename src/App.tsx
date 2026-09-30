@@ -12,6 +12,7 @@ import { HowItWorks } from './components/HowItWorks';
 import { LocationSection } from './components/LocationSection';
 import { TestimonialsSection } from './components/TestimonialsSection';
 import { FAQSection } from './components/FAQSection';
+import { ReferralSection } from './components/ReferralSection';
 import { DiscountUnlockedCelebrationModal } from './components/DiscountUnlockedCelebrationModal';
 import { Footer } from './components/Footer';
 import { BookingModal } from './components/BookingModal';
@@ -116,7 +117,7 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-black text-slate-100 flex flex-col font-sans selection:bg-[#39ff88] selection:text-[#0d1117]">
+    <div className="min-h-screen bg-black text-slate-100 flex flex-col font-sans selection:bg-[#2ea043] selection:text-[#0d1117]">
       {/* Navigation */}
       <Navbar
         onOpenBookings={() => setMyBookingsOpen(true)}
@@ -146,6 +147,18 @@ export default function App() {
         <FareCalculator onProceedToBooking={handleCalculatorProceed} />
 
         <HowItWorks onOpenAgreement={() => handleOpenAgreement()} />
+
+        {/* Referral Discount Section - Placed directly below Rules & Regulations */}
+        <ReferralSection
+          onOpenBookingModal={(prefilledCode) => {
+            if (prefilledCode) {
+              setInitialReferralCode(prefilledCode);
+            }
+            setSelectedVehicleForBooking(null);
+            setBookingModalOpen(true);
+          }}
+          onOpenCelebrationModal={handleOpenCelebration}
+        />
 
         <LocationSection />
 

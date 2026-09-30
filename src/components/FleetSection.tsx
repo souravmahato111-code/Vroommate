@@ -126,10 +126,10 @@ export const FleetSection: React.FC<FleetSectionProps> = ({
                   {/* Status Indicator Badge (Available vs Booked) */}
                   <div className="absolute top-4 right-4 z-10">
                     {isAvailable ? (
-                      <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-[#0d1117]/90 backdrop-blur-md text-[#22f054] border border-[#22f054]/40 shadow-lg shadow-[#22f054]/15">
+                      <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-[#0d1117]/90 backdrop-blur-md text-[#39ff88] border border-[#39ff88]/40 shadow-lg shadow-[#39ff88]/15">
                         <span className="relative flex h-2 w-2">
-                          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#22f054] opacity-75"></span>
-                          <span className="relative inline-flex rounded-full h-2 w-2 bg-[#22f054]"></span>
+                          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#39ff88] opacity-75"></span>
+                          <span className="relative inline-flex rounded-full h-2 w-2 bg-[#39ff88]"></span>
                         </span>
                         <span>Available</span>
                       </span>

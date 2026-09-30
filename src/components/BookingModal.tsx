@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Vehicle, Booking } from '../types';
 import { FLEET_VEHICLES, BUSINESS_CONFIG } from '../data/fleetData';
 import {
@@ -34,9 +34,11 @@ import {
   validateReferralCodeInput,
   recordReferralShare,
   generateReferralShareWhatsAppUrl,
+  generateWhatsAppReferralSelfUrl,
   handleBookingConfirmationReferral,
 } from '../utils/referral';
 import { fireCelebrationConfetti } from '../utils/confetti';
+import { FriendShareModal } from './FriendShareModal';
 
 interface BookingModalProps {
   isOpen: boolean;
@@ -79,6 +81,25 @@ export const BookingModal: React.FC<BookingModalProps> = ({
   );
   const [deliveryAddress, setDeliveryAddress] = useState<string>('');
   const [confirmedBooking, setConfirmedBooking] = useState<Booking | null>(null);
+  const [isConfirmedSentToTeam, setIsConfirmedSentToTeam] = useState<boolean>(false);
+
+  // WhatsApp return tracking refs
+  const waitingForWhatsAppReturnRef = useRef<boolean>(false);
+  const hasTriggeredReturnToastRef = useRef<boolean>(false);
+
+  // Trigger Booking Success Toast Notification
+  const triggerBookingSuccessToast = (booking?: Booking | null) => {
+    const b = booking || confirmedBooking;
+    const vehicleName = b?.vehicleName || 'Two-Wheeler';
+    const refId = b?.id ? ` (${b.id})` : '';
+
+    fireCelebrationConfetti();
+    toast.success('Booking Success! 🎉', {
+      description: `Your rental request for ${vehicleName}${refId} has been successfully sent to our team on WhatsApp. Our dispatch team is reviewing your details and will confirm your pickup slot shortly!`,
+      duration: 7000,
+      icon: '✅',
+    });
+  };
 
   // Referral discount state
   const [referralProfile, setReferralProfile] = useState(() => getReferralProfile());
@@ -87,6 +108,8 @@ export const BookingModal: React.FC<BookingModalProps> = ({
   const [referralError, setReferralError] = useState<string | null>(null);
   const [copiedCode, setCopiedCode] = useState<boolean>(false);
   const [hasSharedInCurrentView, setHasSharedInCurrentView] = useState<boolean>(false);
+  const [bookingShareModalOpen, setBookingShareModalOpen] = useState<boolean>(false);
+  const [bookingShareSlot, setBookingShareSlot] = useState<number>(1);
 
   // Set default today's date formatted & re-sync profile
   useEffect(() => {
@@ -97,17 +120,52 @@ export const BookingModal: React.FC<BookingModalProps> = ({
     setPickupDate(`${yyyy}-${mm}-${dd}`);
   }, []);
 
+  // Detect when user returns from completing the WhatsApp booking flow
+  useEffect(() => {
+    const handleWindowFocus = () => {
+      if (waitingForWhatsAppReturnRef.current && confirmedBooking && !hasTriggeredReturnToastRef.current) {
+        waitingForWhatsAppReturnRef.current = false;
+        hasTriggeredReturnToastRef.current = true;
+        setIsConfirmedSentToTeam(true);
+
+        triggerBookingSuccessToast(confirmedBooking);
+      }
+    };
+
+    window.addEventListener('focus', handleWindowFocus);
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === 'visible') {
+        handleWindowFocus();
+      }
+    };
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+
+    return () => {
+      window.removeEventListener('focus', handleWindowFocus);
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+    };
+  }, [confirmedBooking]);
+
   useEffect(() => {
     if (isOpen) {
+      setIsConfirmedSentToTeam(false);
+      waitingForWhatsAppReturnRef.current = false;
+      hasTriggeredReturnToastRef.current = false;
+
       const prof = getReferralProfile();
       setReferralProfile(prof);
       setReferralError(null);
       setHasSharedInCurrentView(false);
 
-      if (initialReferralCode && !prof.senderDiscountAvailable && !prof.receiverDiscountUsed && !prof.senderDiscountUsed) {
+      if (prof.senderDiscountAvailable && !prof.senderDiscountUsed && prof.myReferralCode) {
+        // Automatically apply the sender's own referral code on their next booking!
+        setAppliedReferralCode(prof.myReferralCode);
+        setReferralCodeInput(prof.myReferralCode);
+      } else if (initialReferralCode && !prof.receiverDiscountUsed && !prof.senderDiscountUsed) {
         const check = validateReferralCodeInput(initialReferralCode);
         if (check.valid) {
           setAppliedReferralCode(initialReferralCode.trim().toUpperCase());
+          setReferralCodeInput(initialReferralCode.trim().toUpperCase());
         }
       }
     }
@@ -185,26 +243,29 @@ export const BookingModal: React.FC<BookingModalProps> = ({
     toast.info('Referral discount removed');
   };
 
-  const handleShareReferralWhatsApp = (code: string) => {
-    const res = recordReferralShare();
-    setHasSharedInCurrentView(true);
+  const handleShareReferralWhatsApp = (_code: string) => {
+    const currentCount = referralProfile.verifiedFriends?.length || 0;
+    setBookingShareSlot(Math.min(3, currentCount + 1));
+    setBookingShareModalOpen(true);
+  };
+
+  const handleBookingFriendVerified = (newCount: number, justUnlocked: boolean) => {
     const updatedProf = getReferralProfile();
     setReferralProfile(updatedProf);
+    setHasSharedInCurrentView(true);
 
-    if (res.justUnlocked) {
+    if (justUnlocked) {
       fireCelebrationConfetti();
       toast.success('🎉 20% DISCOUNT UNLOCKED!', {
-        description: 'You sent to 3 people! Your 20% discount is now active and will automatically apply on your next booking!',
+        description:
+          'You sent your referral to 3 different people! Your 20% discount is now active and will automatically apply on your next booking.',
         duration: 7000,
       });
-    } else if (res.newCount < 3) {
-      toast.info(`Sent to ${res.newCount}/3 friends!`, {
-        description: `Send to ${3 - res.newCount} more friend${3 - res.newCount > 1 ? 's' : ''} on WhatsApp to unlock 20% OFF your next ride!`,
+    } else if (newCount < 3) {
+      toast.info(`Invite confirmed with Different Person ${newCount}!`, {
+        description: `Confirm share with ${3 - newCount} more different ${3 - newCount > 1 ? 'people' : 'person'} to unlock your 20% discount!`,
       });
     }
-
-    const shareUrl = generateReferralShareWhatsAppUrl(code);
-    window.open(shareUrl, '_blank');
   };
 
   // Calculate return date/time display
@@ -238,6 +299,10 @@ export const BookingModal: React.FC<BookingModalProps> = ({
       isSenderDiscountActive
     );
 
+    const appliedCodeForBooking = isSenderDiscountActive
+      ? (referralProfile.myReferralCode || refResult.generatedCode)
+      : (appliedReferralCode || refResult.generatedCode);
+
     const newBooking: Booking = {
       id: bookingId,
       vehicleId: currentVehicle.id,
@@ -257,7 +322,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
       baseFare,
       addonsCost: helmetCost + deliveryCost,
       referralDiscount: referralDiscount > 0 ? referralDiscount : undefined,
-      referralCode: refResult.generatedCode,
+      referralCode: appliedCodeForBooking,
       referralDiscountType,
       totalAmount,
       securityDeposit,
@@ -269,12 +334,13 @@ export const BookingModal: React.FC<BookingModalProps> = ({
     onBookingCreated();
     setConfirmedBooking(newBooking);
     setReferralProfile(getReferralProfile());
+    setIsConfirmedSentToTeam(false);
 
-    // Toast notification
-    toast.success('Booking Request Sent', {
-      description: `Your ride reservation for ${currentVehicle.name} (${bookingId}) has been created successfully.`,
-      duration: 5000,
-    });
+    waitingForWhatsAppReturnRef.current = true;
+    hasTriggeredReturnToastRef.current = false;
+
+    // Trigger 'Booking Success' Toast Notification confirming request sent to team
+    triggerBookingSuccessToast(newBooking);
 
     // Open WhatsApp in new tab
     const waUrl = generateWhatsAppBookingUrl(newBooking, currentVehicle);
@@ -324,6 +390,16 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                   We’ve launched WhatsApp with your pre-formatted rental request. Please send the
                   message along with photos of your ID &amp; Driving License.
                 </p>
+
+                {/* Booking Status Badge */}
+                <div className="mt-3.5 inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#39ff88]/15 border border-[#39ff88]/30 text-[#39ff88] text-xs font-semibold shadow-sm">
+                  <span className="w-2 h-2 rounded-full bg-[#39ff88] animate-pulse" />
+                  <span>
+                    {isConfirmedSentToTeam
+                      ? 'Request Confirmed with Our Team ✓'
+                      : 'Request Sent via WhatsApp — Team Verification in Progress'}
+                  </span>
+                </div>
               </div>
 
               {/* Summary card */}
@@ -444,7 +520,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                   {/* 3-Person Progress Tracker */}
                   <div className="p-3.5 rounded-xl bg-[#0d1117] border border-white/10 space-y-2.5">
                     <div className="flex items-center justify-between text-xs">
-                      <span className="text-slate-300 font-medium">Send to 3 People to Unlock:</span>
+                      <span className="text-slate-300 font-medium">Share with 3 Friends to Unlock:</span>
                       <span className="text-[#39ff88] font-bold font-mono">
                         {Math.min(3, referralProfile.shareCount || 0)} / 3 Sent
                       </span>
@@ -502,42 +578,78 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                     </div>
                   ) : (
                     <p className="text-[11px] text-slate-400">
-                      💡 <strong>Rule:</strong> Send your code to 3 friends on WhatsApp. The first friend to book gets 20% OFF, and your 20% discount unlocks immediately!
+                      💡 <strong>Rule:</strong> Share your code with 3 friends on WhatsApp to unlock 20% OFF on your next ride!
                     </p>
                   )}
 
-                  {/* Share Action Button */}
-                  <button
-                    type="button"
-                    onClick={() => handleShareReferralWhatsApp(confirmedBooking.referralCode!)}
-                    className="w-full py-3.5 px-4 rounded-xl font-bold text-xs sm:text-sm bg-gradient-to-r from-[#25D366] to-[#1ebe57] text-[#0d1117] hover:brightness-110 active:scale-[0.98] transition-all flex items-center justify-center gap-2 shadow-lg shadow-[#25D366]/20 cursor-pointer"
-                  >
-                    <Share2 className="w-4 h-4 stroke-[2.5]" />
-                    <span>
-                      {(referralProfile.shareCount || 0) >= 3
-                        ? 'Share Referral Again on WhatsApp'
-                        : `Share on WhatsApp (${Math.min(3, referralProfile.shareCount || 0)}/3 Sent)`}
-                    </span>
-                  </button>
+                  {/* Share Action Buttons */}
+                  <div className="grid sm:grid-cols-2 gap-2 pt-1">
+                    <button
+                      type="button"
+                      onClick={() => handleShareReferralWhatsApp(confirmedBooking.referralCode!)}
+                      className="py-3 px-3.5 rounded-xl font-bold text-xs bg-gradient-to-r from-[#25D366] to-[#1ebe57] text-[#0d1117] hover:brightness-110 active:scale-[0.98] transition-all flex items-center justify-center gap-1.5 shadow-md shadow-[#25D366]/20 cursor-pointer"
+                    >
+                      <Share2 className="w-3.5 h-3.5 stroke-[2.5]" />
+                      <span>
+                        {(referralProfile.shareCount || 0) >= 3
+                          ? 'Share with Friends'
+                          : `Send to Friends (${Math.min(3, referralProfile.shareCount || 0)}/3)`}
+                      </span>
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const url = generateWhatsAppReferralSelfUrl(
+                          confirmedBooking.referralCode!,
+                          confirmedBooking.customerPhone || ''
+                        );
+                        window.open(url, '_blank');
+                        toast.success('Opened WhatsApp with your referral code details!');
+                      }}
+                      className="py-3 px-3.5 rounded-xl font-bold text-xs bg-[#25D366]/20 hover:bg-[#25D366]/30 text-[#25D366] border border-[#25D366]/40 transition-all flex items-center justify-center gap-1.5 cursor-pointer"
+                    >
+                      <MessageCircle className="w-3.5 h-3.5" />
+                      <span>To My WhatsApp</span>
+                    </button>
+                  </div>
                 </div>
               )}
             </div>
 
             {/* Pinned Bottom Actions */}
             <div className="p-3.5 sm:p-5 border-t border-white/10 bg-[#0d1117]/95 backdrop-blur-md shrink-0 flex flex-col sm:flex-row gap-2.5 sm:gap-3">
+              <button
+                type="button"
+                onClick={() => {
+                  setIsConfirmedSentToTeam(true);
+                  triggerBookingSuccessToast(confirmedBooking);
+                }}
+                className="w-full sm:flex-1 py-3.5 px-4 rounded-xl font-bold text-sm bg-[#39ff88] text-[#0d1117] hover:bg-[#4dff93] transition-colors flex items-center justify-center gap-2 shadow-lg shadow-[#39ff88]/20 cursor-pointer"
+              >
+                <Check className="w-4 h-4 stroke-[3]" />
+                <span>
+                  {isConfirmedSentToTeam ? 'Booking Confirmed with Team ✓' : "I've Sent the WhatsApp Message"}
+                </span>
+              </button>
+
               <a
                 href={generateWhatsAppBookingUrl(confirmedBooking, currentVehicle)}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full sm:flex-1 py-3.5 px-5 rounded-xl font-bold text-sm bg-[#39ff88] text-[#0d1117] hover:bg-[#4dff93] transition-colors flex items-center justify-center gap-2"
+                onClick={() => {
+                  waitingForWhatsAppReturnRef.current = true;
+                }}
+                className="w-full sm:w-auto py-3.5 px-4 rounded-xl font-bold text-xs bg-white/10 hover:bg-white/15 text-slate-300 transition-colors flex items-center justify-center gap-1.5"
               >
-                <MessageCircle className="w-4 h-4 fill-current" />
-                <span>Re-open WhatsApp Chat</span>
+                <MessageCircle className="w-3.5 h-3.5" />
+                <span>Re-open WhatsApp</span>
               </a>
+
               <button
                 type="button"
                 onClick={onClose}
-                className="w-full sm:w-auto py-3 px-6 rounded-xl font-medium text-xs bg-white/10 hover:bg-white/15 text-white transition-colors"
+                className="w-full sm:w-auto py-3 px-5 rounded-xl font-medium text-xs bg-white/5 hover:bg-white/10 text-slate-400 hover:text-white transition-colors"
               >
                 Done
               </button>
@@ -846,10 +958,10 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                       <Gift className="w-5 h-5 text-[#39ff88] shrink-0" />
                       <div>
                         <span className="font-bold text-[#39ff88] block text-xs sm:text-sm">
-                          🎉 20% Sender Referral Reward Applied!
+                          🎉 Your Referral Code ({referralProfile.myReferralCode}) Auto-Applied!
                         </span>
                         <span className="text-slate-300 text-[11px] block mt-0.5">
-                          Unlocked by sharing your referral code with a friend! You save {formatINR(referralDiscount)}.
+                          20% OFF unlocked by sharing with 3 friends! You save {formatINR(referralDiscount)}.
                         </span>
                       </div>
                     </div>
@@ -975,6 +1087,16 @@ export const BookingModal: React.FC<BookingModalProps> = ({
           </form>
         )}
       </div>
+
+      {confirmedBooking?.referralCode && (
+        <FriendShareModal
+          isOpen={bookingShareModalOpen}
+          onClose={() => setBookingShareModalOpen(false)}
+          slotNumber={bookingShareSlot}
+          myReferralCode={confirmedBooking.referralCode}
+          onVerified={handleBookingFriendVerified}
+        />
+      )}
     </div>
   );
 };
