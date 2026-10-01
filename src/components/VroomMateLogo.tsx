@@ -23,14 +23,12 @@ export const OFFICIAL_GITHUB_RAW_LOGO_URL =
 // List of file paths to check for the official brand logo
 const DEFAULT_CANDIDATE_PATHS = [
   '/VMlogo.png',
-  '/vroommate-logo-transparent.png',
-  '/vmlogo.png',
   OFFICIAL_GITHUB_RAW_LOGO_URL,
+  '/vmlogo.png',
   '/logo.png',
 ];
 
 const DEFAULT_ICON_CANDIDATE_PATHS = [
-  '/vroommate-icon.png',
   '/VMlogo.png',
   OFFICIAL_GITHUB_RAW_LOGO_URL,
 ];
@@ -360,7 +358,9 @@ export const VroomMateLogo: React.FC<VroomMateLogoProps> = ({
             src={activeLogoSrc}
             alt={alt}
             onError={handleImageError}
-            className="w-full h-full object-contain bg-transparent"
+            loading="eager"
+            decoding="sync"
+            className="w-full h-full object-contain mix-blend-screen bg-transparent"
           />
         ) : (
           renderSvgVEmblem('w-full h-full object-contain drop-shadow-[0_0_12px_rgba(57,255,136,0.4)]')
@@ -379,7 +379,9 @@ export const VroomMateLogo: React.FC<VroomMateLogoProps> = ({
               src={activeLogoSrc}
               alt={alt}
               onError={handleImageError}
-              className="h-24 sm:h-32 w-auto object-contain bg-transparent drop-shadow-[0_0_20px_rgba(57,255,136,0.4)]"
+              loading="eager"
+              decoding="sync"
+              className="h-24 sm:h-32 w-auto object-contain mix-blend-screen bg-transparent drop-shadow-[0_0_20px_rgba(57,255,136,0.4)]"
             />
           ) : (
             renderSvgFullLogo('w-full h-auto drop-shadow-[0_0_20px_rgba(57,255,136,0.4)]')
@@ -398,11 +400,13 @@ export const VroomMateLogo: React.FC<VroomMateLogoProps> = ({
           src={activeLogoSrc}
           alt={alt}
           onError={handleImageError}
-          className="h-[44px] sm:h-[52px] md:h-[58px] lg:h-[64px] w-auto max-w-[280px] sm:max-w-[340px] md:max-w-[420px] lg:max-w-[460px] object-contain bg-transparent drop-shadow-[0_0_14px_rgba(57,255,136,0.35)]"
+          loading="eager"
+          decoding="sync"
+          className="h-9 sm:h-11 md:h-13 lg:h-14 w-auto max-w-[210px] sm:max-w-[270px] md:max-w-[340px] lg:max-w-[380px] object-contain mix-blend-screen bg-transparent drop-shadow-[0_0_14px_rgba(57,255,136,0.35)]"
         />
       ) : (
         renderSvgFullLogo(
-          'h-[44px] sm:h-[52px] md:h-[58px] lg:h-[64px] w-auto max-w-[280px] sm:max-w-[340px] md:max-w-[420px] lg:max-w-[460px] object-contain drop-shadow-[0_0_14px_rgba(57,255,136,0.35)]'
+          'h-9 sm:h-11 md:h-13 lg:h-14 w-auto max-w-[210px] sm:max-w-[270px] md:max-w-[340px] lg:max-w-[380px] object-contain drop-shadow-[0_0_14px_rgba(57,255,136,0.35)]'
         )
       )}
     </div>
