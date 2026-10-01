@@ -7,14 +7,17 @@ interface FooterProps {
   onOpenAgreement?: () => void;
 }
 
-export const Footer: React.FC<FooterProps> = () => {
+export const Footer: React.FC<FooterProps> = ({ onOpenAgreement }) => {
   return (
-    <footer id="contact" className="border-t border-white/10 bg-black text-slate-300">
+    <footer id="contact" className="border-t border-white/10 bg-[#000000] text-slate-300">
       <div className="max-w-6xl mx-auto px-5 py-16 grid md:grid-cols-12 gap-10 items-start">
         {/* Brand Info */}
         <div className="md:col-span-5 space-y-4">
-          <div className="flex items-center">
-            <VroomMateLogo variant="horizontal" alt="Vroommate Logo" />
+          <div className="flex flex-wrap items-center gap-3">
+            <VroomMateLogo
+              variant="horizontal"
+              alt="Vroommate Logo"
+            />
           </div>
 
           <p className="text-slate-400 text-sm leading-relaxed max-w-sm">
@@ -24,7 +27,7 @@ export const Footer: React.FC<FooterProps> = () => {
 
           <div className="flex items-center gap-3 text-xs text-slate-400 pt-2">
             <div className="flex items-center gap-1.5">
-              <ShieldCheck className="w-4 h-4 text-[#00FF1F]" />
+              <ShieldCheck className="w-4 h-4 text-[#39ff88]" />
               <span>Govt. Registered Hub</span>
             </div>
             <span aria-hidden="true">·</span>
@@ -39,32 +42,37 @@ export const Footer: React.FC<FooterProps> = () => {
           </h4>
           <ul className="space-y-2 text-xs">
             <li>
-              <a href="#fleet" className="hover:text-[#00FF1F] transition-colors">
+              <a href="#fleet" className="hover:text-[#39ff88] transition-colors">
                 Our Fleet &amp; Pricing
               </a>
             </li>
             <li>
-              <a href="#calculator" className="hover:text-[#00FF1F] transition-colors">
+              <a href="#calculator" className="hover:text-[#39ff88] transition-colors">
                 Fare Calculator
               </a>
             </li>
             <li>
-              <a href="#how-it-works" className="hover:text-[#00FF1F] transition-colors">
+              <a href="#how-it-works" className="hover:text-[#39ff88] transition-colors">
                 How It Works
               </a>
             </li>
             <li>
-              <a href="#referral" className="hover:text-[#00FF1F] transition-colors">
+              <a href="#referral" className="hover:text-[#39ff88] transition-colors">
                 Refer &amp; Earn Program
               </a>
             </li>
             <li>
-              <a href="#location" className="hover:text-[#00FF1F] transition-colors">
+              <a href="#reviews" className="hover:text-[#39ff88] transition-colors">
+                Rider Reviews &amp; Stories
+              </a>
+            </li>
+            <li>
+              <a href="#location" className="hover:text-[#39ff88] transition-colors">
                 Hub Location &amp; Map
               </a>
             </li>
             <li>
-              <a href="#faqs" className="hover:text-[#00FF1F] transition-colors">
+              <a href="#faqs" className="hover:text-[#39ff88] transition-colors">
                 FAQs
               </a>
             </li>
@@ -84,11 +92,11 @@ export const Footer: React.FC<FooterProps> = () => {
               </span>
             </li>
             <li className="flex items-center gap-2">
-              <Clock className="w-4 h-4 text-[#00FF1F] shrink-0" />
+              <Clock className="w-4 h-4 text-[#39ff88] shrink-0" />
               <span>Open Daily: 8:00 AM to 8:00 PM (Instant Pickup)</span>
             </li>
             <li className="flex items-center gap-2">
-              <Phone className="w-4 h-4 text-[#00FF1F] shrink-0" />
+              <Phone className="w-4 h-4 text-[#39ff88] shrink-0" />
               <a href={`tel:${BUSINESS_CONFIG.phone}`} className="hover:text-white transition-colors">
                 {BUSINESS_CONFIG.displayPhone}
               </a>
@@ -103,7 +111,7 @@ export const Footer: React.FC<FooterProps> = () => {
           <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-4 text-center sm:text-left">
             <p>© {new Date().getFullYear()} Vroommate. All rights reserved. Chota Gamharia, Jamshedpur.</p>
             <span className="hidden sm:inline text-white/20">•</span>
-            <p className="text-[#00FF1F] font-bold italic tracking-wide">
+            <p className="text-[#39ff88] font-bold italic tracking-wide">
               Wanna Ghoom? Just do Vroom!
             </p>
           </div>

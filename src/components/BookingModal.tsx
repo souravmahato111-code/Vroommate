@@ -330,7 +330,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
           <div className="flex flex-col flex-1 min-h-0 overflow-hidden">
             <div className="flex-1 overflow-y-auto overscroll-contain p-4 sm:p-6 md:p-8 space-y-4 sm:space-y-6">
               <div className="text-center">
-                <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-[#00FF1F]/20 text-[#00FF1F] grid place-items-center mx-auto mb-3 sm:mb-4 border border-[#00FF1F]/40">
+                <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-[#ff7a1a]/20 text-[#ff7a1a] grid place-items-center mx-auto mb-3 sm:mb-4 border border-[#ff7a1a]/40">
                   <Check className="w-7 h-7 sm:w-8 sm:h-8 stroke-[3]" />
                 </div>
                 <h3 className="font-display font-bold text-xl sm:text-2xl text-white">
@@ -346,7 +346,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
               <div className="bg-[#10141d] rounded-2xl p-4 sm:p-5 border border-white/10 space-y-2.5 sm:space-y-3 text-xs">
                 <div className="flex justify-between items-center pb-2 border-b border-white/10">
                   <span className="text-slate-400">Booking Reference</span>
-                  <span className="font-mono font-bold text-[#00FF1F] text-sm">
+                  <span className="font-mono font-bold text-[#ff7a1a] text-sm">
                     {confirmedBooking.id}
                   </span>
                 </div>
@@ -370,7 +370,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                 </div>
                 <div className="flex justify-between">
                   <span className="text-slate-400">Agreement Signing</span>
-                  <span className="text-[#00FF1F] font-medium">Signed Offline at Handover</span>
+                  <span className="text-[#ff7a1a] font-medium">Signed Offline at Handover</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-slate-400">Duration</span>
@@ -380,7 +380,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                   </span>
                 </div>
                 {confirmedBooking.referralDiscount && confirmedBooking.referralDiscount > 0 && (
-                  <div className="flex justify-between text-[#00FF1F] font-bold py-1 border-y border-white/5">
+                  <div className="flex justify-between text-[#ff7a1a] font-bold py-1 border-y border-white/5">
                     <span className="flex items-center gap-1.5">
                       <Gift className="w-3.5 h-3.5" />
                       <span>
@@ -402,7 +402,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                 </div>
                 <div className="flex justify-between text-slate-300 pt-2 border-t border-white/10">
                   <span>Security Deposit (Due at Pickup)</span>
-                  <span className="font-mono font-bold text-[#00FF1F]">
+                  <span className="font-mono font-bold text-[#ff7a1a]">
                     {formatINR(confirmedBooking.securityDeposit)}
                   </span>
                 </div>
@@ -414,10 +414,10 @@ export const BookingModal: React.FC<BookingModalProps> = ({
 
               {/* Referral Invite & Reward Card */}
               {confirmedBooking.referralCode && (
-                <div className="p-4 sm:p-5 rounded-2xl bg-gradient-to-br from-[#111c17] to-[#161c26] border-2 border-[#00FF1F]/50 shadow-[0_0_30px_-10px_rgba(0,255,31,0.3)] space-y-3">
+                <div className="p-4 sm:p-5 rounded-2xl bg-[#161c26] border border-white/10 space-y-3">
                   <div className="flex items-start justify-between gap-2">
                     <div className="flex items-center gap-2.5">
-                      <div className="w-9 h-9 rounded-xl bg-[#00FF1F]/20 text-[#00FF1F] grid place-items-center shrink-0">
+                      <div className="w-9 h-9 rounded-xl bg-[#ff7a1a]/20 text-[#ff7a1a] grid place-items-center shrink-0">
                         <Gift className="w-5 h-5" />
                       </div>
                       <div>
@@ -429,7 +429,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                         </p>
                       </div>
                     </div>
-                    <span className="text-[10px] font-bold text-[#0d1117] bg-[#00FF1F] px-2 py-0.5 rounded-full shrink-0">
+                    <span className="text-[10px] font-bold text-[#0d1117] bg-[#ff7a1a] px-2 py-0.5 rounded-full shrink-0">
                       20% OFF
                     </span>
                   </div>
@@ -438,7 +438,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                   <div className="flex items-center justify-between p-3 rounded-xl bg-[#0d1117] border border-white/10">
                     <div>
                       <span className="text-slate-400 text-[11px] block">Your Personal Referral Code</span>
-                      <span className="text-base sm:text-lg font-black font-mono text-[#00FF1F] tracking-wider">
+                      <span className="text-base sm:text-lg font-black font-mono text-[#ff7a1a] tracking-wider">
                         {confirmedBooking.referralCode}
                       </span>
                     </div>
@@ -452,7 +452,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                       }}
                       className="px-3 py-2 rounded-xl bg-white/10 hover:bg-white/15 text-slate-200 text-xs font-semibold flex items-center gap-1.5 transition-colors cursor-pointer"
                     >
-                      {copiedCode ? <Check className="w-4 h-4 text-[#00FF1F]" /> : <Copy className="w-4 h-4" />}
+                      {copiedCode ? <Check className="w-4 h-4 text-[#ff7a1a]" /> : <Copy className="w-4 h-4" />}
                       <span>{copiedCode ? 'Copied' : 'Copy Code'}</span>
                     </button>
                   </div>
@@ -461,7 +461,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                   <div className="p-3.5 rounded-xl bg-[#0d1117] border border-white/10 space-y-2.5">
                     <div className="flex items-center justify-between text-xs">
                       <span className="text-slate-300 font-medium">Send to 3 People to Unlock:</span>
-                      <span className="text-[#00FF1F] font-bold font-mono">
+                      <span className="text-[#ff7a1a] font-bold font-mono">
                         {Math.min(3, referralProfile.shareCount || 0)} / 3 Sent
                       </span>
                     </div>
@@ -469,7 +469,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                     {/* Progress Bar */}
                     <div className="w-full h-2 rounded-full bg-white/10 overflow-hidden">
                       <div
-                        className="h-full bg-gradient-to-r from-[#00FF1F] to-[#ff7a1a] rounded-full transition-all duration-500 shadow-[0_0_8px_#00FF1F]"
+                        className="h-full bg-gradient-to-r from-[#ff7a1a] to-[#ff9c54] rounded-full transition-all duration-500 shadow-[0_0_8px_#ff7a1a]"
                         style={{ width: `${Math.min(100, ((referralProfile.shareCount || 0) / 3) * 100)}%` }}
                       />
                     </div>
@@ -477,21 +477,21 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                     <div className="grid grid-cols-3 gap-1.5 text-center text-[10px]">
                       <span className={`py-1 rounded-lg border ${
                         (referralProfile.shareCount || 0) >= 1
-                          ? 'bg-[#00FF1F]/15 border-[#00FF1F]/40 text-[#00FF1F] font-bold'
+                          ? 'bg-[#ff7a1a]/15 border-[#ff7a1a]/40 text-[#ff7a1a] font-bold'
                           : 'bg-white/5 border-white/5 text-slate-400'
                       }`}>
                         Friend 1 {(referralProfile.shareCount || 0) >= 1 ? '✓' : ''}
                       </span>
                       <span className={`py-1 rounded-lg border ${
                         (referralProfile.shareCount || 0) >= 2
-                          ? 'bg-[#00FF1F]/15 border-[#00FF1F]/40 text-[#00FF1F] font-bold'
+                          ? 'bg-[#ff7a1a]/15 border-[#ff7a1a]/40 text-[#ff7a1a] font-bold'
                           : 'bg-white/5 border-white/5 text-slate-400'
                       }`}>
                         Friend 2 {(referralProfile.shareCount || 0) >= 2 ? '✓' : ''}
                       </span>
                       <span className={`py-1 rounded-lg border ${
                         (referralProfile.shareCount || 0) >= 3
-                          ? 'bg-[#00FF1F]/15 border-[#00FF1F]/40 text-[#00FF1F] font-bold'
+                          ? 'bg-[#ff7a1a]/15 border-[#ff7a1a]/40 text-[#ff7a1a] font-bold'
                           : 'bg-white/5 border-white/5 text-slate-400'
                       }`}>
                         Friend 3 {(referralProfile.shareCount || 0) >= 3 ? '✓' : ''}
@@ -501,7 +501,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
 
                   {/* Unlock status info */}
                   {referralProfile.senderDiscountAvailable ? (
-                    <div className="p-3 rounded-xl bg-[#00FF1F]/15 border border-[#00FF1F]/40 text-xs text-[#00FF1F] flex items-center justify-between gap-2">
+                    <div className="p-3 rounded-xl bg-[#ff7a1a]/15 border border-[#ff7a1a]/40 text-xs text-[#ff7a1a] flex items-center justify-between gap-2">
                       <div className="flex items-center gap-2">
                         <Check className="w-4 h-4 shrink-0 stroke-[3]" />
                         <span className="font-semibold">
@@ -511,14 +511,14 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                       <button
                         type="button"
                         onClick={fireCelebrationConfetti}
-                        className="px-2 py-0.5 rounded bg-[#00FF1F] text-[#0d1117] font-bold text-[10px] shrink-0"
+                        className="px-2 py-0.5 rounded bg-[#ff7a1a] text-[#0d1117] font-bold text-[10px] shrink-0"
                       >
                         🎉 Confetti
                       </button>
                     </div>
                   ) : (
                     <p className="text-[11px] text-slate-400">
-                      💡 <strong>Rule:</strong> Send your code to 3 friends on WhatsApp to unlock 20% OFF on your next ride! Tell them: <span className="text-[#00FF1F] font-semibold">Hurry or someone else will claim the offer!</span>
+                      💡 <strong>Rule:</strong> Send your code to 3 friends on WhatsApp to unlock 20% OFF on your next ride! Tell them: <span className="text-[#ff7a1a] font-semibold">Hurry or someone else will claim the offer!</span>
                     </p>
                   )}
 
@@ -563,9 +563,9 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                 href={generateWhatsAppBookingUrl(confirmedBooking, currentVehicle)}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full sm:flex-1 py-3.5 px-5 rounded-xl font-bold text-sm bg-[#00FF1F] text-[#0d1117] hover:bg-[#26ff3f] transition-colors flex items-center justify-center gap-2"
+                className="w-full sm:flex-1 py-3.5 px-5 rounded-xl font-bold text-sm bg-[#ff7a1a] text-[#0d1117] hover:bg-[#ff8c38] transition-colors flex items-center justify-center gap-2"
               >
-                <MessageCircle className="w-4 h-4 fill-current" />
+                <MessageCircle className="w-4 h-4 fill-current text-[#25D366]" />
                 <span>Re-open WhatsApp Chat</span>
               </a>
               <button
@@ -590,7 +590,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                 <select
                   value={selectedVehicleId}
                   onChange={(e) => setSelectedVehicleId(e.target.value)}
-                  className="w-full bg-[#10141d] border border-white/15 rounded-xl px-3.5 py-3 text-base sm:text-sm text-white focus:outline-none focus:border-[#00FF1F] transition-colors"
+                  className="w-full bg-[#10141d] border border-white/15 rounded-xl px-3.5 py-3 text-base sm:text-sm text-white focus:outline-none focus:border-[#ff7a1a] transition-colors"
                 >
                   {FLEET_VEHICLES.map((v) => {
                     const isAvail = v.isAvailable ?? v.available ?? true;
@@ -618,7 +618,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                       }}
                       className={`min-h-[44px] py-2.5 px-3 rounded-xl text-xs sm:text-sm font-bold border transition-colors ${
                         rentalType === 'daily'
-                          ? 'bg-[#00FF1F] text-[#0d1117] border-[#00FF1F]'
+                          ? 'bg-[#ff7a1a] text-[#0d1117] border-[#ff7a1a]'
                           : 'bg-[#10141d] text-slate-300 border-white/10 hover:text-white'
                       }`}
                     >
@@ -632,7 +632,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                       }}
                       className={`min-h-[44px] py-2.5 px-3 rounded-xl text-xs sm:text-sm font-bold border transition-colors ${
                         rentalType === 'hourly'
-                          ? 'bg-[#00FF1F] text-[#0d1117] border-[#00FF1F]'
+                          ? 'bg-[#ff7a1a] text-[#0d1117] border-[#ff7a1a]'
                           : 'bg-[#10141d] text-slate-300 border-white/10 hover:text-white'
                       }`}
                     >
@@ -647,7 +647,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                       Duration ({rentalType === 'daily' ? 'Days (Max 7)' : 'Hours'})
                     </label>
                     {rentalType === 'daily' && effectiveDuration === 7 && (
-                      <span className="text-[10px] font-bold text-[#00FF1F] bg-[#00FF1F]/15 px-2 py-0.5 rounded-full border border-[#00FF1F]/30">
+                      <span className="text-[10px] font-bold text-[#ff7a1a] bg-[#ff7a1a]/15 px-2 py-0.5 rounded-full border border-[#ff7a1a]/30">
                         Weekly Deal Active
                       </span>
                     )}
@@ -713,7 +713,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                     value={pickupDate}
                     onChange={(e) => setPickupDate(e.target.value)}
                     required
-                    className="w-full bg-[#10141d] border border-white/15 rounded-xl px-3.5 py-2.5 text-base sm:text-sm text-white focus:outline-none focus:border-[#00FF1F] transition-colors"
+                    className="w-full bg-[#10141d] border border-white/15 rounded-xl px-3.5 py-2.5 text-base sm:text-sm text-white focus:outline-none focus:border-[#ff7a1a] transition-colors"
                   />
                 </div>
 
@@ -724,7 +724,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                   <select
                     value={pickupTime}
                     onChange={(e) => setPickupTime(e.target.value)}
-                    className="w-full bg-[#10141d] border border-white/15 rounded-xl px-3.5 py-2.5 text-base sm:text-sm text-white focus:outline-none focus:border-[#00FF1F] transition-colors"
+                    className="w-full bg-[#10141d] border border-white/15 rounded-xl px-3.5 py-2.5 text-base sm:text-sm text-white focus:outline-none focus:border-[#ff7a1a] transition-colors"
                   >
                     <option value="08:30 AM">08:30 AM</option>
                     <option value="09:00 AM">09:00 AM</option>
@@ -752,14 +752,14 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                     onClick={() => setDeliveryType('hub_pickup')}
                     className={`p-3.5 rounded-xl text-left border transition-colors ${
                       deliveryType === 'hub_pickup'
-                        ? 'bg-[#00FF1F]/15 border-[#00FF1F] text-white shadow-sm'
+                        ? 'bg-[#ff7a1a]/15 border-[#ff7a1a] text-white shadow-sm'
                         : 'bg-[#10141d] border-white/10 text-slate-300 hover:border-white/20'
                     }`}
                   >
                     <div className="text-xs sm:text-sm font-bold flex items-center justify-between">
                       <span>Chota Gamharia Hub</span>
                       {deliveryType === 'hub_pickup' && (
-                        <span className="text-[10px] font-bold text-[#00FF1F] bg-[#00FF1F]/20 px-2 py-0.5 rounded-full">
+                        <span className="text-[10px] font-bold text-[#ff7a1a] bg-[#ff7a1a]/20 px-2 py-0.5 rounded-full">
                           Selected
                         </span>
                       )}
@@ -772,14 +772,14 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                     onClick={() => setDeliveryType('doorstep')}
                     className={`p-3.5 rounded-xl text-left border transition-colors ${
                       deliveryType === 'doorstep'
-                        ? 'bg-[#00FF1F]/15 border-[#00FF1F] text-white shadow-sm'
+                        ? 'bg-[#ff7a1a]/15 border-[#ff7a1a] text-white shadow-sm'
                         : 'bg-[#10141d] border-white/10 text-slate-300 hover:border-white/20'
                     }`}
                   >
                     <div className="text-xs sm:text-sm font-bold flex items-center justify-between">
                       <span>Doorstep Pickup</span>
                       {deliveryType === 'doorstep' ? (
-                        <span className="text-[10px] font-bold text-[#00FF1F] bg-[#00FF1F]/20 px-2 py-0.5 rounded-full">
+                        <span className="text-[10px] font-bold text-[#ff7a1a] bg-[#ff7a1a]/20 px-2 py-0.5 rounded-full">
                           +₹100
                         </span>
                       ) : (
@@ -797,7 +797,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                     value={deliveryAddress}
                     onChange={(e) => setDeliveryAddress(e.target.value)}
                     required
-                    className="w-full bg-[#10141d] border border-white/15 rounded-xl px-3.5 py-2.5 text-base sm:text-sm text-white focus:outline-none focus:border-[#00FF1F] transition-colors"
+                    className="w-full bg-[#10141d] border border-white/15 rounded-xl px-3.5 py-2.5 text-base sm:text-sm text-white focus:outline-none focus:border-[#ff7a1a] transition-colors"
                   />
                 )}
 
@@ -807,14 +807,14 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                       type="checkbox"
                       checked={extraHelmet}
                       onChange={(e) => setExtraHelmet(e.target.checked)}
-                      className="w-5 h-5 accent-[#00FF1F] rounded shrink-0 cursor-pointer"
+                      className="w-5 h-5 accent-[#ff7a1a] rounded shrink-0 cursor-pointer"
                     />
                     <div>
                       <span className="text-xs sm:text-sm text-slate-200 block font-medium">
                         Include 2nd helmet for pillion (1st helmet is 100% free)
                       </span>
                       {rentalType === 'daily' && effectiveDuration >= 7 && (
-                        <span className="text-[10px] text-[#00FF1F] font-bold block mt-0.5">
+                        <span className="text-[10px] text-[#ff7a1a] font-bold block mt-0.5">
                           Weekly Deal: Only ₹200 for 7 full days!
                         </span>
                       )}
@@ -841,7 +841,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                       onChange={(e) => setCustomerName(e.target.value)}
                       required
                       autoComplete="name"
-                      className="w-full bg-[#10141d] border border-white/15 rounded-xl px-3.5 py-2.5 text-base sm:text-sm text-white placeholder:text-slate-500 focus:outline-none focus:border-[#00FF1F] transition-colors"
+                      className="w-full bg-[#10141d] border border-white/15 rounded-xl px-3.5 py-2.5 text-base sm:text-sm text-white placeholder:text-slate-500 focus:outline-none focus:border-[#ff7a1a] transition-colors"
                     />
                   </div>
 
@@ -854,7 +854,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                       onChange={(e) => setCustomerPhone(e.target.value)}
                       required
                       autoComplete="tel"
-                      className="w-full bg-[#10141d] border border-white/15 rounded-xl px-3.5 py-2.5 text-base sm:text-sm text-white placeholder:text-slate-500 focus:outline-none focus:border-[#00FF1F] transition-colors"
+                      className="w-full bg-[#10141d] border border-white/15 rounded-xl px-3.5 py-2.5 text-base sm:text-sm text-white placeholder:text-slate-500 focus:outline-none focus:border-[#ff7a1a] transition-colors"
                     />
                   </div>
                 </div>
@@ -864,7 +864,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                     type="checkbox"
                     checked={hasLicense}
                     onChange={(e) => setHasLicense(e.target.checked)}
-                    className="w-5 h-5 accent-[#00FF1F] rounded shrink-0 mt-0.5 cursor-pointer"
+                    className="w-5 h-5 accent-[#ff7a1a] rounded shrink-0 mt-0.5 cursor-pointer"
                   />
                   <span className="text-xs text-slate-200 leading-relaxed">
                     I possess a valid Indian Driving License (Two-Wheeler) &amp; Aadhaar/Voter ID. (Rental agreement will be signed offline at vehicle handover).
@@ -875,11 +875,11 @@ export const BookingModal: React.FC<BookingModalProps> = ({
               {/* Referral Discount Section */}
               <div className="pt-2 border-t border-white/10 space-y-2">
                 {isSenderDiscountActive ? (
-                  <div className="p-3.5 rounded-xl bg-[#00FF1F]/15 border border-[#00FF1F]/40 flex items-center justify-between gap-3 text-xs text-white">
+                  <div className="p-3.5 rounded-xl bg-[#ff7a1a]/15 border border-[#ff7a1a]/40 flex items-center justify-between gap-3 text-xs text-white">
                     <div className="flex items-center gap-2.5">
-                      <Gift className="w-5 h-5 text-[#00FF1F] shrink-0" />
+                      <Gift className="w-5 h-5 text-[#ff7a1a] shrink-0" />
                       <div>
-                        <span className="font-bold text-[#00FF1F] block text-xs sm:text-sm">
+                        <span className="font-bold text-[#ff7a1a] block text-xs sm:text-sm">
                           🎉 Your Referral Code ({referralProfile.myReferralCode}) Auto-Applied!
                         </span>
                         <span className="text-slate-300 text-[11px] block mt-0.5">
@@ -887,16 +887,16 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                         </span>
                       </div>
                     </div>
-                    <span className="font-bold font-mono text-[#00FF1F] text-sm shrink-0">
+                    <span className="font-bold font-mono text-[#ff7a1a] text-sm shrink-0">
                       -{formatINR(referralDiscount)}
                     </span>
                   </div>
                 ) : appliedReferralCode ? (
-                  <div className="p-3.5 rounded-xl bg-[#00FF1F]/15 border border-[#00FF1F]/40 flex items-center justify-between gap-3 text-xs text-white">
+                  <div className="p-3.5 rounded-xl bg-[#ff7a1a]/15 border border-[#ff7a1a]/40 flex items-center justify-between gap-3 text-xs text-white">
                     <div className="flex items-center gap-2.5">
-                      <Gift className="w-5 h-5 text-[#00FF1F] shrink-0" />
+                      <Gift className="w-5 h-5 text-[#ff7a1a] shrink-0" />
                       <div>
-                        <span className="font-bold text-[#00FF1F] block text-xs sm:text-sm">
+                        <span className="font-bold text-[#ff7a1a] block text-xs sm:text-sm">
                           20% Referral Code Applied ({appliedReferralCode})
                         </span>
                         <span className="text-slate-300 text-[11px] block mt-0.5">
@@ -905,7 +905,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                       </div>
                     </div>
                     <div className="flex items-center gap-2.5 shrink-0">
-                      <span className="font-bold font-mono text-[#00FF1F] text-sm">
+                      <span className="font-bold font-mono text-[#ff7a1a] text-sm">
                         -{formatINR(referralDiscount)}
                       </span>
                       <button
@@ -929,7 +929,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                         <Gift className="w-3.5 h-3.5 text-[#ff7a1a]" />
                         <span>Have a Referral Code?</span>
                       </label>
-                      <span className="text-[10px] text-[#00FF1F] font-semibold bg-[#00FF1F]/10 px-2 py-0.5 rounded-full border border-[#00FF1F]/20">
+                      <span className="text-[10px] text-[#ff7a1a] font-semibold bg-[#ff7a1a]/10 px-2 py-0.5 rounded-full border border-[#ff7a1a]/20">
                         20% Off 1st Ride
                       </span>
                     </div>
@@ -943,7 +943,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                           setReferralCodeInput(e.target.value.toUpperCase());
                           if (referralError) setReferralError(null);
                         }}
-                        className="flex-1 bg-[#161c26] border border-white/15 rounded-xl px-3 py-2 text-xs sm:text-sm text-white placeholder:text-slate-500 uppercase font-mono tracking-wider focus:outline-none focus:border-[#00FF1F] transition-colors"
+                        className="flex-1 bg-[#161c26] border border-white/15 rounded-xl px-3 py-2 text-xs sm:text-sm text-white placeholder:text-slate-500 uppercase font-mono tracking-wider focus:outline-none focus:border-[#ff7a1a] transition-colors"
                       />
                       <button
                         type="button"
@@ -971,11 +971,11 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                 <div className="flex items-center gap-2 flex-wrap">
                   <span className="text-xs text-slate-400 font-medium">Total Rental</span>
                   {referralDiscount > 0 ? (
-                    <span className="text-[10px] font-bold text-[#00FF1F] bg-[#00FF1F]/15 px-2 py-0.5 rounded-full border border-[#00FF1F]/30">
+                    <span className="text-[10px] font-bold text-[#ff7a1a] bg-[#ff7a1a]/15 px-2 py-0.5 rounded-full border border-[#ff7a1a]/30">
                       Saved {formatINR(referralDiscount)} (20% OFF)!
                     </span>
                   ) : weeklySavings > 0 ? (
-                    <span className="text-[10px] font-bold text-[#00FF1F] bg-[#00FF1F]/15 px-2 py-0.5 rounded-full border border-[#00FF1F]/30">
+                    <span className="text-[10px] font-bold text-[#ff7a1a] bg-[#ff7a1a]/15 px-2 py-0.5 rounded-full border border-[#ff7a1a]/30">
                       Saved {formatINR(weeklySavings)}!
                     </span>
                   ) : null}
@@ -990,7 +990,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                     </span>
                   )}
                   <div className="text-[11px] text-slate-400 hidden xs:inline-block">
-                    + <span className="text-[#00FF1F] font-bold">{formatINR(securityDeposit)}</span> deposit (refundable)
+                    + <span className="text-[#ff7a1a] font-bold">{formatINR(securityDeposit)}</span> deposit (refundable)
                   </div>
                 </div>
                 <div className="text-[10px] text-slate-400 xs:hidden text-right">
@@ -1000,9 +1000,9 @@ export const BookingModal: React.FC<BookingModalProps> = ({
 
               <button
                 type="submit"
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-6 sm:px-7 py-3.5 rounded-full font-bold text-sm sm:text-base bg-[#00FF1F] text-[#0d1117] hover:bg-[#26ff3f] active:scale-[0.98] shadow-lg shadow-[#00FF1F]/25 transition-all cursor-pointer whitespace-nowrap"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-6 sm:px-7 py-3.5 rounded-full font-bold text-sm sm:text-base bg-[#ff7a1a] text-[#0d1117] hover:bg-[#ff8c38] active:scale-[0.98] shadow-lg shadow-[#ff7a1a]/25 transition-all cursor-pointer whitespace-nowrap"
               >
-                <MessageCircle className="w-5 h-5 fill-current shrink-0" />
+                <MessageCircle className="w-5 h-5 fill-current shrink-0 text-[#25D366]" />
                 <span>Confirm &amp; Book on WhatsApp</span>
               </button>
             </div>

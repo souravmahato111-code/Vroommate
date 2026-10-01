@@ -117,7 +117,7 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-black text-slate-100 flex flex-col font-sans selection:bg-[#00FF1F] selection:text-[#0d1117]">
+    <div className="min-h-screen bg-black text-slate-100 flex flex-col font-sans selection:bg-[#39ff88] selection:text-[#0d1117]">
       {/* Navigation */}
       <Navbar
         onOpenBookings={() => setMyBookingsOpen(true)}
@@ -168,7 +168,9 @@ export default function App() {
       </main>
 
       {/* Footer */}
-      <Footer onOpenAgreement={() => handleOpenAgreement()} />
+      <Footer
+        onOpenAgreement={() => handleOpenAgreement()}
+      />
 
       {/* Floating WhatsApp Quick Action Button */}
       <FloatingWhatsApp />

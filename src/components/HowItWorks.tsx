@@ -18,7 +18,7 @@ export const HowItWorks: React.FC<HowItWorksProps> = ({ onOpenAgreement }) => {
       num: '01',
       title: 'Choose Your Ride',
       desc: 'Browse our collection of Scooties, Yamaha FZ, Centuro, or Royal Enfield. Pick daily or hourly duration that suits your plan.',
-      color: '#00FF1F',
+      color: '#39ff88',
       icon: Bike,
     },
     {
@@ -32,7 +32,7 @@ export const HowItWorks: React.FC<HowItWorksProps> = ({ onOpenAgreement }) => {
       num: '03',
       title: 'Offline Agreement Signing',
       desc: 'Sign the standard self-drive rental agreement offline in-person at the hub desk or during handover, acknowledging vehicle inspection, safety norms, and return time.',
-      color: '#00FF1F',
+      color: '#39ff88',
       icon: FileSignature,
     },
     {
@@ -66,8 +66,8 @@ export const HowItWorks: React.FC<HowItWorksProps> = ({ onOpenAgreement }) => {
           </p>
         </div>
 
-        {/* 4 Step Cards */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-12">
+        {/* 4 Step Cards - Vertical Stack on Mobile, Grid on Tablet/Desktop */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-12">
           {steps.map((step, idx) => {
             const Icon = step.icon;
             return (
@@ -77,7 +77,7 @@ export const HowItWorks: React.FC<HowItWorksProps> = ({ onOpenAgreement }) => {
                   borderTop: `4px solid ${step.color}`,
                   transitionDelay: `${idx * 100 + 150}ms`,
                 }}
-                className={`rounded-3xl p-6 bg-[#161c26] border border-white/10 relative overflow-hidden group hover:border-white/20 transition-all duration-500 transform hover:-translate-y-1 flex flex-col justify-between motion-reduce:transition-none motion-reduce:opacity-100 motion-reduce:translate-y-0 ${
+                className={`rounded-3xl p-6 sm:p-7 bg-[#161c26] border border-white/10 relative overflow-hidden group hover:border-white/20 transition-all duration-500 transform hover:-translate-y-1 flex flex-col justify-between motion-reduce:transition-none motion-reduce:opacity-100 motion-reduce:translate-y-0 ${
                   isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
                 }`}
               >
@@ -97,7 +97,7 @@ export const HowItWorks: React.FC<HowItWorksProps> = ({ onOpenAgreement }) => {
                     </div>
                   </div>
 
-                  <h3 className="font-display font-extrabold text-lg text-white mt-5">
+                  <h3 className="font-display font-extrabold text-lg sm:text-xl text-white mt-5">
                     {step.title}
                   </h3>
                   <p className="mt-2.5 text-slate-300 text-xs sm:text-sm leading-relaxed">
@@ -110,9 +110,9 @@ export const HowItWorks: React.FC<HowItWorksProps> = ({ onOpenAgreement }) => {
         </div>
 
         {/* Rules & Requirements Box matching original styling */}
-        <div className="mt-14 max-w-3xl mx-auto rounded-3xl p-7 md:p-9 border-2 border-[#00FF1F] bg-[#111c17] shadow-[0_0_40px_-12px_rgba(0,255,31,0.4)]">
+        <div className="mt-14 max-w-3xl mx-auto rounded-3xl p-7 md:p-9 border-2 border-[#39ff88] bg-[#111c17] shadow-[0_0_40px_-12px_rgba(57,255,136,0.4)]">
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-xl bg-[#00FF1F] text-[#0d1117] grid place-items-center">
+            <div className="w-9 h-9 rounded-xl bg-[#39ff88] text-[#0d1117] grid place-items-center">
               <ShieldAlert className="w-5 h-5 stroke-[2.5]" />
             </div>
             <h3 className="font-display font-extrabold text-2xl text-white">
@@ -122,7 +122,7 @@ export const HowItWorks: React.FC<HowItWorksProps> = ({ onOpenAgreement }) => {
 
           <ul className="mt-6 space-y-4">
             <li className="flex gap-3.5 items-start">
-              <span className="shrink-0 w-6 h-6 rounded-full grid place-items-center bg-[#00FF1F] text-[#0d1117] mt-0.5">
+              <span className="shrink-0 w-6 h-6 rounded-full grid place-items-center bg-[#39ff88] text-[#0d1117] mt-0.5">
                 <Check className="w-4 h-4 stroke-[3]" />
               </span>
               <span className="text-slate-200 text-sm sm:text-base leading-snug">
@@ -131,7 +131,7 @@ export const HowItWorks: React.FC<HowItWorksProps> = ({ onOpenAgreement }) => {
             </li>
 
             <li className="flex gap-3.5 items-start">
-              <span className="shrink-0 w-6 h-6 rounded-full grid place-items-center bg-[#00FF1F] text-[#0d1117] mt-0.5">
+              <span className="shrink-0 w-6 h-6 rounded-full grid place-items-center bg-[#39ff88] text-[#0d1117] mt-0.5">
                 <Check className="w-4 h-4 stroke-[3]" />
               </span>
               <span className="text-slate-200 text-sm sm:text-base leading-snug">
@@ -140,7 +140,7 @@ export const HowItWorks: React.FC<HowItWorksProps> = ({ onOpenAgreement }) => {
             </li>
 
             <li className="flex gap-3.5 items-start">
-              <span className="shrink-0 w-6 h-6 rounded-full grid place-items-center bg-[#00FF1F] text-[#0d1117] mt-0.5">
+              <span className="shrink-0 w-6 h-6 rounded-full grid place-items-center bg-[#39ff88] text-[#0d1117] mt-0.5">
                 <Check className="w-4 h-4 stroke-[3]" />
               </span>
               <span className="text-slate-200 text-sm sm:text-base leading-snug">
@@ -149,7 +149,7 @@ export const HowItWorks: React.FC<HowItWorksProps> = ({ onOpenAgreement }) => {
             </li>
 
             <li className="flex gap-3.5 items-start">
-              <span className="shrink-0 w-6 h-6 rounded-full grid place-items-center bg-[#00FF1F] text-[#0d1117] mt-0.5">
+              <span className="shrink-0 w-6 h-6 rounded-full grid place-items-center bg-[#39ff88] text-[#0d1117] mt-0.5">
                 <Check className="w-4 h-4 stroke-[3]" />
               </span>
               <span className="text-slate-200 text-sm sm:text-base leading-snug">
@@ -158,7 +158,7 @@ export const HowItWorks: React.FC<HowItWorksProps> = ({ onOpenAgreement }) => {
             </li>
 
             <li className="flex gap-3.5 items-start">
-              <span className="shrink-0 w-6 h-6 rounded-full grid place-items-center bg-[#00FF1F] text-[#0d1117] mt-0.5">
+              <span className="shrink-0 w-6 h-6 rounded-full grid place-items-center bg-[#39ff88] text-[#0d1117] mt-0.5">
                 <Check className="w-4 h-4 stroke-[3]" />
               </span>
               <span className="text-slate-200 text-sm sm:text-base leading-snug">
@@ -176,7 +176,7 @@ export const HowItWorks: React.FC<HowItWorksProps> = ({ onOpenAgreement }) => {
             </li>
           </ul>
 
-          <div className="mt-8 pt-6 border-t border-[#00FF1F]/20 flex flex-wrap items-center justify-between gap-4">
+          <div className="mt-8 pt-6 border-t border-[#39ff88]/20 flex flex-wrap items-center justify-between gap-4">
             <span className="text-xs text-slate-300">
               Have questions regarding outstation travel or commercial use?
             </span>
@@ -184,7 +184,7 @@ export const HowItWorks: React.FC<HowItWorksProps> = ({ onOpenAgreement }) => {
               href={generateDirectWhatsAppInquiry('Rental Policy Enquiry')}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 text-xs font-bold text-[#00FF1F] hover:text-white transition-colors"
+              className="inline-flex items-center gap-2 text-xs font-bold text-[#39ff88] hover:text-white transition-colors"
             >
               <span>Ask on WhatsApp</span>
               <Sparkles className="w-3.5 h-3.5" />

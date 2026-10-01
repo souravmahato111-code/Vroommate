@@ -383,13 +383,13 @@ export function verifyAndRecordFriendShare(friend: {
     };
   }
 
-  // Prevent duplicate invites to same person: Must be 3 DIFFERENT people!
+  // Prevent duplicate invites to same person
   const alreadyInvited = profile.verifiedFriends.some((f) => f.phone === cleanPhone);
   if (alreadyInvited) {
     return {
       success: false,
       reason:
-        'You have already shared with this person! The referral must be shared with 3 DIFFERENT people to confirm. Sharing to the same person multiple times will not be confirmed.',
+        'You have already shared with this friend! Please invite a new friend to continue.',
       newCount: profile.verifiedFriends.length,
       justUnlocked: false,
       isUnlocked: profile.senderDiscountAvailable,

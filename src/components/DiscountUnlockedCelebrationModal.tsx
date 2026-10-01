@@ -35,10 +35,10 @@ export const DiscountUnlockedCelebrationModal: React.FC<DiscountUnlockedCelebrat
 
   return (
     <div className="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-black/85 backdrop-blur-md animate-in fade-in duration-300">
-      <div className="relative w-full max-w-md bg-[#161c26] border-2 border-[#00FF1F] rounded-3xl p-6 sm:p-8 shadow-[0_0_60px_-15px_rgba(0,255,31,0.5)] text-center overflow-hidden animate-in zoom-in-95 duration-300">
+      <div className="relative w-full max-w-md bg-[#161c26] border-2 border-[#39ff88] rounded-3xl p-6 sm:p-8 shadow-[0_0_60px_-15px_rgba(57,255,136,0.5)] text-center overflow-hidden animate-in zoom-in-95 duration-300">
         {/* Glow background effect */}
         <div
-          className="absolute -top-24 left-1/2 -translate-x-1/2 w-64 h-64 rounded-full bg-[#00FF1F]/20 blur-3xl pointer-events-none"
+          className="absolute -top-24 left-1/2 -translate-x-1/2 w-64 h-64 rounded-full bg-[#39ff88]/20 blur-3xl pointer-events-none"
           aria-hidden="true"
         />
 
@@ -54,8 +54,8 @@ export const DiscountUnlockedCelebrationModal: React.FC<DiscountUnlockedCelebrat
 
         {/* Celebration Trophy Icon / Graphic */}
         <div className="relative mx-auto w-20 h-20 mb-5">
-          <div className="absolute inset-0 rounded-full bg-[#00FF1F]/20 animate-ping duration-1000" />
-          <div className="relative w-20 h-20 rounded-2xl bg-gradient-to-tr from-[#00FF1F] to-[#00FF1F] text-[#0d1117] grid place-items-center shadow-lg shadow-[#00FF1F]/30">
+          <div className="absolute inset-0 rounded-full bg-[#39ff88]/20 animate-ping duration-1000" />
+          <div className="relative w-20 h-20 rounded-2xl bg-gradient-to-tr from-[#39ff88] to-[#39ff88] text-[#0d1117] grid place-items-center shadow-lg shadow-[#39ff88]/30">
             <Gift className="w-10 h-10 stroke-[2.5]" />
           </div>
           <div className="absolute -bottom-1 -right-1 w-7 h-7 rounded-full bg-[#ff7a1a] text-[#0d1117] grid place-items-center font-black text-xs border-2 border-[#161c26]">
@@ -64,7 +64,7 @@ export const DiscountUnlockedCelebrationModal: React.FC<DiscountUnlockedCelebrat
         </div>
 
         {/* Badge */}
-        <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-[#00FF1F]/15 border border-[#00FF1F]/40 text-[#00FF1F] text-xs font-black tracking-widest uppercase mb-3">
+        <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-[#39ff88]/15 border border-[#39ff88]/40 text-[#39ff88] text-xs font-black tracking-widest uppercase mb-3">
           <Sparkles className="w-3.5 h-3.5" />
           <span>{badgeText}</span>
         </div>
@@ -81,12 +81,12 @@ export const DiscountUnlockedCelebrationModal: React.FC<DiscountUnlockedCelebrat
         <div className="mt-5 p-3 rounded-2xl bg-[#0d1117] border border-white/10">
           <div className="flex items-center justify-between text-xs mb-2">
             <span className="text-slate-400 font-medium">Referral Goal Reached</span>
-            <span className="text-[#00FF1F] font-bold font-mono">3 / 3 People Sent</span>
+            <span className="text-[#39ff88] font-bold font-mono">3 / 3 People Sent</span>
           </div>
           <div className="w-full h-2 rounded-full bg-white/10 overflow-hidden flex">
-            <div className="h-full bg-gradient-to-r from-[#00FF1F] to-[#ff7a1a] w-full rounded-full transition-all duration-500 shadow-[0_0_12px_#00FF1F]" />
+            <div className="h-full bg-gradient-to-r from-[#39ff88] to-[#ff7a1a] w-full rounded-full transition-all duration-500 shadow-[0_0_12px_#39ff88]" />
           </div>
-          <div className="flex items-center justify-center gap-1.5 text-[11px] text-[#00FF1F] mt-2 font-medium">
+          <div className="flex items-center justify-center gap-1.5 text-[11px] text-[#39ff88] mt-2 font-medium">
             <Check className="w-3.5 h-3.5 stroke-[3]" />
             <span>Automatically applied on your next booking!</span>
           </div>
@@ -102,7 +102,7 @@ export const DiscountUnlockedCelebrationModal: React.FC<DiscountUnlockedCelebrat
               onClose();
             }
           }}
-          className="mt-6 w-full py-3.5 px-6 rounded-2xl font-bold text-sm bg-gradient-to-r from-[#00FF1F] to-[#2ecc71] text-[#0d1117] hover:brightness-110 active:scale-[0.98] transition-all flex items-center justify-center gap-2 shadow-lg shadow-[#00FF1F]/25 cursor-pointer"
+          className="mt-6 w-full py-3.5 px-6 rounded-2xl font-bold text-sm bg-[#39ff88] text-[#0d1117] hover:bg-[#4dff93] active:scale-[0.98] transition-all flex items-center justify-center gap-2 shadow-lg shadow-[#39ff88]/25 cursor-pointer"
         >
           <span>{actionText}</span>
           <ArrowRight className="w-4 h-4" />

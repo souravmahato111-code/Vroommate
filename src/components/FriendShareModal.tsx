@@ -190,8 +190,8 @@ export const FriendShareModal: React.FC<FriendShareModalProps> = ({
                     className="w-full bg-[#0d1117] border border-white/15 rounded-xl pl-12 pr-3.5 py-2.5 text-sm font-mono tracking-wider text-white placeholder:text-slate-500 focus:outline-none focus:border-[#00FF1F] transition-colors"
                   />
                 </div>
-                <p className="text-[11px] text-[#ff7a1a] mt-1.5 flex items-center gap-1 font-medium">
-                  <span>⚠️ Must be 3 different people. Sharing to the same person 3 times will not be confirmed.</span>
+                <p className="text-[11px] text-slate-400 mt-1.5 flex items-center gap-1 font-medium">
+                  <span>Enter WhatsApp number to share your 20% discount link.</span>
                 </p>
               </div>
             </div>

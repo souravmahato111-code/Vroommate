@@ -78,10 +78,10 @@ export const MyBookingsDrawer: React.FC<MyBookingsDrawerProps> = ({
         <div className="flex-1 overflow-y-auto p-6 space-y-4">
           {/* Referral Card (Visible once user has completed at least one booking) */}
           {bookings.length > 0 && profile.myReferralCode && (
-            <div className="p-4 rounded-2xl bg-gradient-to-br from-[#111c17] to-[#161c26] border border-[#00FF1F]/40 space-y-3">
+            <div className="p-4 rounded-2xl bg-gradient-to-br from-[#1c1813] to-[#161c26] border border-[#ff7a1a]/40 space-y-3">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
-                  <div className="w-8 h-8 rounded-xl bg-[#00FF1F]/20 text-[#00FF1F] grid place-items-center">
+                  <div className="w-8 h-8 rounded-xl bg-[#ff7a1a]/20 text-[#ff7a1a] grid place-items-center">
                     <Gift className="w-4 h-4" />
                   </div>
                   <div>
@@ -89,13 +89,13 @@ export const MyBookingsDrawer: React.FC<MyBookingsDrawerProps> = ({
                     <p className="text-[11px] text-slate-300">Invite friends · Both get 20% discount</p>
                   </div>
                 </div>
-                <span className="text-[10px] font-bold text-[#0d1117] bg-[#00FF1F] px-2 py-0.5 rounded-full">
+                <span className="text-[10px] font-bold text-white bg-[#ff7a1a] px-2 py-0.5 rounded-full">
                   20% OFF
                 </span>
               </div>
 
               <div className="flex items-center justify-between p-2.5 rounded-xl bg-[#0d1117] border border-white/10">
-                <span className="font-mono font-black text-[#00FF1F] text-sm">
+                <span className="font-mono font-black text-[#ff7a1a] text-sm">
                   {profile.myReferralCode}
                 </span>
                 <button
@@ -108,7 +108,7 @@ export const MyBookingsDrawer: React.FC<MyBookingsDrawerProps> = ({
                   }}
                   className="px-2.5 py-1 rounded-lg bg-white/10 text-xs text-white hover:bg-white/15 flex items-center gap-1 cursor-pointer"
                 >
-                  {copiedCode ? <Check className="w-3.5 h-3.5 text-[#00FF1F]" /> : <Copy className="w-3.5 h-3.5" />}
+                  {copiedCode ? <Check className="w-3.5 h-3.5 text-[#ff7a1a]" /> : <Copy className="w-3.5 h-3.5" />}
                   <span>{copiedCode ? 'Copied' : 'Copy'}</span>
                 </button>
               </div>
@@ -117,20 +117,20 @@ export const MyBookingsDrawer: React.FC<MyBookingsDrawerProps> = ({
               <div className="p-3 rounded-xl bg-[#0d1117] border border-white/10 space-y-2">
                 <div className="flex items-center justify-between text-xs">
                   <span className="text-slate-300 font-medium">Send to 3 People:</span>
-                  <span className="text-[#00FF1F] font-bold font-mono">
+                  <span className="text-[#ff7a1a] font-bold font-mono">
                     {Math.min(3, profile.shareCount || 0)} / 3 Sent
                   </span>
                 </div>
                 <div className="w-full h-2 rounded-full bg-white/10 overflow-hidden">
                   <div
-                    className="h-full bg-gradient-to-r from-[#00FF1F] to-[#ff7a1a] rounded-full transition-all duration-300 shadow-[0_0_8px_#00FF1F]"
+                    className="h-full bg-gradient-to-r from-[#ff7a1a] to-[#ff9c54] rounded-full transition-all duration-300 shadow-[0_0_8px_#ff7a1a]"
                     style={{ width: `${Math.min(100, ((profile.shareCount || 0) / 3) * 100)}%` }}
                   />
                 </div>
               </div>
 
               {profile.senderDiscountAvailable && !profile.senderDiscountUsed ? (
-                <p className="text-[11px] text-[#00FF1F] font-medium flex items-center gap-1.5">
+                <p className="text-[11px] text-[#ff7a1a] font-medium flex items-center gap-1.5">
                   <Check className="w-3.5 h-3.5 stroke-[3]" />
                   <span>20% reward unlocked! It will automatically apply on your next booking.</span>
                 </p>
@@ -177,7 +177,7 @@ export const MyBookingsDrawer: React.FC<MyBookingsDrawerProps> = ({
                 className="bg-[#10141d] rounded-2xl p-5 border border-white/10 space-y-3 relative group"
               >
                 <div className="flex items-center justify-between">
-                  <span className="font-mono font-bold text-xs text-[#00FF1F] bg-[#00FF1F]/10 px-2 py-0.5 rounded">
+                  <span className="font-mono font-bold text-xs text-[#ff7a1a] bg-[#ff7a1a]/10 px-2 py-0.5 rounded">
                     {b.id}
                   </span>
                   <div className="flex items-center gap-2">
@@ -229,7 +229,7 @@ export const MyBookingsDrawer: React.FC<MyBookingsDrawerProps> = ({
                     href={generateWhatsAppBookingUrl(b)}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-full py-2.5 px-4 rounded-xl font-bold text-xs bg-[#00FF1F] text-[#0d1117] hover:bg-[#26ff3f] transition-colors flex items-center justify-center gap-2"
+                    className="w-full py-2.5 px-4 rounded-xl font-bold text-xs bg-[#ff7a1a] text-white hover:bg-[#ff8f3d] transition-colors flex items-center justify-center gap-2"
                   >
                     <MessageCircle className="w-3.5 h-3.5 fill-current" />
                     <span>Chat on WhatsApp for {b.id}</span>
@@ -240,7 +240,7 @@ export const MyBookingsDrawer: React.FC<MyBookingsDrawerProps> = ({
                       onClick={() => onOpenAgreement(b)}
                       className="w-full py-2 px-4 rounded-xl font-semibold text-xs text-slate-300 hover:text-white bg-white/5 hover:bg-white/10 border border-white/10 transition-colors flex items-center justify-center gap-2"
                     >
-                      <FileSignature className="w-3.5 h-3.5 text-[#00FF1F]" />
+                      <FileSignature className="w-3.5 h-3.5 text-[#ff7a1a]" />
                       <span>View / Sign Agreement</span>
                     </button>
                   )}
