@@ -20,15 +20,19 @@ const EVENT_NAME = 'vroommate_logo_updated';
 export const OFFICIAL_GITHUB_RAW_LOGO_URL =
   'https://raw.githubusercontent.com/souravmahato111-code/Vroommate/383dc3773cbbaa4ea6c80933c6beebe9fbd66ad3/VMlogo.png';
 
-// List of file paths to check for the official brand logo (Permanent GitHub raw URL is primary)
+// List of file paths to check for the official brand logo
 const DEFAULT_CANDIDATE_PATHS = [
-  OFFICIAL_GITHUB_RAW_LOGO_URL,
   '/VMlogo.png',
+  '/vroommate-logo-transparent.png',
   '/vmlogo.png',
-  '/vroommate-logo-horizontal.svg',
-  '/vroommate-logo-horizontal.png',
-  '/vroommate-logo.svg',
-  '/logo.svg',
+  OFFICIAL_GITHUB_RAW_LOGO_URL,
+  '/logo.png',
+];
+
+const DEFAULT_ICON_CANDIDATE_PATHS = [
+  '/vroommate-icon.png',
+  '/VMlogo.png',
+  OFFICIAL_GITHUB_RAW_LOGO_URL,
 ];
 
 export const VroomMateLogo: React.FC<VroomMateLogoProps> = ({
@@ -81,14 +85,19 @@ export const VroomMateLogo: React.FC<VroomMateLogoProps> = ({
     };
   }, []);
 
+  const getCandidateList = (): string[] => {
+    return variant === 'icon' ? DEFAULT_ICON_CANDIDATE_PATHS : DEFAULT_CANDIDATE_PATHS;
+  };
+
   // Determine current active image URL to attempt loading
   const getActiveImageUrl = (): string | null => {
     if (customLogoUrl) return customLogoUrl;
     if (src) return src;
-    if (candidateIndex < DEFAULT_CANDIDATE_PATHS.length) {
-      return DEFAULT_CANDIDATE_PATHS[candidateIndex];
+    const candidates = getCandidateList();
+    if (candidateIndex < candidates.length) {
+      return candidates[candidateIndex];
     }
-    return null;
+    return candidates[0] || null;
   };
 
   const handleImageError = () => {
@@ -107,7 +116,8 @@ export const VroomMateLogo: React.FC<VroomMateLogoProps> = ({
       return;
     }
 
-    if (candidateIndex + 1 < DEFAULT_CANDIDATE_PATHS.length) {
+    const candidates = getCandidateList();
+    if (candidateIndex + 1 < candidates.length) {
       setCandidateIndex((prev) => prev + 1);
     } else {
       setAllCandidatesFailed(true);
@@ -339,7 +349,7 @@ export const VroomMateLogo: React.FC<VroomMateLogoProps> = ({
     </svg>
   );
 
-  const activeLogoSrc = customLogoUrl || src;
+  const activeLogoSrc = allCandidatesFailed ? null : (customLogoUrl || src || getActiveImageUrl());
 
   // Icon only variant
   if (variant === 'icon') {
@@ -350,7 +360,7 @@ export const VroomMateLogo: React.FC<VroomMateLogoProps> = ({
             src={activeLogoSrc}
             alt={alt}
             onError={handleImageError}
-            className="w-full h-full object-contain mix-blend-screen bg-transparent"
+            className="w-full h-full object-contain bg-transparent"
           />
         ) : (
           renderSvgVEmblem('w-full h-full object-contain drop-shadow-[0_0_12px_rgba(57,255,136,0.4)]')
@@ -380,8 +390,7 @@ export const VroomMateLogo: React.FC<VroomMateLogoProps> = ({
   }
 
   // Default 'horizontal' lockup for Navbar and Footer:
-  // Directly renders the custom uploaded logo or the exact official picture with speed lines, V, R, motorcycle body over wheels, MM, and white ATE.
-  // Seamlessly merges with the interface background with no dark rectangular edges!
+  // Directly renders the official brand logo with transparent background seamlessly merged with the interface.
   const content = (
     <div className={`inline-flex items-center select-none bg-transparent ${className}`}>
       {activeLogoSrc ? (
@@ -389,11 +398,11 @@ export const VroomMateLogo: React.FC<VroomMateLogoProps> = ({
           src={activeLogoSrc}
           alt={alt}
           onError={handleImageError}
-          className="h-[48px] sm:h-[56px] md:h-[62px] lg:h-[68px] w-auto max-w-[280px] sm:max-w-[340px] md:max-w-[420px] lg:max-w-[460px] object-contain bg-transparent drop-shadow-[0_0_14px_rgba(57,255,136,0.35)]"
+          className="h-[44px] sm:h-[52px] md:h-[58px] lg:h-[64px] w-auto max-w-[280px] sm:max-w-[340px] md:max-w-[420px] lg:max-w-[460px] object-contain bg-transparent drop-shadow-[0_0_14px_rgba(57,255,136,0.35)]"
         />
       ) : (
         renderSvgFullLogo(
-          'h-[48px] sm:h-[56px] md:h-[62px] lg:h-[68px] w-auto max-w-[280px] sm:max-w-[340px] md:max-w-[420px] lg:max-w-[460px] object-contain drop-shadow-[0_0_14px_rgba(57,255,136,0.35)]'
+          'h-[44px] sm:h-[52px] md:h-[58px] lg:h-[64px] w-auto max-w-[280px] sm:max-w-[340px] md:max-w-[420px] lg:max-w-[460px] object-contain drop-shadow-[0_0_14px_rgba(57,255,136,0.35)]'
         )
       )}
     </div>

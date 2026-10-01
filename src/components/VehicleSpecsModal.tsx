@@ -46,12 +46,12 @@ export const VehicleSpecsModal: React.FC<VehicleSpecsModalProps> = ({
 
           <div className="absolute bottom-3 left-3 right-3 sm:bottom-4 sm:left-4 sm:right-4 flex items-end justify-between gap-2">
             <div className="flex flex-wrap items-center gap-1.5 sm:gap-2">
-              <span className="px-3 py-1 rounded-full text-xs font-bold bg-[#39ff88] text-[#0d1117] shadow-lg">
+              <span className="px-3 py-1 rounded-full text-xs font-bold bg-[#43f92f] text-[#0d1117] shadow-lg">
                 {vehicle.tag}
               </span>
               {(vehicle.isAvailable ?? vehicle.available ?? true) ? (
-                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-[#0d1117]/90 backdrop-blur-md text-[#22f054] border border-[#22f054]/40">
-                  <span className="h-2 w-2 rounded-full bg-[#22f054] animate-pulse"></span>
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-[#0d1117]/90 backdrop-blur-md text-[#43f92f] border border-[#43f92f]/40">
+                  <span className="h-2 w-2 rounded-full bg-[#43f92f] animate-pulse"></span>
                   <span>Available</span>
                 </span>
               ) : (
@@ -86,7 +86,7 @@ export const VehicleSpecsModal: React.FC<VehicleSpecsModalProps> = ({
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5 sm:gap-3">
               <div className="bg-[#10141d] p-3 rounded-xl border border-white/5">
                 <div className="text-[11px] text-slate-400 flex items-center gap-1.5">
-                  <Gauge className="w-3.5 h-3.5 text-[#39ff88]" />
+                  <Gauge className="w-3.5 h-3.5 text-[#43f92f]" />
                   <span>Engine</span>
                 </div>
                 <div className="text-xs font-bold text-white mt-1">{vehicle.engine}</div>
@@ -94,7 +94,7 @@ export const VehicleSpecsModal: React.FC<VehicleSpecsModalProps> = ({
 
               <div className="bg-[#10141d] p-3 rounded-xl border border-white/5">
                 <div className="text-[11px] text-slate-400 flex items-center gap-1.5">
-                  <Fuel className="w-3.5 h-3.5 text-[#39ff88]" />
+                  <Fuel className="w-3.5 h-3.5 text-[#43f92f]" />
                   <span>Mileage</span>
                 </div>
                 <div className="text-xs font-bold text-white mt-1">{vehicle.mileage}</div>
@@ -102,7 +102,7 @@ export const VehicleSpecsModal: React.FC<VehicleSpecsModalProps> = ({
 
               <div className="bg-[#10141d] p-3 rounded-xl border border-white/5">
                 <div className="text-[11px] text-slate-400 flex items-center gap-1.5">
-                  <Zap className="w-3.5 h-3.5 text-[#39ff88]" />
+                  <Zap className="w-3.5 h-3.5 text-[#43f92f]" />
                   <span>Transmission</span>
                 </div>
                 <div className="text-xs font-bold text-white mt-1">{vehicle.transmission}</div>
@@ -115,12 +115,12 @@ export const VehicleSpecsModal: React.FC<VehicleSpecsModalProps> = ({
 
               <div className="bg-[#10141d] p-3 rounded-xl border border-white/5">
                 <div className="text-[11px] text-slate-400">Free KM / Day</div>
-                <div className="text-xs font-bold text-[#39ff88] mt-1">{vehicle.freeKmPerDay} KM</div>
+                <div className="text-xs font-bold text-[#43f92f] mt-1">{vehicle.freeKmPerDay} KM</div>
               </div>
 
               <div className="bg-[#10141d] p-3 rounded-xl border border-white/5">
                 <div className="text-[11px] text-slate-400">Daily Deposit (1x)</div>
-                <div className="text-xs font-bold text-[#39ff88] mt-1">
+                <div className="text-xs font-bold text-[#43f92f] mt-1">
                   {formatINR(vehicle.securityDeposit)}
                 </div>
               </div>
@@ -134,9 +134,9 @@ export const VehicleSpecsModal: React.FC<VehicleSpecsModalProps> = ({
               <div className="p-3.5 sm:p-4 rounded-2xl bg-[#0f141d] border border-white/10 shadow-inner">
                 <div className="flex items-center justify-between gap-1.5 flex-wrap">
                   <div className="flex items-center gap-2">
-                    <ShieldCheck className="w-4 h-4 text-[#39ff88] shrink-0" />
+                    <ShieldCheck className="w-4 h-4 text-[#43f92f] shrink-0" />
                     <h4 className="text-xs font-bold text-white uppercase tracking-wider">
-                      Security Deposit <span className="text-[#39ff88] font-semibold lowercase">(100% refundable)</span>
+                      Security Deposit <span className="text-[#43f92f] font-semibold lowercase">(100% refundable)</span>
                     </h4>
                   </div>
                   <span className="text-[10px] text-slate-300 bg-white/10 px-2 py-0.5 rounded-full font-medium">
@@ -151,17 +151,17 @@ export const VehicleSpecsModal: React.FC<VehicleSpecsModalProps> = ({
                   </div>
                   <div className="bg-[#161c26] rounded-xl p-2 sm:p-2.5 border border-white/5">
                     <span className="block text-[10px] text-slate-400 font-sans font-medium">Day</span>
-                    <span className="text-xs sm:text-sm font-bold text-[#39ff88] mt-0.5 block">{formatINR(deposit.daily)}</span>
+                    <span className="text-xs sm:text-sm font-bold text-[#43f92f] mt-0.5 block">{formatINR(deposit.daily)}</span>
                   </div>
                   <div className="bg-[#161c26] rounded-xl p-2 sm:p-2.5 border border-white/5">
                     <span className="block text-[10px] text-slate-400 font-sans font-medium">Week</span>
-                    <span className="text-xs sm:text-sm font-bold text-[#39ff88] mt-0.5 block">{formatINR(deposit.weekly)}</span>
+                    <span className="text-xs sm:text-sm font-bold text-[#43f92f] mt-0.5 block">{formatINR(deposit.weekly)}</span>
                   </div>
                 </div>
 
                 <p className="mt-2 text-[10.5px] sm:text-[11px] text-slate-400 flex items-center justify-between">
                   <span>Charged once per booking (never per day).</span>
-                  <span className="text-[#39ff88] font-medium">100% refunded</span>
+                  <span className="text-[#43f92f] font-medium">100% refunded</span>
                 </p>
               </div>
             );
@@ -175,7 +175,7 @@ export const VehicleSpecsModal: React.FC<VehicleSpecsModalProps> = ({
             <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-slate-200">
               {vehicle.features.map((feat, i) => (
                 <li key={i} className="flex items-center gap-2">
-                  <Check className="w-4 h-4 text-[#39ff88] shrink-0" />
+                  <Check className="w-4 h-4 text-[#43f92f] shrink-0" />
                   <span>{feat}</span>
                 </li>
               ))}
@@ -191,7 +191,7 @@ export const VehicleSpecsModal: React.FC<VehicleSpecsModalProps> = ({
               onClose();
               onBookNow(vehicle);
             }}
-            className="w-full sm:flex-1 py-3.5 px-6 rounded-full font-bold text-sm bg-[#39ff88] text-[#0d1117] hover:bg-[#4dff93] active:scale-[0.98] transition-all flex items-center justify-center gap-2 cursor-pointer shadow-lg shadow-[#39ff88]/20"
+            className="w-full sm:flex-1 py-3.5 px-6 rounded-full font-bold text-sm bg-[#43f92f] text-[#0d1117] hover:bg-[#5dfb4c] active:scale-[0.98] transition-all flex items-center justify-center gap-2 cursor-pointer shadow-lg shadow-[#43f92f]/20"
           >
             <span>Book {vehicle.name} Now</span>
             <ArrowRight className="w-4 h-4" />

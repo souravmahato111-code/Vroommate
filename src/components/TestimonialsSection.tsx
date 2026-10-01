@@ -70,7 +70,7 @@ export const TestimonialsSection: React.FC = () => {
               hasInteracted ? 'opacity-40' : 'opacity-100 animate-pulse'
             }`}
           >
-            <Hand className="w-3.5 h-3.5 text-[#39ff88]" />
+            <Hand className="w-3.5 h-3.5 text-[#43f92f]" />
             <span>Swipe horizontally to browse rider stories</span>
           </div>
         </div>
@@ -133,7 +133,7 @@ export const TestimonialsSection: React.FC = () => {
                   </div>
                   {review.verified && (
                     <span
-                      className="text-[#39ff88] text-[11px] flex items-center gap-1 font-medium bg-[#39ff88]/10 px-2.5 py-1 rounded-full border border-[#39ff88]/20"
+                      className="text-[#43f92f] text-[11px] flex items-center gap-1 font-medium bg-[#43f92f]/10 px-2.5 py-1 rounded-full border border-[#43f92f]/20"
                       title="Verified Rental"
                     >
                       <CheckCircle className="w-3.5 h-3.5" />

@@ -47,7 +47,7 @@ export const FAQSection: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => toggle(idx)}
-                  className="w-full px-6 py-4.5 text-left flex items-center justify-between gap-4 cursor-pointer focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#39ff88]"
+                  className="w-full px-6 py-4.5 text-left flex items-center justify-between gap-4 cursor-pointer focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#43f92f]"
                   aria-expanded={isOpen}
                 >
                   <span className="font-display font-bold text-base sm:text-lg text-white">
@@ -55,7 +55,7 @@ export const FAQSection: React.FC = () => {
                   </span>
                   <span
                     className={`w-8 h-8 rounded-full grid place-items-center bg-white/5 shrink-0 text-slate-300 transition-transform duration-200 ${
-                      isOpen ? 'rotate-180 bg-[#39ff88] text-[#0d1117]' : ''
+                      isOpen ? 'rotate-180 bg-[#43f92f] text-[#0d1117]' : ''
                     }`}
                   >
                     <ChevronDown className="w-4 h-4" />
@@ -73,9 +73,9 @@ export const FAQSection: React.FC = () => {
         </div>
 
         {/* WhatsApp support strip */}
-        <div className="mt-10 p-6 rounded-2xl bg-gradient-to-r from-[#14231b] to-[#1a2332] border border-[#39ff88]/30 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div className="mt-10 p-6 rounded-2xl bg-gradient-to-r from-[#14231b] to-[#1a2332] border border-[#43f92f]/30 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-3 text-left">
-            <div className="w-10 h-10 rounded-xl bg-[#39ff88]/20 text-[#39ff88] grid place-items-center shrink-0">
+            <div className="w-10 h-10 rounded-xl bg-[#43f92f]/20 text-[#43f92f] grid place-items-center shrink-0">
               <HelpCircle className="w-5 h-5" />
             </div>
             <div>
@@ -90,7 +90,7 @@ export const FAQSection: React.FC = () => {
             href={generateDirectWhatsAppInquiry('Rental Enquiry from FAQ')}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-bold bg-[#39ff88] text-[#0d1117] hover:bg-[#4dff93] transition-colors whitespace-nowrap shrink-0"
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-bold bg-[#43f92f] text-[#0d1117] hover:bg-[#5dfb4c] transition-colors whitespace-nowrap shrink-0"
           >
             <MessageCircle className="w-4 h-4 fill-current" />
             <span>Ask on WhatsApp</span>

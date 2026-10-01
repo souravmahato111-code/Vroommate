@@ -44,7 +44,7 @@ export const FleetSection: React.FC<FleetSectionProps> = ({
       <div className="max-w-6xl mx-auto px-5">
         {/* Section Header */}
         <div className="text-center max-w-2xl mx-auto">
-          <p className="uppercase tracking-[0.2em] font-bold text-xs md:text-sm text-[#39ff88]">
+          <p className="uppercase tracking-[0.2em] font-bold text-xs md:text-sm text-[#43f92f]">
             Our Fleet
           </p>
           <h2 className="font-display font-extrabold text-3xl sm:text-4xl text-white mt-3">
@@ -64,7 +64,7 @@ export const FleetSection: React.FC<FleetSectionProps> = ({
               onClick={() => setSelectedCategory(cat.id)}
               className={`px-4 py-2 rounded-xl text-xs md:text-sm font-semibold transition-all ${
                 selectedCategory === cat.id
-                  ? 'bg-[#39ff88] text-[#0d1117] shadow-lg shadow-[#39ff88]/20 scale-105'
+                  ? 'bg-[#43f92f] text-[#0d1117] shadow-lg shadow-[#43f92f]/20 scale-105'
                   : 'bg-[#161c26] text-slate-300 hover:text-white hover:bg-[#1e2736] border border-white/5'
               }`}
             >
@@ -81,7 +81,7 @@ export const FleetSection: React.FC<FleetSectionProps> = ({
             return (
               <article
                 key={vehicle.id}
-                className="group rounded-3xl overflow-hidden flex flex-col bg-[#161c26] border border-[#263041] hover:border-[#39ff88]/60 hover:shadow-2xl hover:shadow-[#39ff88]/15 transition-all duration-300 transform hover:-translate-y-1.5"
+                className="group rounded-3xl overflow-hidden flex flex-col bg-[#161c26] border border-[#263041] hover:border-[#43f92f]/60 hover:shadow-2xl hover:shadow-[#43f92f]/15 transition-all duration-300 transform hover:-translate-y-1.5"
               >
                 {/* Image Container with Tag & Availability Indicator */}
                 <div className="relative overflow-hidden aspect-[16/10] bg-[#111722]">
@@ -104,7 +104,7 @@ export const FleetSection: React.FC<FleetSectionProps> = ({
                     style={{ display: 'none' }}
                     className="w-full h-full flex flex-col items-center justify-center p-6 bg-[#161c26] text-center"
                   >
-                    <Gauge className="w-10 h-10 text-[#39ff88] mb-2" />
+                    <Gauge className="w-10 h-10 text-[#43f92f] mb-2" />
                     <p className="font-bold text-white text-sm">{vehicle.name}</p>
                   </div>
 
@@ -113,9 +113,9 @@ export const FleetSection: React.FC<FleetSectionProps> = ({
                     <span
                       className={`inline-block px-3 py-1 rounded-full text-xs font-bold ${
                         vehicle.tag === 'Best for City Commute'
-                          ? 'bg-[#39ff88] text-[#0d1117]'
+                          ? 'bg-[#43f92f] text-[#0d1117]'
                           : vehicle.tag === 'Popular Choice'
-                          ? 'bg-[#39ff88] text-[#0d1117]'
+                          ? 'bg-[#43f92f] text-[#0d1117]'
                           : 'bg-white/90 text-[#0d1117]'
                       }`}
                     >
@@ -126,10 +126,10 @@ export const FleetSection: React.FC<FleetSectionProps> = ({
                   {/* Status Indicator Badge (Available vs Booked) */}
                   <div className="absolute top-4 right-4 z-10">
                     {isAvailable ? (
-                      <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-[#0d1117]/90 backdrop-blur-md text-[#22f054] border border-[#22f054]/40 shadow-lg shadow-[#22f054]/15">
+                      <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-[#0d1117]/90 backdrop-blur-md text-[#43f92f] border border-[#43f92f]/40 shadow-lg shadow-[#43f92f]/15">
                         <span className="relative flex h-2 w-2">
-                          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#22f054] opacity-75"></span>
-                          <span className="relative inline-flex rounded-full h-2 w-2 bg-[#22f054]"></span>
+                          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#43f92f] opacity-75"></span>
+                          <span className="relative inline-flex rounded-full h-2 w-2 bg-[#43f92f]"></span>
                         </span>
                         <span>Available</span>
                       </span>
@@ -150,7 +150,7 @@ export const FleetSection: React.FC<FleetSectionProps> = ({
                 <div className="p-6 flex flex-col flex-1">
                   <div className="flex items-start justify-between gap-2">
                     <div>
-                      <h3 className="font-display font-extrabold text-xl text-white group-hover:text-[#39ff88] transition-colors">
+                      <h3 className="font-display font-extrabold text-xl text-white group-hover:text-[#43f92f] transition-colors">
                         {vehicle.name}
                       </h3>
                       <p className="text-xs text-slate-400 mt-0.5">{vehicle.subtitle}</p>
@@ -183,8 +183,8 @@ export const FleetSection: React.FC<FleetSectionProps> = ({
                     </div>
 
                     {vehicle.pricePerWeek && (
-                      <div className="mt-2 py-1 px-2.5 rounded-lg bg-[#39ff88]/10 border border-[#39ff88]/20 flex items-center justify-between text-[11px]">
-                        <span className="text-[#39ff88] font-bold">1 Week (7 Days):</span>
+                      <div className="mt-2 py-1 px-2.5 rounded-lg bg-[#43f92f]/10 border border-[#43f92f]/20 flex items-center justify-between text-[11px]">
+                        <span className="text-[#43f92f] font-bold">1 Week (7 Days):</span>
                         <span className="font-mono font-bold text-white">{formatINR(vehicle.pricePerWeek)}</span>
                       </div>
                     )}
@@ -197,11 +197,11 @@ export const FleetSection: React.FC<FleetSectionProps> = ({
                   {/* Key feature highlights */}
                   <div className="mt-4 space-y-1.5 text-xs text-slate-300">
                     <div className="flex items-center gap-2">
-                      <Check className="w-3.5 h-3.5 text-[#39ff88] shrink-0" />
+                      <Check className="w-3.5 h-3.5 text-[#43f92f] shrink-0" />
                       <span>Free Sanitized Helmet included</span>
                     </div>
                     <div className="flex items-center gap-2">
-                      <Check className="w-3.5 h-3.5 text-[#39ff88] shrink-0" />
+                      <Check className="w-3.5 h-3.5 text-[#43f92f] shrink-0" />
                       <span>{vehicle.freeKmPerDay} km/day included free · Zero hidden charges</span>
                     </div>
                   </div>
@@ -213,7 +213,7 @@ export const FleetSection: React.FC<FleetSectionProps> = ({
                       onClick={() => onSelectVehicleForBooking(vehicle)}
                       className={`w-full inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl font-bold text-sm transition-all transform hover:-translate-y-0.5 active:translate-y-0 shadow-md ${
                         isAvailable
-                          ? 'bg-[#39ff88] text-[#0d1117] hover:bg-[#4dff93] shadow-[#39ff88]/20'
+                          ? 'bg-[#43f92f] text-[#0d1117] hover:bg-[#5dfb4c] shadow-[#43f92f]/20'
                           : 'bg-red-500/20 text-red-400 hover:bg-red-500/30 border border-red-500/40 shadow-red-500/10'
                       }`}
                     >

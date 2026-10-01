@@ -15,13 +15,13 @@ export const Hero: React.FC<HeroProps> = ({ onExploreFleet, onOpenBookingModal }
         {/* Left Column: Value Proposition */}
         <div className="md:col-span-7 flex flex-col items-start">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-white/15 bg-white/5 backdrop-blur-sm text-xs md:text-sm text-slate-200">
-            <span className="w-2 h-2 rounded-full bg-[#39ff88] animate-pulse"></span>
+            <span className="w-2 h-2 rounded-full bg-[#43f92f] animate-pulse"></span>
             <span className="font-medium">Chota Gamharia Hub Open · 8:00 AM – 8:00 PM</span>
           </div>
 
           <h1 className="font-display font-black text-3xl sm:text-4xl lg:text-5xl text-white mt-6 leading-[1.12] tracking-tight">
             Your Mate for <br className="hidden sm:inline" />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-slate-100 to-[#39ff88]">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-slate-100 to-[#43f92f]">
               Every Ride!
             </span>
           </h1>
@@ -47,7 +47,7 @@ export const Hero: React.FC<HeroProps> = ({ onExploreFleet, onOpenBookingModal }
               href="#calculator"
               className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full font-bold text-base bg-white/10 hover:bg-white/15 text-white border border-white/10 transition-all transform hover:-translate-y-0.5 active:translate-y-0"
             >
-              <Calculator className="w-5 h-5 text-[#39ff88]" />
+              <Calculator className="w-5 h-5 text-[#43f92f]" />
               <span>Estimate Fare</span>
             </a>
           </div>
@@ -55,7 +55,7 @@ export const Hero: React.FC<HeroProps> = ({ onExploreFleet, onOpenBookingModal }
           {/* Micro trust indicators */}
           <div className="mt-10 pt-6 border-t border-white/10 w-full grid grid-cols-2 sm:grid-cols-4 gap-4 text-xs text-slate-300">
             <div className="flex items-center gap-2">
-              <ShieldCheck className="w-4 h-4 text-[#39ff88] shrink-0" />
+              <ShieldCheck className="w-4 h-4 text-[#43f92f] shrink-0" />
               <span>100% Refundable Security Deposit</span>
             </div>
             <div className="flex items-center gap-2">
@@ -63,7 +63,7 @@ export const Hero: React.FC<HeroProps> = ({ onExploreFleet, onOpenBookingModal }
               <span>Hourly &amp; Daily Plans</span>
             </div>
             <div className="flex items-center gap-2">
-              <Award className="w-4 h-4 text-[#39ff88] shrink-0" />
+              <Award className="w-4 h-4 text-[#43f92f] shrink-0" />
               <span>Free Sanitized Helmets</span>
             </div>
             <div className="flex items-center gap-2">
@@ -75,7 +75,7 @@ export const Hero: React.FC<HeroProps> = ({ onExploreFleet, onOpenBookingModal }
 
         {/* Right Column: Visual Anchor */}
         <div className="md:col-span-5 relative">
-          <div className="relative rounded-3xl p-1 bg-gradient-to-tr from-[#39ff88]/30 via-white/5 to-[#ff7a1a]/30 shadow-2xl">
+          <div className="relative rounded-3xl p-1 bg-gradient-to-tr from-[#43f92f]/30 via-white/5 to-[#ff7a1a]/30 shadow-2xl">
             <div className="relative overflow-hidden rounded-[22px] bg-[#161c26] aspect-[4/3] sm:aspect-[16/11]">
               <img
                 src="https://images.pexels.com/photos/32206238/pexels-photo-32206238.jpeg?auto=compress&cs=tinysrgb&w=1280"
@@ -97,7 +97,7 @@ export const Hero: React.FC<HeroProps> = ({ onExploreFleet, onOpenBookingModal }
                 style={{ display: 'none' }}
                 className="w-full h-full flex flex-col items-center justify-center p-8 bg-gradient-to-br from-[#161c26] via-[#1a2332] to-[#122019] text-center"
               >
-                <div className="w-16 h-16 rounded-2xl bg-[#39ff88]/15 border border-[#39ff88]/40 grid place-items-center mb-4 text-[#39ff88]">
+                <div className="w-16 h-16 rounded-2xl bg-[#43f92f]/15 border border-[#43f92f]/40 grid place-items-center mb-4 text-[#43f92f]">
                   <Sparkles className="w-8 h-8" />
                 </div>
                 <h3 className="font-display font-bold text-xl text-white">VroomMate Rides</h3>
@@ -106,7 +106,7 @@ export const Hero: React.FC<HeroProps> = ({ onExploreFleet, onOpenBookingModal }
 
               {/* Float badge */}
               <div className="absolute bottom-2.5 left-2.5 sm:bottom-3 sm:left-3 bg-[#0d1117]/90 backdrop-blur-md border border-white/10 rounded-xl py-1.5 px-2.5 sm:py-2 sm:px-3 flex items-center gap-2 shadow-lg">
-                <div className="w-7 h-6 sm:w-8 sm:h-7 rounded-lg bg-black border border-[#39ff88]/40 grid place-items-center shrink-0 p-1 overflow-hidden">
+                <div className="w-7 h-6 sm:w-8 sm:h-7 rounded-lg bg-black border border-[#43f92f]/40 grid place-items-center shrink-0 p-1 overflow-hidden">
                   <VroomMateLogo variant="icon" alt="Vroommate Logo" />
                 </div>
                 <div>
@@ -116,7 +116,7 @@ export const Hero: React.FC<HeroProps> = ({ onExploreFleet, onOpenBookingModal }
                   <div className="text-[9.5px] sm:text-[10.5px] text-slate-400 flex items-center gap-1 leading-tight mt-0.5">
                     <span>Opp. Bharat Petroleum</span>
                     <span aria-hidden="true">·</span>
-                    <span className="text-[#39ff88] font-semibold">4.9 ★ (350+ Rides)</span>
+                    <span className="text-[#43f92f] font-semibold">4.9 ★ (350+ Rides)</span>
                   </div>
                 </div>
               </div>

@@ -78,7 +78,7 @@ export const RentalAgreementModal: React.FC<RentalAgreementModalProps> = ({
       const canvas = canvasRef.current;
       const ctx = canvas.getContext('2d');
       if (ctx) {
-        ctx.strokeStyle = '#39ff88';
+        ctx.strokeStyle = '#43f92f';
         ctx.lineWidth = 2.5;
         ctx.lineCap = 'round';
         ctx.lineJoin = 'round';
@@ -235,7 +235,7 @@ export const RentalAgreementModal: React.FC<RentalAgreementModalProps> = ({
         {/* Modal Header */}
         <div className="px-6 py-4 border-b border-white/10 bg-[#0d1117] flex items-center justify-between shrink-0">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-[#39ff88]/10 border border-[#39ff88]/30 flex items-center justify-center text-[#39ff88]">
+            <div className="w-10 h-10 rounded-xl bg-[#43f92f]/10 border border-[#43f92f]/30 flex items-center justify-center text-[#43f92f]">
               <FileSignature className="w-5 h-5" />
             </div>
             <div>
@@ -264,7 +264,7 @@ export const RentalAgreementModal: React.FC<RentalAgreementModalProps> = ({
             <div className="bg-[#18202f] border border-[#2b3952] rounded-xl p-4 flex flex-wrap items-center justify-between gap-3">
               <div className="space-y-1">
                 <div className="flex items-center gap-2">
-                  <span className="text-xs font-mono font-bold text-[#39ff88] bg-[#39ff88]/10 px-2 py-0.5 rounded border border-[#39ff88]/30">
+                  <span className="text-xs font-mono font-bold text-[#43f92f] bg-[#43f92f]/10 px-2 py-0.5 rounded border border-[#43f92f]/30">
                     {selectedBooking.id}
                   </span>
                   <span className="font-display font-bold text-white text-sm">
@@ -292,7 +292,7 @@ export const RentalAgreementModal: React.FC<RentalAgreementModalProps> = ({
           ) : savedBookings.length > 0 ? (
             <div className="bg-[#18202f] border border-[#2b3952] rounded-xl p-4 space-y-2">
               <label htmlFor="booking-select" className="text-xs font-semibold text-slate-300 flex items-center gap-1.5">
-                <Car className="w-4 h-4 text-[#39ff88]" />
+                <Car className="w-4 h-4 text-[#43f92f]" />
                 Select Existing Booking Record (Optional):
               </label>
               <select
@@ -306,7 +306,7 @@ export const RentalAgreementModal: React.FC<RentalAgreementModalProps> = ({
                     setCustomerPhone(b.customerPhone);
                   }
                 }}
-                className="w-full bg-[#10141d] border border-white/10 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-[#39ff88]"
+                className="w-full bg-[#10141d] border border-white/10 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-[#43f92f]"
               >
                 <option value="">General Standard Rental Agreement</option>
                 {savedBookings.map((b) => (
@@ -321,7 +321,7 @@ export const RentalAgreementModal: React.FC<RentalAgreementModalProps> = ({
           {/* Legal Agreement Sections */}
           <div className="bg-[#0e131c] border border-white/10 rounded-xl p-4 sm:p-5 space-y-4 max-h-60 sm:max-h-72 overflow-y-auto text-xs leading-relaxed text-slate-300 divide-y divide-white/5">
             <div className="pb-3 space-y-1.5">
-              <h3 className="font-bold text-white uppercase text-[11px] tracking-wider text-[#39ff88]">
+              <h3 className="font-bold text-white uppercase text-[11px] tracking-wider text-[#43f92f]">
                 1. Eligibility &amp; Identity Verification
               </h3>
               <p>
@@ -330,7 +330,7 @@ export const RentalAgreementModal: React.FC<RentalAgreementModalProps> = ({
             </div>
 
             <div className="py-3 space-y-1.5">
-              <h3 className="font-bold text-white uppercase text-[11px] tracking-wider text-[#39ff88]">
+              <h3 className="font-bold text-white uppercase text-[11px] tracking-wider text-[#43f92f]">
                 2. Non-Transferability &amp; Lawful Use
               </h3>
               <p>
@@ -339,7 +339,7 @@ export const RentalAgreementModal: React.FC<RentalAgreementModalProps> = ({
             </div>
 
             <div className="py-3 space-y-1.5">
-              <h3 className="font-bold text-white uppercase text-[11px] tracking-wider text-[#39ff88]">
+              <h3 className="font-bold text-white uppercase text-[11px] tracking-wider text-[#43f92f]">
                 3. Mandatory Helmet, Speed &amp; Traffic Compliance
               </h3>
               <p>
@@ -348,7 +348,7 @@ export const RentalAgreementModal: React.FC<RentalAgreementModalProps> = ({
             </div>
 
             <div className="py-3 space-y-1.5">
-              <h3 className="font-bold text-white uppercase text-[11px] tracking-wider text-[#39ff88]">
+              <h3 className="font-bold text-white uppercase text-[11px] tracking-wider text-[#43f92f]">
                 4. Fuel &amp; Mileage Policy
               </h3>
               <p>
@@ -366,7 +366,7 @@ export const RentalAgreementModal: React.FC<RentalAgreementModalProps> = ({
             </div>
 
             <div className="pt-3 space-y-1.5">
-              <h3 className="font-bold text-white uppercase text-[11px] tracking-wider text-[#39ff88]">
+              <h3 className="font-bold text-white uppercase text-[11px] tracking-wider text-[#43f92f]">
                 6. Security Deposit &amp; Damage Inspection
               </h3>
               <p>
@@ -388,7 +388,7 @@ export const RentalAgreementModal: React.FC<RentalAgreementModalProps> = ({
                 value={customerName}
                 onChange={(e) => setCustomerName(e.target.value)}
                 disabled={isSigned}
-                className="w-full bg-[#18202f] border border-white/10 rounded-xl px-3 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-[#39ff88]"
+                className="w-full bg-[#18202f] border border-white/10 rounded-xl px-3 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-[#43f92f]"
               />
             </div>
 
@@ -403,7 +403,7 @@ export const RentalAgreementModal: React.FC<RentalAgreementModalProps> = ({
                 value={customerPhone}
                 onChange={(e) => setCustomerPhone(e.target.value)}
                 disabled={isSigned}
-                className="w-full bg-[#18202f] border border-white/10 rounded-xl px-3 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-[#39ff88]"
+                className="w-full bg-[#18202f] border border-white/10 rounded-xl px-3 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-[#43f92f]"
               />
             </div>
 
@@ -418,7 +418,7 @@ export const RentalAgreementModal: React.FC<RentalAgreementModalProps> = ({
                 value={licenseNumber}
                 onChange={(e) => setLicenseNumber(e.target.value)}
                 disabled={isSigned}
-                className="w-full bg-[#18202f] border border-white/10 rounded-xl px-3 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-[#39ff88]"
+                className="w-full bg-[#18202f] border border-white/10 rounded-xl px-3 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-[#43f92f]"
               />
             </div>
           </div>
@@ -433,7 +433,7 @@ export const RentalAgreementModal: React.FC<RentalAgreementModalProps> = ({
                   onClick={() => setSigningMode('digital')}
                   className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${
                     signingMode === 'digital'
-                      ? 'bg-[#39ff88] text-[#0d1117] font-bold'
+                      ? 'bg-[#43f92f] text-[#0d1117] font-bold'
                       : 'bg-white/5 text-slate-300 hover:text-white'
                   }`}
                 >
@@ -509,7 +509,7 @@ export const RentalAgreementModal: React.FC<RentalAgreementModalProps> = ({
                 checked={agreeTerms}
                 onChange={(e) => setAgreeTerms(e.target.checked)}
                 disabled={isSigned}
-                className="mt-0.5 w-4 h-4 rounded border-white/20 text-[#39ff88] focus:ring-[#39ff88] accent-[#39ff88]"
+                className="mt-0.5 w-4 h-4 rounded border-white/20 text-[#43f92f] focus:ring-[#43f92f] accent-[#43f92f]"
               />
               <span className="text-xs text-slate-300">
                 I have read, understood, and accept all the terms of the{' '}
@@ -520,11 +520,11 @@ export const RentalAgreementModal: React.FC<RentalAgreementModalProps> = ({
 
           {/* Signed Status Banner */}
           {isSigned && (
-            <div className="bg-[#39ff88]/10 border border-[#39ff88]/30 rounded-xl p-4 flex flex-wrap items-center justify-between gap-3 text-xs">
+            <div className="bg-[#43f92f]/10 border border-[#43f92f]/30 rounded-xl p-4 flex flex-wrap items-center justify-between gap-3 text-xs">
               <div className="flex items-center gap-2.5">
-                <CheckCircle2 className="w-5 h-5 text-[#39ff88] shrink-0" />
+                <CheckCircle2 className="w-5 h-5 text-[#43f92f] shrink-0" />
                 <div>
-                  <div className="font-bold text-[#39ff88]">Agreement Recorded Successfully!</div>
+                  <div className="font-bold text-[#43f92f]">Agreement Recorded Successfully!</div>
                   <div className="text-[11px] text-slate-400">
                     Ref Code: <span className="font-mono text-white">{agreementRefId}</span> · Signed: {signedTimestamp}
                   </div>
@@ -533,7 +533,7 @@ export const RentalAgreementModal: React.FC<RentalAgreementModalProps> = ({
               <button
                 type="button"
                 onClick={handleSendToWhatsApp}
-                className="px-3.5 py-1.5 rounded-lg bg-[#39ff88] text-[#0d1117] font-bold text-xs flex items-center gap-1.5 hover:bg-[#4dff93] transition-colors"
+                className="px-3.5 py-1.5 rounded-lg bg-[#43f92f] text-[#0d1117] font-bold text-xs flex items-center gap-1.5 hover:bg-[#5dfb4c] transition-colors"
               >
                 <Share2 className="w-3.5 h-3.5" />
                 Send Copy on WhatsApp
@@ -568,7 +568,7 @@ export const RentalAgreementModal: React.FC<RentalAgreementModalProps> = ({
               <button
                 type="button"
                 onClick={handleSignAgreement}
-                className="px-6 py-2.5 rounded-xl font-bold text-xs bg-[#39ff88] text-[#0d1117] hover:bg-[#4dff93] transition-all flex items-center gap-2 shadow-lg shadow-[#39ff88]/20"
+                className="px-6 py-2.5 rounded-xl font-bold text-xs bg-[#43f92f] text-[#0d1117] hover:bg-[#5dfb4c] transition-all flex items-center gap-2 shadow-lg shadow-[#43f92f]/20"
               >
                 <FileSignature className="w-4 h-4" />
                 <span>Accept &amp; Confirm Agreement</span>
@@ -579,7 +579,7 @@ export const RentalAgreementModal: React.FC<RentalAgreementModalProps> = ({
                 onClick={onClose}
                 className="px-6 py-2.5 rounded-xl font-bold text-xs bg-white/10 text-white hover:bg-white/20 transition-all flex items-center gap-2"
               >
-                <CheckCircle2 className="w-4 h-4 text-[#39ff88]" />
+                <CheckCircle2 className="w-4 h-4 text-[#43f92f]" />
                 <span>Done</span>
               </button>
             )}
