@@ -8,9 +8,9 @@ export const FloatingWhatsApp: React.FC = () => {
   return (
     <div className="fixed bottom-4 right-4 sm:bottom-5 sm:right-5 z-40 flex items-end flex-col gap-1.5 pointer-events-auto">
       {showTooltip && (
-        <div className="relative bg-[#161c26]/95 backdrop-blur-md text-white border border-[#39ff88]/30 shadow-lg rounded-xl px-2.5 py-1.5 text-xs flex items-center gap-2 max-w-[210px] animate-in fade-in slide-in-from-bottom-2 duration-200">
+        <div className="relative bg-[#161c26]/95 backdrop-blur-md text-white border border-[#2bff8e]/30 shadow-lg rounded-xl px-2.5 py-1.5 text-xs flex items-center gap-2 max-w-[210px] animate-in fade-in slide-in-from-bottom-2 duration-200">
           <div className="leading-tight">
-            <span className="font-bold text-[#39ff88] text-[11px] block">Need a quick ride?</span>
+            <span className="font-bold text-[#2bff8e] text-[11px] block">Need a quick ride?</span>
             <span className="text-slate-300 text-[10px]">Chat on WhatsApp</span>
           </div>
           <button
@@ -28,7 +28,7 @@ export const FloatingWhatsApp: React.FC = () => {
         href={generateDirectWhatsAppInquiry()}
         target="_blank"
         rel="noopener noreferrer"
-        className="w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-[#39ff88] text-[#0d1117] grid place-items-center shadow-lg shadow-[#39ff88]/30 hover:bg-[#4dff93] hover:scale-105 active:scale-95 transition-all duration-200 group relative"
+        className="w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-[#2bff8e] text-[#0d1117] grid place-items-center shadow-lg shadow-[#2bff8e]/30 hover:bg-[#4dff9f] hover:scale-105 active:scale-95 transition-all duration-200 group relative"
         aria-label="Chat on WhatsApp"
       >
         <MessageCircle className="w-5 h-5 sm:w-6 sm:h-6 fill-current transition-transform group-hover:rotate-6" />

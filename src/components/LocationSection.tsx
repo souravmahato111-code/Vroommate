@@ -20,7 +20,7 @@ export const LocationSection: React.FC = () => {
     >
       <div className="max-w-6xl mx-auto px-5">
         <div className="text-center max-w-2xl mx-auto">
-          <p className="uppercase tracking-[0.2em] font-bold text-xs md:text-sm text-[#39ff88]">
+          <p className="uppercase tracking-[0.2em] font-bold text-xs md:text-sm text-[#2bff8e]">
             Hub Location &amp; Directions
           </p>
           <h2 className="font-display font-extrabold text-3xl sm:text-4xl text-white mt-3">
@@ -49,12 +49,12 @@ export const LocationSection: React.FC = () => {
                       href={BUSINESS_CONFIG.googleMapsUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-slate-300 hover:text-[#39ff88] text-sm mt-1 leading-relaxed block transition-colors"
+                      className="text-slate-300 hover:text-[#2bff8e] text-sm mt-1 leading-relaxed block transition-colors"
                       title="Click to open directions"
                     >
                       {BUSINESS_CONFIG.address}
                     </a>
-                    <p className="text-xs text-[#39ff88] mt-1 font-semibold">
+                    <p className="text-xs text-[#2bff8e] mt-1 font-semibold">
                       Opposite Bharat Petroleum Petrol Pump
                     </p>
                   </div>
@@ -66,7 +66,7 @@ export const LocationSection: React.FC = () => {
                   Rental Timings
                 </span>
                 <div className="flex gap-3.5 mt-2 items-center">
-                  <div className="w-10 h-10 rounded-xl bg-[#39ff88]/15 text-[#39ff88] grid place-items-center shrink-0">
+                  <div className="w-10 h-10 rounded-xl bg-[#2bff8e]/15 text-[#2bff8e] grid place-items-center shrink-0">
                     <Clock className="w-5 h-5" />
                   </div>
                   <div>
@@ -87,7 +87,7 @@ export const LocationSection: React.FC = () => {
                   <div>
                     <a
                       href={`tel:${BUSINESS_CONFIG.phone}`}
-                      className="text-[#39ff88] hover:underline font-display font-bold text-base"
+                      className="text-[#2bff8e] hover:underline font-display font-bold text-base"
                     >
                       {BUSINESS_CONFIG.displayPhone}
                     </a>
@@ -132,7 +132,7 @@ export const LocationSection: React.FC = () => {
                     Fast access across the industrial, academic, and transit corridors
                   </p>
                 </div>
-                <span className="text-xs font-semibold text-[#39ff88] bg-[#39ff88]/10 px-2.5 py-1 rounded-full border border-[#39ff88]/20">
+                <span className="text-xs font-semibold text-[#2bff8e] bg-[#2bff8e]/10 px-2.5 py-1 rounded-full border border-[#2bff8e]/20">
                   Prime Highway Hub
                 </span>
               </div>
@@ -141,10 +141,10 @@ export const LocationSection: React.FC = () => {
                 {BUSINESS_CONFIG.landmarks.map((landmark, idx) => (
                   <div
                     key={idx}
-                    className="p-4 rounded-2xl bg-[#10141d] border border-white/5 hover:border-[#39ff88]/30 transition-colors"
+                    className="p-4 rounded-2xl bg-[#10141d] border border-white/5 hover:border-[#2bff8e]/30 transition-colors"
                   >
                     <div className="flex items-center gap-2 text-xs font-semibold text-slate-200">
-                      <CheckCircle2 className="w-3.5 h-3.5 text-[#39ff88] shrink-0" />
+                      <CheckCircle2 className="w-3.5 h-3.5 text-[#2bff8e] shrink-0" />
                       <span className="truncate">{landmark.name}</span>
                     </div>
                     <div className="mt-1.5 text-xs font-mono text-[#ff7a1a] pl-5.5">
@@ -155,9 +155,9 @@ export const LocationSection: React.FC = () => {
               </div>
 
               {/* Doorstep Pickup Zone Notice */}
-              <div className="mt-6 p-4 rounded-2xl bg-gradient-to-r from-[#14231b] to-[#161c26] border border-[#39ff88]/20">
+              <div className="mt-6 p-4 rounded-2xl bg-gradient-to-r from-[#14231b] to-[#161c26] border border-[#2bff8e]/20">
                 <div className="text-xs font-bold text-white flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-[#39ff88]"></span>
+                  <span className="w-2 h-2 rounded-full bg-[#2bff8e]"></span>
                   <span>Doorstep Pickup (Inside 6km Range)</span>
                 </div>
                 <p className="text-xs text-slate-300 mt-1 leading-relaxed">
@@ -168,7 +168,7 @@ export const LocationSection: React.FC = () => {
 
             <div className="mt-6 pt-4 border-t border-white/10 flex items-center justify-between text-xs text-slate-400">
               <span>Bharat Petroleum opposite us provides 24/7 petrol &amp; air refilling</span>
-              <span className="font-mono text-[#39ff88]">PIN: 832108</span>
+              <span className="font-mono text-[#2bff8e]">PIN: 832108</span>
             </div>
           </div>
         </div>

@@ -27,7 +27,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenAgreement }) => {
 
           <div className="flex items-center gap-3 text-xs text-slate-400 pt-2">
             <div className="flex items-center gap-1.5">
-              <ShieldCheck className="w-4 h-4 text-[#39ff88]" />
+              <ShieldCheck className="w-4 h-4 text-[#2bff8e]" />
               <span>Govt. Registered Hub</span>
             </div>
             <span aria-hidden="true">·</span>
@@ -42,37 +42,37 @@ export const Footer: React.FC<FooterProps> = ({ onOpenAgreement }) => {
           </h4>
           <ul className="space-y-2 text-xs">
             <li>
-              <a href="#fleet" className="hover:text-[#39ff88] transition-colors">
+              <a href="#fleet" className="hover:text-[#2bff8e] transition-colors">
                 Our Fleet &amp; Pricing
               </a>
             </li>
             <li>
-              <a href="#calculator" className="hover:text-[#39ff88] transition-colors">
+              <a href="#calculator" className="hover:text-[#2bff8e] transition-colors">
                 Fare Calculator
               </a>
             </li>
             <li>
-              <a href="#how-it-works" className="hover:text-[#39ff88] transition-colors">
+              <a href="#how-it-works" className="hover:text-[#2bff8e] transition-colors">
                 How It Works
               </a>
             </li>
             <li>
-              <a href="#referral" className="hover:text-[#39ff88] transition-colors">
+              <a href="#referral" className="hover:text-[#2bff8e] transition-colors">
                 Refer &amp; Earn Program
               </a>
             </li>
             <li>
-              <a href="#reviews" className="hover:text-[#39ff88] transition-colors">
+              <a href="#reviews" className="hover:text-[#2bff8e] transition-colors">
                 Rider Reviews &amp; Stories
               </a>
             </li>
             <li>
-              <a href="#location" className="hover:text-[#39ff88] transition-colors">
+              <a href="#location" className="hover:text-[#2bff8e] transition-colors">
                 Hub Location &amp; Map
               </a>
             </li>
             <li>
-              <a href="#faqs" className="hover:text-[#39ff88] transition-colors">
+              <a href="#faqs" className="hover:text-[#2bff8e] transition-colors">
                 FAQs
               </a>
             </li>
@@ -92,11 +92,11 @@ export const Footer: React.FC<FooterProps> = ({ onOpenAgreement }) => {
               </span>
             </li>
             <li className="flex items-center gap-2">
-              <Clock className="w-4 h-4 text-[#39ff88] shrink-0" />
+              <Clock className="w-4 h-4 text-[#2bff8e] shrink-0" />
               <span>Open Daily: 8:00 AM to 8:00 PM (Instant Pickup)</span>
             </li>
             <li className="flex items-center gap-2">
-              <Phone className="w-4 h-4 text-[#39ff88] shrink-0" />
+              <Phone className="w-4 h-4 text-[#2bff8e] shrink-0" />
               <a href={`tel:${BUSINESS_CONFIG.phone}`} className="hover:text-white transition-colors">
                 {BUSINESS_CONFIG.displayPhone}
               </a>
@@ -111,7 +111,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenAgreement }) => {
           <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-4 text-center sm:text-left">
             <p>© {new Date().getFullYear()} Vroommate. All rights reserved. Chota Gamharia, Jamshedpur.</p>
             <span className="hidden sm:inline text-white/20">•</span>
-            <p className="text-[#39ff88] font-bold italic tracking-wide">
+            <p className="text-[#2bff8e] font-bold italic tracking-wide">
               Wanna Ghoom? Just do Vroom!
             </p>
           </div>
