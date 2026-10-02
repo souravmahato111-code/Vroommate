@@ -117,7 +117,7 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-black text-slate-100 flex flex-col font-sans selection:bg-[#43f92f] selection:text-[#0d1117]">
+    <div className="min-h-screen bg-black text-slate-100 flex flex-col font-sans selection:bg-[#39ff88] selection:text-[#0d1117]">
       {/* Navigation */}
       <Navbar
         onOpenBookings={() => setMyBookingsOpen(true)}

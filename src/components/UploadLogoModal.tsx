@@ -130,7 +130,7 @@ export const UploadLogoModal: React.FC<UploadLogoModalProps> = ({ isOpen, onClos
         {/* Header */}
         <div className="flex items-center justify-between px-6 py-4 border-b border-white/10 bg-[#161b22]">
           <div className="flex items-center gap-2.5">
-            <div className="w-9 h-9 rounded-xl bg-[#43f92f]/10 border border-[#43f92f]/30 grid place-items-center text-[#43f92f]">
+            <div className="w-9 h-9 rounded-xl bg-[#39ff88]/10 border border-[#39ff88]/30 grid place-items-center text-[#39ff88]">
               <Upload className="w-4 h-4" />
             </div>
             <div>
@@ -163,10 +163,10 @@ export const UploadLogoModal: React.FC<UploadLogoModalProps> = ({ isOpen, onClos
             onClick={() => fileInputRef.current?.click()}
             className={`cursor-pointer border-2 border-dashed rounded-2xl p-6 text-center transition-all ${
               isDragging
-                ? 'border-[#43f92f] bg-[#43f92f]/10 scale-[1.01]'
+                ? 'border-[#39ff88] bg-[#39ff88]/10 scale-[1.01]'
                 : selectedImage
-                ? 'border-[#43f92f]/60 bg-black/40'
-                : 'border-white/15 bg-white/[0.02] hover:border-[#43f92f]/40 hover:bg-white/[0.04]'
+                ? 'border-[#39ff88]/60 bg-black/40'
+                : 'border-white/15 bg-white/[0.02] hover:border-[#39ff88]/40 hover:bg-white/[0.04]'
             }`}
           >
             <input
@@ -177,7 +177,7 @@ export const UploadLogoModal: React.FC<UploadLogoModalProps> = ({ isOpen, onClos
               className="hidden"
             />
 
-            <div className="w-12 h-12 rounded-2xl bg-[#43f92f]/10 border border-[#43f92f]/30 grid place-items-center mx-auto mb-3 text-[#43f92f]">
+            <div className="w-12 h-12 rounded-2xl bg-[#39ff88]/10 border border-[#39ff88]/30 grid place-items-center mx-auto mb-3 text-[#39ff88]">
               <ImageIcon className="w-6 h-6" />
             </div>
 
@@ -198,12 +198,12 @@ export const UploadLogoModal: React.FC<UploadLogoModalProps> = ({ isOpen, onClos
           </div>
 
           {/* Seamless Black Background Merge Option */}
-          <label className="flex items-center gap-2.5 p-3 rounded-xl bg-white/[0.03] border border-white/10 hover:border-[#43f92f]/30 cursor-pointer transition-colors text-xs">
+          <label className="flex items-center gap-2.5 p-3 rounded-xl bg-white/[0.03] border border-white/10 hover:border-[#39ff88]/30 cursor-pointer transition-colors text-xs">
             <input
               type="checkbox"
               checked={autoMergeBlack}
               onChange={(e) => setAutoMergeBlack(e.target.checked)}
-              className="w-4 h-4 rounded accent-[#43f92f] cursor-pointer"
+              className="w-4 h-4 rounded accent-[#39ff88] cursor-pointer"
             />
             <div>
               <span className="font-semibold text-white">Seamless Interface Merge</span>
@@ -217,11 +217,11 @@ export const UploadLogoModal: React.FC<UploadLogoModalProps> = ({ isOpen, onClos
           <div className="space-y-2">
             <div className="text-xs font-semibold text-slate-300 flex items-center justify-between">
               <span className="flex items-center gap-1.5">
-                <Sparkles className="w-3.5 h-3.5 text-[#43f92f]" />
+                <Sparkles className="w-3.5 h-3.5 text-[#39ff88]" />
                 Live Navbar Header Preview:
               </span>
               {selectedImage && (
-                <span className="text-[11px] text-[#43f92f] font-mono">New upload ready</span>
+                <span className="text-[11px] text-[#39ff88] font-mono">New upload ready</span>
               )}
             </div>
 
@@ -234,19 +234,19 @@ export const UploadLogoModal: React.FC<UploadLogoModalProps> = ({ isOpen, onClos
                 <img
                   src={selectedImage}
                   alt="Uploaded Logo Preview"
-                  className="h-12 sm:h-14 w-auto max-w-full object-contain bg-transparent drop-shadow-[0_0_14px_rgba(67,249,47,0.35)]"
+                  className="h-12 sm:h-14 w-auto max-w-full object-contain bg-transparent drop-shadow-[0_0_14px_rgba(57, 255, 136,0.35)]"
                 />
               ) : currentStoredLogo ? (
                 <img
                   src={currentStoredLogo}
                   alt="Current Custom Logo"
-                  className="h-12 sm:h-14 w-auto max-w-full object-contain bg-transparent drop-shadow-[0_0_14px_rgba(67,249,47,0.35)]"
+                  className="h-12 sm:h-14 w-auto max-w-full object-contain bg-transparent drop-shadow-[0_0_14px_rgba(57, 255, 136,0.35)]"
                 />
               ) : (
                 <img
                   src={OFFICIAL_GITHUB_RAW_LOGO_URL}
                   alt="Official VM Logo"
-                  className="h-12 sm:h-14 w-auto max-w-full object-contain bg-transparent drop-shadow-[0_0_14px_rgba(67,249,47,0.35)]"
+                  className="h-12 sm:h-14 w-auto max-w-full object-contain bg-transparent drop-shadow-[0_0_14px_rgba(57, 255, 136,0.35)]"
                 />
               )}
             </div>
@@ -291,7 +291,7 @@ export const UploadLogoModal: React.FC<UploadLogoModalProps> = ({ isOpen, onClos
               disabled={!selectedImage}
               className={`px-5 py-2 rounded-xl font-bold text-xs flex items-center gap-1.5 transition-all ${
                 selectedImage
-                  ? 'bg-[#43f92f] text-[#0d1117] hover:bg-[#5dfb4c] shadow-lg shadow-[#43f92f]/20 cursor-pointer'
+                  ? 'bg-[#39ff88] text-[#0d1117] hover:bg-[#4dff93] shadow-lg shadow-[#39ff88]/20 cursor-pointer'
                   : 'bg-white/10 text-slate-500 cursor-not-allowed'
               }`}
             >

@@ -363,7 +363,7 @@ export const VroomMateLogo: React.FC<VroomMateLogoProps> = ({
             className="w-full h-full object-contain mix-blend-screen bg-transparent"
           />
         ) : (
-          renderSvgVEmblem('w-full h-full object-contain drop-shadow-[0_0_12px_rgba(57,255,136,0.4)]')
+          renderSvgVEmblem('w-full h-full object-contain drop-shadow-[0_0_12px_rgba(57, 255, 136,0.4)]')
         )}
       </div>
     );
@@ -381,10 +381,10 @@ export const VroomMateLogo: React.FC<VroomMateLogoProps> = ({
               onError={handleImageError}
               loading="eager"
               decoding="sync"
-              className="h-28 sm:h-36 md:h-44 w-auto object-contain mix-blend-screen bg-transparent drop-shadow-[0_0_24px_rgba(57,255,136,0.4)]"
+              className="h-28 sm:h-36 md:h-44 w-auto object-contain mix-blend-screen bg-transparent drop-shadow-[0_0_24px_rgba(57, 255, 136,0.4)]"
             />
           ) : (
-            renderSvgFullLogo('w-full h-auto drop-shadow-[0_0_24px_rgba(57,255,136,0.4)]')
+            renderSvgFullLogo('w-full h-auto drop-shadow-[0_0_24px_rgba(57, 255, 136,0.4)]')
           )}
         </div>
       </div>
@@ -402,11 +402,11 @@ export const VroomMateLogo: React.FC<VroomMateLogoProps> = ({
           onError={handleImageError}
           loading="eager"
           decoding="sync"
-          className="h-11 sm:h-13 md:h-15 lg:h-16 w-auto max-w-[240px] sm:max-w-[310px] md:max-w-[380px] lg:max-w-[440px] object-contain mix-blend-screen bg-transparent drop-shadow-[0_0_16px_rgba(57,255,136,0.35)]"
+          className="h-11 sm:h-13 md:h-15 lg:h-16 w-auto max-w-[240px] sm:max-w-[310px] md:max-w-[380px] lg:max-w-[440px] object-contain mix-blend-screen bg-transparent drop-shadow-[0_0_16px_rgba(57, 255, 136,0.35)]"
         />
       ) : (
         renderSvgFullLogo(
-          'h-11 sm:h-13 md:h-15 lg:h-16 w-auto max-w-[240px] sm:max-w-[310px] md:max-w-[380px] lg:max-w-[440px] object-contain drop-shadow-[0_0_16px_rgba(57,255,136,0.35)]'
+          'h-11 sm:h-13 md:h-15 lg:h-16 w-auto max-w-[240px] sm:max-w-[310px] md:max-w-[380px] lg:max-w-[440px] object-contain drop-shadow-[0_0_16px_rgba(57, 255, 136,0.35)]'
         )
       )}
     </div>

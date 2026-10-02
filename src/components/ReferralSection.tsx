@@ -169,12 +169,12 @@ export const ReferralSection: React.FC<ReferralSectionProps> = ({
       <div className="max-w-5xl mx-auto px-4 sm:px-6">
         {/* Compact Section Header */}
         <div className="text-center max-w-xl mx-auto mb-6 sm:mb-8">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#43f92f]/15 border border-[#43f92f]/30 text-[#43f92f] text-xs font-bold uppercase tracking-wider mb-2">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#39ff88]/15 border border-[#39ff88]/30 text-[#39ff88] text-xs font-bold uppercase tracking-wider mb-2">
             <Gift className="w-3.5 h-3.5" />
             <span>Referral Program</span>
           </div>
           <h2 className="font-display font-extrabold text-2xl sm:text-3xl text-white tracking-tight">
-            Invite 3 Friends, Get <span className="text-[#43f92f]">20% OFF</span>
+            Invite 3 Friends, Get <span className="text-[#39ff88]">20% OFF</span>
           </h2>
           <p className="mt-1.5 text-slate-300 text-xs sm:text-sm">
             Share your personal referral code after your 1st booking. Share with three friends on WhatsApp to unlock 20% OFF your next ride!
@@ -189,7 +189,7 @@ export const ReferralSection: React.FC<ReferralSectionProps> = ({
               {/* Header inside Card */}
               <div className="flex items-center justify-between">
                 <span className="text-xs font-bold text-slate-300 uppercase tracking-wider flex items-center gap-1.5">
-                  <Users className="w-4 h-4 text-[#43f92f]" />
+                  <Users className="w-4 h-4 text-[#39ff88]" />
                   <span>Your Referral Hub</span>
                 </span>
 
@@ -198,7 +198,7 @@ export const ReferralSection: React.FC<ReferralSectionProps> = ({
                     Discount Claimed
                   </span>
                 ) : isUnlocked ? (
-                  <span className="text-[11px] font-black text-[#0d1117] bg-[#43f92f] px-2.5 py-0.5 rounded-full shadow-[0_0_12px_rgba(67,249,47,0.5)] animate-pulse">
+                  <span className="text-[11px] font-black text-[#0d1117] bg-[#39ff88] px-2.5 py-0.5 rounded-full shadow-[0_0_12px_rgba(57, 255, 136,0.5)] animate-pulse">
                     20% OFF UNLOCKED
                   </span>
                 ) : (
@@ -217,7 +217,7 @@ export const ReferralSection: React.FC<ReferralSectionProps> = ({
                       <span className="text-[10px] text-slate-400 uppercase tracking-wider block font-semibold">
                         Your Referral Code
                       </span>
-                      <span className="font-mono text-lg sm:text-xl font-black text-[#43f92f] tracking-wider truncate block">
+                      <span className="font-mono text-lg sm:text-xl font-black text-[#39ff88] tracking-wider truncate block">
                         {profile.myReferralCode}
                       </span>
                     </div>
@@ -229,7 +229,7 @@ export const ReferralSection: React.FC<ReferralSectionProps> = ({
                         className="px-2.5 py-1.5 rounded-xl bg-white/10 hover:bg-white/15 text-slate-200 text-xs font-semibold flex items-center gap-1 transition-colors cursor-pointer"
                         title="Copy Code"
                       >
-                        {copiedCode ? <Check className="w-3.5 h-3.5 text-[#43f92f]" /> : <Copy className="w-3.5 h-3.5" />}
+                        {copiedCode ? <Check className="w-3.5 h-3.5 text-[#39ff88]" /> : <Copy className="w-3.5 h-3.5" />}
                         <span>{copiedCode ? 'Copied' : 'Copy Code'}</span>
                       </button>
 
@@ -239,7 +239,7 @@ export const ReferralSection: React.FC<ReferralSectionProps> = ({
                         className="px-2.5 py-1.5 rounded-xl bg-white/10 hover:bg-white/15 text-slate-200 text-xs font-semibold flex items-center gap-1 transition-colors cursor-pointer"
                         title="Copy full invite message"
                       >
-                        {copiedMessage ? <Check className="w-3.5 h-3.5 text-[#43f92f]" /> : <Copy className="w-3.5 h-3.5" />}
+                        {copiedMessage ? <Check className="w-3.5 h-3.5 text-[#39ff88]" /> : <Copy className="w-3.5 h-3.5" />}
                         <span className="hidden sm:inline">{copiedMessage ? 'Copied Text' : 'Copy Text'}</span>
                       </button>
 
@@ -258,7 +258,7 @@ export const ReferralSection: React.FC<ReferralSectionProps> = ({
               ) : (
                 /* Fun Locked State for New Users */
                 <div className="p-4 sm:p-5 rounded-2xl bg-gradient-to-b from-[#101722] to-[#0c1017] border-2 border-dashed border-white/15 text-center space-y-2.5 relative overflow-hidden">
-                  <div className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 text-[#43f92f] grid place-items-center mx-auto shadow-inner">
+                  <div className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 text-[#39ff88] grid place-items-center mx-auto shadow-inner">
                     <Lock className="w-5 h-5 stroke-[2]" />
                   </div>
 
@@ -275,7 +275,7 @@ export const ReferralSection: React.FC<ReferralSectionProps> = ({
                     <button
                       type="button"
                       onClick={() => onOpenBookingModal()}
-                      className="px-4 py-2 rounded-xl bg-[#43f92f] text-[#0d1117] text-xs font-black hover:bg-[#5dfb4c] shadow-md shadow-[#43f92f]/20 transition-all cursor-pointer inline-flex items-center gap-1.5"
+                      className="px-4 py-2 rounded-xl bg-[#39ff88] text-[#0d1117] text-xs font-black hover:bg-[#4dff93] shadow-md shadow-[#39ff88]/20 transition-all cursor-pointer inline-flex items-center gap-1.5"
                     >
                       <span>Book Your 1st Ride to Unlock</span>
                       <ArrowRight className="w-3 h-3" />
@@ -290,12 +290,12 @@ export const ReferralSection: React.FC<ReferralSectionProps> = ({
               <div className="p-3 sm:p-3.5 rounded-2xl bg-[#0d1117] border border-white/10 space-y-2.5">
                 <div className="flex items-center justify-between text-xs">
                   <span className="text-slate-300 font-semibold flex items-center gap-1.5">
-                    <span className="font-mono text-[#43f92f] font-bold text-sm">{clampedCount}/3</span>
+                    <span className="font-mono text-[#39ff88] font-bold text-sm">{clampedCount}/3</span>
                     <span>Friends Invited</span>
                   </span>
                   <span className="text-[11px] text-slate-400">
                     {clampedCount >= 3 ? (
-                      <span className="text-[#43f92f] font-bold">Goal Reached! (20% OFF Unlocked)</span>
+                      <span className="text-[#39ff88] font-bold">Goal Reached! (20% OFF Unlocked)</span>
                     ) : (
                       <span>{remaining} more friend{remaining === 1 ? '' : 's'} needed</span>
                     )}
@@ -319,7 +319,7 @@ export const ReferralSection: React.FC<ReferralSectionProps> = ({
                         }}
                         className={`p-2 sm:p-2.5 rounded-xl border transition-all text-center ${
                           isDone
-                            ? 'bg-[#43f92f]/10 border-[#43f92f]/40 text-[#43f92f]'
+                            ? 'bg-[#39ff88]/10 border-[#39ff88]/40 text-[#39ff88]'
                             : isNext
                             ? 'bg-[#25D366]/15 border-[#25D366]/50 text-white cursor-pointer hover:border-[#25D366] hover:bg-[#25D366]/25 shadow-sm'
                             : 'bg-white/5 border-white/10 text-slate-400 opacity-60 cursor-not-allowed'
@@ -330,7 +330,7 @@ export const ReferralSection: React.FC<ReferralSectionProps> = ({
                             Friend {slot}
                           </span>
                           {isDone ? (
-                            <span className="w-4 h-4 rounded-full bg-[#43f92f] text-black font-black text-[10px] grid place-items-center">
+                            <span className="w-4 h-4 rounded-full bg-[#39ff88] text-black font-black text-[10px] grid place-items-center">
                               ✓
                             </span>
                           ) : (
@@ -345,7 +345,7 @@ export const ReferralSection: React.FC<ReferralSectionProps> = ({
                             <span className="text-[11px] font-bold text-white block truncate">
                               {verifiedFriend.name}
                             </span>
-                            <span className="text-[9px] text-[#43f92f] font-mono block">
+                            <span className="text-[9px] text-[#39ff88] font-mono block">
                               •••• {verifiedFriend.phone.slice(-4)} ✓
                             </span>
                           </div>
@@ -376,7 +376,7 @@ export const ReferralSection: React.FC<ReferralSectionProps> = ({
               {/* Status Notice if used or redeemed */}
               {profile.isFriendCodeRedeemed && (
                 <div className="p-2 rounded-xl bg-white/5 border border-white/10 text-[11px] text-slate-300 flex items-center gap-2">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-[#43f92f] shrink-0" />
+                  <CheckCircle2 className="w-3.5 h-3.5 text-[#39ff88] shrink-0" />
                   <span>A friend has claimed your referral code with 20% OFF!</span>
                 </div>
               )}
@@ -392,7 +392,7 @@ export const ReferralSection: React.FC<ReferralSectionProps> = ({
                       fireCelebrationConfetti();
                       onOpenBookingModal();
                     }}
-                    className="w-full py-3 px-4 rounded-xl font-black text-xs sm:text-sm bg-[#43f92f] text-[#0d1117] hover:bg-[#5dfb4c] active:scale-[0.98] transition-all flex items-center justify-center gap-2 shadow-md shadow-[#43f92f]/25 cursor-pointer"
+                    className="w-full py-3 px-4 rounded-xl font-black text-xs sm:text-sm bg-[#39ff88] text-[#0d1117] hover:bg-[#4dff93] active:scale-[0.98] transition-all flex items-center justify-center gap-2 shadow-md shadow-[#39ff88]/25 cursor-pointer"
                   >
                     <Sparkles className="w-4 h-4 stroke-[2.5]" />
                     <span>20% OFF Unlocked! Book Ride Now (Auto-Applied)</span>
@@ -444,7 +444,7 @@ export const ReferralSection: React.FC<ReferralSectionProps> = ({
                       setCodeInput(e.target.value.toUpperCase());
                       setCodeResult({ status: 'idle' });
                     }}
-                    className="flex-1 bg-[#0d1117] border border-white/15 rounded-xl px-3 py-2 text-xs text-white placeholder:text-slate-500 uppercase font-mono tracking-wider focus:outline-none focus:border-[#43f92f]"
+                    className="flex-1 bg-[#0d1117] border border-white/15 rounded-xl px-3 py-2 text-xs text-white placeholder:text-slate-500 uppercase font-mono tracking-wider focus:outline-none focus:border-[#39ff88]"
                   />
                   <button
                     type="submit"
@@ -456,7 +456,7 @@ export const ReferralSection: React.FC<ReferralSectionProps> = ({
 
                 {/* Validation Feedback */}
                 {codeResult.status === 'valid' && (
-                  <div className="p-2.5 rounded-xl bg-[#43f92f]/15 border border-[#43f92f]/40 text-xs text-[#43f92f] space-y-2">
+                  <div className="p-2.5 rounded-xl bg-[#39ff88]/15 border border-[#39ff88]/40 text-xs text-[#39ff88] space-y-2">
                     <p className="font-semibold flex items-center gap-1.5">
                       <Check className="w-3.5 h-3.5 stroke-[3]" />
                       <span>{codeResult.message}</span>
@@ -464,7 +464,7 @@ export const ReferralSection: React.FC<ReferralSectionProps> = ({
                     <button
                       type="button"
                       onClick={() => onOpenBookingModal(codeInput.trim().toUpperCase())}
-                      className="w-full py-1.5 rounded-lg font-bold text-xs bg-[#43f92f] text-[#0d1117] hover:bg-[#5dfb4c] transition-colors flex items-center justify-center gap-1.5 cursor-pointer shadow-md"
+                      className="w-full py-1.5 rounded-lg font-bold text-xs bg-[#39ff88] text-[#0d1117] hover:bg-[#4dff93] transition-colors flex items-center justify-center gap-1.5 cursor-pointer shadow-md"
                     >
                       <span>Book with 20% OFF</span>
                       <ArrowRight className="w-3.5 h-3.5" />
@@ -484,15 +484,15 @@ export const ReferralSection: React.FC<ReferralSectionProps> = ({
             {/* Quick Rules Checklist with Urgency */}
             <div className="pt-3 border-t border-white/10 space-y-1.5 text-[11px] text-slate-400">
               <div className="flex items-center gap-1.5">
-                <Check className="w-3 h-3 text-[#43f92f] shrink-0" />
+                <Check className="w-3 h-3 text-[#39ff88] shrink-0" />
                 <span>Single-use code: Claim before offer expires</span>
               </div>
               <div className="flex items-center gap-1.5">
-                <Check className="w-3 h-3 text-[#43f92f] shrink-0" />
+                <Check className="w-3 h-3 text-[#39ff88] shrink-0" />
                 <span>Share with three friends on WhatsApp to unlock 20% OFF</span>
               </div>
               <div className="flex items-center gap-1.5">
-                <Check className="w-3 h-3 text-[#43f92f] shrink-0" />
+                <Check className="w-3 h-3 text-[#39ff88] shrink-0" />
                 <span>Both sender &amp; receiver get 20% discount</span>
               </div>
             </div>
